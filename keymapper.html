@@ -1,0 +1,38 @@
+<textarea style="width: 100%; height: 100%"></textarea><script src="lib/zepto.min.js"></script><script>var __slice = Array.prototype.slice;var __hasProp = Object.prototype.hasOwnProperty;var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };var __extends = function(child, parent) {  for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }  function ctor() { this.constructor = child; }  ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype;  return child; };var __indexOf = Array.prototype.indexOf || function(item) {  for (var i = 0, l = this.length; i < l; i++) {    if (this[i] === item) return i;  } return -1; };(function () {
+  var currentKeyCodes, keyCodeMap;
+
+  keyCodeMap = {};
+  currentKeyCodes = [];
+  $(window).on('keydown', function(e) {
+    if (e.metaKey) {
+      return;
+    }
+    console.log('keydown', e.keyCode);
+    if (currentKeyCodes.length) {
+      return alert('Please only press one key at a time.');
+    } else {
+      return currentKeyCodes.push(e.keyCode);
+    }
+  });
+  $(window).on('keyup', function(e) {
+    var _ref;
+
+    if (e.metaKey) {
+      return;
+    }
+    console.log('keyup', e.keyCode);
+    if (_ref = e.keyCode, __indexOf.call(currentKeyCodes, _ref) >= 0) {
+      return currentKeyCodes.splice(currentKeyCodes.indexOf(e.keyCode), 1);
+    }
+  });
+  return $(window).on('keypress', function(e) {
+    if (e.metaKey) {
+      return;
+    }
+    console.log('keypress', e.charCode);
+    if (currentKeyCodes.length === 1) {
+      keyCodeMap[currentKeyCodes[0]] = String.fromCharCode(e.charCode);
+      return $('textarea').val(JSON.stringify(keyCodeMap));
+    }
+  });
+}).call(this);</script>

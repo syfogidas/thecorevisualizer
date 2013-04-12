@@ -1,4 +1,809 @@
 raceMap = raceCommands = globalHotkeys = null
+
+'''
+[Settings]
+AllowSetConflicts=1
+
+[Hotkeys]
+Music=F2
+Sound=F4
+PTT=Control+Tab
+ChatAll=Shift+Enter
+ChatAllies=Control+Enter
+ChatCancel=BracketClose,Escape
+ChatDefault=Enter
+ChatIndividual=Control+Shift+Enter
+ChatRecipient=Alt+Enter
+DialogDismiss=BracketClose,Escape
+MenuAchievements=F12
+MenuGame=F9
+MenuHelp=F1
+MenuMessages=F11
+LeaderNone=Y
+LeaderResources=N
+LeaderIncome=U
+LeaderSpending=Comma
+LeaderUnits=P
+LeaderStructures=S
+LeaderUnitsLost=I
+LeaderProduction=J
+LeaderUpgrades=E
+LeaderArmy=H
+LeaderAPM=7
+LeaderCPM=Equals
+ObserveAllPlayers=0
+ObserveAutoCamera=9
+ObserveClearSelection=BracketClose,Escape
+ObserveCommentator=
+ObservePlayer0=Control+P
+ObservePlayer1=Control+O
+ObservePlayer2=Control+I
+ObservePlayer3=Control+J
+ObservePlayer4=Control+Minus
+ObservePlayer5=Control+0
+ObservePlayer6=Control+9
+ObservePlayer7=Control+U
+ObservePlayer8=Control+SemiColon
+ObservePlayer9=Control+L
+ObservePlayer10=Control+K
+ObservePlayer11=Control+N
+ObservePlayer12=Control+Slash
+ObservePlayer13=Control+Comma
+ObservePlayer14=Control+M
+ObservePlayer15=Control+H
+ObservePreview=D
+ObserveSelected=Shift+T
+ObserveStatusBars=Shift+Y
+NamePanel=Control+B
+StatPanelResources=Shift+Minus
+StatPanelArmySupply=Shift+I
+StatPanelUnitsLost=Shift+J
+StatPanelAPM=Shift+K
+StatPanelCPM=Shift+BracketOpen
+ToggleVersusModeSides=B
+ToggleWorldPanel=G
+CinematicSkip=LeftMouseButton,BracketClose
+AlertRecall=Control+Shift+Alt+F10
+ArmySelect=Control+Shift+Alt+F6
+CameraCenter=Alt
+CameraFollow=Control+Shift+Alt+F5
+CameraTurnLeft=Grave
+CameraTurnRight=CapsLock
+ControlGroupAppend0=Control+Period
+ControlGroupAppend1=Control+Equals
+ControlGroupAppend2=Control+Minus
+ControlGroupAppend3=Control+0
+ControlGroupAppend4=Control+9
+ControlGroupAppend5=Control+BracketOpen
+ControlGroupAppend6=Control+P
+ControlGroupAppend7=Control+O
+ControlGroupAppend8=Control+SemiColon
+ControlGroupAppend9=Control+L
+ControlGroupAssign0=Control+Shift+Period
+ControlGroupAssign1=Control+Shift+Equals
+ControlGroupAssign2=Control+Shift+Minus
+ControlGroupAssign3=Control+Shift+0
+ControlGroupAssign4=Control+Shift+9
+ControlGroupAssign5=Control+Shift+BracketOpen
+ControlGroupAssign6=Control+Shift+P
+ControlGroupAssign7=Control+Shift+O
+ControlGroupAssign8=Control+Shift+SemiColon
+ControlGroupAssign9=Control+Shift+L
+ControlGroupRecall0=Period
+ControlGroupRecall1=Equals
+ControlGroupRecall2=Minus
+ControlGroupRecall3=0
+ControlGroupRecall4=9
+ControlGroupRecall5=BracketOpen
+ControlGroupRecall6=P
+ControlGroupRecall7=O
+ControlGroupRecall8=SemiColon
+ControlGroupRecall9=L
+GameTooltipsOn=Control+Shift+Alt+D
+IdleWorker=Y
+MinimapColors=F3
+MinimapPing=F8
+MinimapTerrain=Alt+4
+PauseGame=Pause,F7
+QuickPing=Control+Shift+Alt+F4
+QuickSave=Control+Slash
+ReplayPlayPause=K
+ReplayRestart=Control+8
+ReplaySkipBack=M
+ReplaySkipNext=Apostrophe
+ReplaySpeedDec=BracketOpen
+ReplaySpeedInc=Minus
+ReplayStop=Shift+Apostrophe
+ReplayHide=Shift+H
+SelectionCancelDrag=BracketClose,Escape
+StatusAll=Control+Shift+Alt+F7
+StatusOwner=Control+Alt+F5
+StatusAlly=Control+Alt+F6
+StatusEnemy=Control+Alt+F7
+SubgroupNext=ForwardMouseButton
+SubgroupPrev=BackMouseButton
+TeamResources=F6
+TownCamera=F10
+WarpIn=Control+Shift+Alt+F9
+CameraSave0=Alt+P
+CameraSave1=Alt+O
+CameraSave2=Alt+SemiColon
+CameraSave3=Alt+L
+CameraSave4=Alt+0
+CameraSave5=Alt+9
+CameraSave6=Control+Shift+I
+CameraSave7=Control+Shift+J
+CameraView0=Shift+P
+CameraView1=Shift+O
+CameraView2=Shift+SemiColon
+CameraView3=Shift+L
+CameraView4=Shift+0
+CameraView5=Shift+9
+CameraView6=Control+I
+CameraView7=Control+J
+
+[Commands]
+250mmStrikeCannons/Thor=I
+330mmBarrageCannons/Thor=I
+AWrp=Slash
+Aberration/Larva=Comma
+AnionPulseCrystals/FleetBeacon=J
+Apocalypse/K5Kerrigan=M
+ArchonHallucination/Sentry=Slash
+ArmorpiercingMode=I
+Armory/SCV=Slash
+AssaultMode=I
+Assimilator/Probe=K
+Attack=J
+AutoTurret/Raven=I
+AutomatedExtractor/Drone=K
+AutomatedRefinery/SCV=K
+Baneling/HotSRaptor=I
+Baneling/HotSSwarmling=I
+Baneling/Zergling=I
+Baneling/Zergling2=I
+BanelingNest/Drone=U
+Banshee/Starport=K
+Barracks/SCV=I
+Battlecruiser/Starport=8
+BlindingCloud/Viper=H
+Blink/Stalker=I
+BonesHeal/Stetmann=H
+BroodLord/Corruptor=Slash
+BroodLord/MutaliskBroodlord=Slash
+BuildAutoTurret/Raven=I
+BuildCreepTumor/Queen=M
+BuildCreepTumor/Queen2=M
+BuildCreepTumorPropagate/CreepTumorBurrowed=M
+BuildHercules/Starport=Comma
+BuildPointDefenseDrone/Raven=Slash
+BuildScienceVessel/Starport=Apostrophe
+BuildTechLabFactory/FactoryFlying=M
+BuildTechLabStarport/StarportFlying=M
+Bunker/SCV=8
+BunkerFortified/SCV=8
+BunkerLoad=D
+BunkerUnloadAll=I
+BurrowChargeCampaign/HotSTorrasque=I
+BurrowChargeCampaign/Ultralisk=I
+BurrowChargeCampaignNoxious/HotSNoxious=I
+BurrowChargeMP/Ultralisk=I
+BurrowDown=H
+BurrowHydraliskImpalerDown=H
+BurrowHydraliskImpalerUp=I
+BurrowHydraliskLurkerDown=H
+BurrowHydraliskLurkerUp=I
+BurrowProtector/Viper=K
+BurrowUp=I
+CalldownMULE/CommandCenter=J
+CalldownMULE/OrbitalCommand=J
+CampaignVehicles/Factory=S
+CampaignVehicles/Starport=S
+Cancel=BracketClose
+CancelCocoon=BracketClose
+CancelMutateMorph=BracketClose
+CancelUpgradeMorph=BracketClose
+Carrier/Stargate=H
+Charge/Zealot=I
+CloakOff=M
+CloakOnBanshee=H
+Colossus/RoboticsFacility=K
+ColossusHallucination/Sentry=K
+CommandCenter/SCV=Apostrophe
+CommandCenterLoad=M
+CommandCenterOrbRelay/SCV=Apostrophe
+CommandCenterUnloadAll=H
+Consume/GiantYeti=Slash
+Consume/Lyote=Slash
+Consumption/Tosh=H
+Contaminate/Overseer=Slash
+CorruptionAbility/Corruptor=I
+Corruptor/Larva=8
+CyberneticsCore/Probe=8
+D8Charge/MercReaper=I
+D8Charge/Reaper=I
+DarkShrine/Probe=M
+DarkTemplar=H
+DeepTunnel/Queen=W
+DefensiveMatrix/Battlecruiser=H
+DefensiveMatrix/DukesRevenge=H
+DehakaHeal/Dehaka=M
+DehakaMirrorImage/Dehaka=Slash
+DevastatingShot/InfestedStukov=I
+Diamondback/Factory=Apostrophe
+DisableBuildingAttack/Baneling=M
+DisableBuildingAttack/HotSHunter=M
+DisableBuildingAttack/HotSSplitterlingBig=M
+DisableBuildingAttack/baneling=M
+DisableBuildingAttack/baneling2=M
+DisablingCloud/Viper=H
+Domination/Nova=I
+Drag/Dehaka=I
+Drag/DehakaMirrorImage=I
+Drone/Larva=I
+DutchPlaceTurret/Swann=I
+EMP/Ghost=I
+EnableBuildingAttack/Baneling=I
+EnableBuildingAttack/HotSHunter=I
+EnableBuildingAttack/HotSSplitterlingBig=I
+EnableBuildingAttack/baneling=I
+EnableBuildingAttack/baneling2=I
+EngineeringBay/SCV=M
+EvolutionChamber/Drone=M
+EvolveAnabolicSynthesis2/UltraliskCavern=E
+EvolveBurrowCharge/UltraliskCavern=I
+EvolveCentrificalHooks/BanelingNest=J
+EvolveChitinousPlating/UltraliskCavern=J
+EvolveGlialRegeneration/RoachWarren=J
+EvolveInfestorEnergyUpgrade/InfestationPit=J
+EvolveOrganicCarapace/RoachWarren=E
+EvolvePeristalsis/InfestationPit=E
+EvolveTunnelingClaws/RoachWarren=I
+EvolveVentralSacks=U
+ExperimentalPlasmaGun/Raynor=Slash
+Explode/Baneling=Slash
+Explode/BanelingBurrowed=Slash
+Explode/HotSHunter=Slash
+Explode/HotSHunterBurrowed=Slash
+Explode/HotSSplitterlingBig=Slash
+Explode/HotSSplitterlingBigBurrowed=Slash
+Explode/baneling=Slash
+Explode/baneling2=Slash
+ExplosiveMode=H
+Extractor/Drone=K
+FaceEmbrace/Viper=I
+Factory/SCV=J
+Feedback/HighTemplar=H
+FighterMode=H
+Firebat/Barracks=U
+FleetBeacon/Probe=Apostrophe
+ForceField/Sentry=I
+ForceField2/Sentry2=I
+Forge/Probe=M
+FungalGrowth/Infestor=I
+FungalGrowth/Infestor2=I
+FusionCore/SCV=Apostrophe
+Gateway/Probe=I
+GatherProt=D
+GenerateCreep/Overlord=Slash
+Ghost/Barracks=Apostrophe
+GhostAcademy/SCV=H
+GhostHoldFire/Ghost=N
+GiantYetiLeap/GiantYeti=I
+Goliath/Factory=N
+GravitonBeam/Phoenix=I
+GravitonBeam/Urun=I
+GreaterSpire/Spire=Slash
+GreaterSpireBroodlord/Spire=Slash
+GrowHugeQueen/LargeSwarmQueen=Apostrophe
+GrowLargeQueen/SwarmQueen=Apostrophe
+GrowSwarmQueen/LarvalQueen=Apostrophe
+GuardianShield/Sentry=H
+GuardianShield/Sentry2=H
+Hallucination/Sentry=Slash
+Hallucination/Sentry2=Slash
+Halt=M
+Hatchery/Drone=Apostrophe
+Heal/Medivac=H
+Heal/Medivac2=H
+Hellion/Factory=J
+HellionTank/Factory=Apostrophe
+HerculesLoad/Hercules=D
+HerculesUnloadAll/Hercules=I
+HeroNukeCalldown/Nova=Comma
+HeroNukeCalldown/Tosh=Comma
+HighTemplar=Apostrophe
+HighTemplarHallucination/Sentry=M
+HireDevilDogs/Barracks=D
+HireDevilDogs/MercCompound=Slash
+HireDukesRevenge/MercCompound=8
+HireDukesRevenge/Starport=W
+HireDuskWing/MercCompound=Comma
+HireDuskWing/Starport=C
+HireHammerSecurities/Barracks=C
+HireHammerSecurities/MercCompound=I
+HireHelsAngels/MercCompound=H
+HireHelsAngels/Starport=D
+HireKelmorianMiners/Barracks=W
+HireKelmorianMiners/MercCompound=J
+HireSiegeBreakers/Factory=W
+HireSiegeBreakers/MercCompound=K
+HireSpartanCompany/Factory=C
+HireSpartanCompany/MercCompound=U
+Hive/Lair=N
+HiveMindEmulator/SCV=N
+HotSBioPlasmidDischarge/HotSLeviathan=I
+HotSBioStasis/HotSLeviathan=Slash
+HunterSeekerMissile/Raven=H
+Hydralisk/Larva=H
+HydraliskDen/Drone=J
+HydraliskFrenzy/Hydralisk=I
+HydraliskFrenzy/HydraliskImpaler=I
+HydraliskFrenzy/HydraliskLurker=I
+Immortal/RoboticsFacility=Slash
+ImmortalHallucination/Sentry=H
+ImmortalityProtocol/Thor=W
+ImmortalityProtocol/ThorWreckage=I
+Impaler/HydraliskImpaler=Slash
+ImpalerBurrowDown=H
+ImpalerBurrowUp=I
+ImpalerDen/HydraliskDen=N
+IncineratorNozzles/DevilDog=W
+IncineratorNozzles/Firebat=W
+InfestationPit/Drone=H
+InfestedTerrans/Infestor=Slash
+InfestedTerrans/Infestor2=Slash
+InfestedTerrans/InfestorBurrowed=Slash
+Infestor/Larva=U
+InfestorConsumption/Infestor=Slash
+Interceptor/Carrier=I
+Interceptor/Selendis=I
+Irradiate/ScienceVessel=I
+JackhammerConcussionGrenade/Marauder=W
+K5DropPods/K5Kerrigan=M
+K5Leviathan/K5Kerrigan=M
+K5Leviathan/K5KerriganBurrowed=E
+Lair/Hatchery=N
+Land=Slash
+Larva=I
+Lift=Slash
+LightofAiur/Oracle=H
+LocustFlyingLaunch/SwarmHostSplitABurrowed=Slash
+LocustFlyingLaunch/SwarmHostSplitARooted=Slash
+LocustLaunch/SwarmHostBurrowed=Slash
+LocustLaunch/SwarmHostRooted=Slash
+LocustLaunchCreeper/SwarmHostSplitBBurrowed=Slash
+LocustLaunchCreeper/SwarmHostSplitBRooted=Slash
+Lower/SupplyDepot=J
+Lurker/HydraliskLurker=Slash
+LurkerBurrowDown=H
+LurkerBurrowUp=I
+LurkerDen/HydraliskDen=N
+Marauder/Barracks=I
+Marine/Barracks=J
+MassRecall/Artanis=I
+MassRecall/Mothership=I
+MassRecall/MothershipCore=I
+Medic/Barracks=8
+MedicHeal/Medic=H
+Medivac/Starport=I
+MedivacSpeedBoost/Medivac=Slash
+MengskUnits/Barracks=S
+MercCompound/SCV=W
+MercHellion/Factory=D
+MercHellion/MercCompound=C
+MercMedic/Barracks=S
+MercMedic/MercCompound=D
+MercMedicHeal/MercMedic=H
+MercReaper/Barracks=X
+MercReaper/MercCompound=X
+MicroBot/Factory=C
+MindBlast/Tosh=I
+MindBolt/K5Kerrigan=Slash
+MindBolt/K5KerriganBurrowed=D
+MindBolt/KerriganGhostLab=Slash
+MindControl/HiveMindEmulator=J
+MissilePods/Battlecruiser=Slash
+MissilePods/DukesRevenge=Slash
+MissileTurret/SCV=H
+MorphBackToGateway/WarpGate=D
+MorphMorphalisk/Queen=I
+MorphMorphalisk/Queen2=I
+MorphToCorpser/Larva=K
+MorphToHellion/Hellion=H
+MorphToHellionTank/Hellion=I
+MorphToHotSNoxious/Larva=N
+MorphToHotSTorrasque/Larva=N
+MorphToHydraliskImpaler/Larva=H
+MorphToHydraliskLurker/Larva=H
+MorphToMothership/MothershipCore=M
+MorphToMutaliskBroodlord/Larva=Apostrophe
+MorphToMutaliskViper/Larva=Apostrophe
+MorphToOverseer/Overlord=H
+MorphToRaptor/Larva=J
+MorphToSwarmHostSplitA/Larva=M
+MorphToSwarmHostSplitB/Larva=M
+MorphToSwarmling/Larva=J
+MorphToVile/Larva=K
+MorphtoDefiler/Larva=U
+MorphtoHunter/HotSRaptor=I
+MorphtoHunter/HotSSwarmling=I
+MorphtoSplitterling/HotSRaptor=I
+MorphtoSplitterling/HotSSwarmling=I
+Mothership/Nexus=Slash
+MothershipCore/Nexus=Slash
+MothershipCoreMassRecall/MothershipCore=I
+MothershipCoreWeapon/MothershipCore=Slash
+MothershipMassRecall/Mothership=I
+Move=C
+MoveHoldPosition=K
+MovePatrol=U
+MuscularAugments/HydraliskDen=J
+Mutalisk/Larva=Apostrophe
+NPSwarm/Infestor=M
+NanoRepair/ScienceVessel=H
+NeuralParasite/Infestor=M
+NeuralParasite/Infestor2=M
+Nexus/Probe=Apostrophe
+NovaSnipe/Nova=Slash
+NukeArm/GhostAcademy=Comma
+NukeCalldown/Ghost=Comma
+NydusNetwork/Drone=Apostrophe
+Obliterate/Spectre=Slash
+Observer/RoboticsFacility=I
+OdinBarrage/Odin=I
+OdinNukeCalldown/Odin=Comma
+Oracle/Stargate=I
+OracleEnergyUpgrade/FleetBeacon=E
+OracleHallucination/Sentry=I
+OracleRevelation/Oracle=M
+OracleWeaponOff/Oracle=Slash
+OracleWeaponOn/Oracle=I
+OrbitalCommand/CommandCenter=J
+Overlord/Larva=Slash
+ParasiticInvasion/LarvalQueen=M
+PerditionTurret/SCV=B
+PhaseShield/Oracle=C
+PhasingMode/WarpPrism=H
+Phoenix/Stargate=J
+PhoenixHallucination/Sentry=J
+PhotonCannon/Probe=H
+PlantC4Charge/Raynor=M
+PointDefenseDrone/Raven=Slash
+PoisonNova/HotSNoxious=Slash
+Predator/Factory=B
+PrimalHeal/K5Kerrigan=Comma
+PrimalSlash/K5Kerrigan=Slash
+Probe/Nexus=I
+ProbeHallucination/Sentry=N
+ProtossAirArmorLevel1/CyberneticsCore=I
+ProtossAirWeaponsLevel1/CyberneticsCore=J
+ProtossBuild/Probe=Apostrophe
+ProtossBuildAdvanced/Probe=Slash
+ProtossGroundArmorLevel1/Forge=I
+ProtossGroundWeaponsLevel1/Forge=J
+ProtossShieldsLevel1/Forge=Slash
+PsiDisruptor/SCV=N
+PsiStorm/HighTemplar=I
+PsiStrike/K5Kerrigan=I
+PsionicLift/K5Kerrigan=I
+PsionicLift/K5KerriganBurrowed=C
+PsionicLift/KerriganGhostLab=I
+Pylon/Probe=J
+Queen=Comma
+QueenBurstHeal/Queen=Slash
+Raise/SupplyDepotLowered=J
+Rally=R
+RallyEgg=D
+Raven/Starport=Apostrophe
+RaynorSnipe/RaynorCommando=I
+Reactor/Barracks=H
+Reactor/BarracksFlying=H
+Reactor/Factory=H
+Reactor/FactoryFlying=H
+Reactor/Starport=H
+Reactor/StarportFlying=H
+Reaper/Barracks=K
+ReaperSpeed/BarracksTechLab=K
+ReaperSpeed/BarracksTechReactor=K
+ReaperSpeed/MercCompound=W
+Refinery/SCV=K
+ReleaseMinion/Nova=N
+Repair=H
+ResearchBansheeCloak/StarportTechLab=H
+ResearchBansheeCloak/StarportTechReactor=H
+ResearchBattlecruiserEnergyUpgrade/FusionCore=8
+ResearchBattlecruiserSpecializations/FusionCore=I
+ResearchBunkerUpgrade/ScienceFacility=
+ResearchBurrow=8
+ResearchCerberusMines/FactoryTechLab=I
+ResearchCerberusMines/FactoryTechReactor=I
+ResearchCharge/TwilightCouncil=J
+ResearchDrillClaws/FactoryTechLab=I
+ResearchDurableMaterials/StarportTechLab=Slash
+ResearchDurableMaterials/StarportTechReactor=Slash
+ResearchExtendedThermalLance/RoboticsBay=K
+ResearchFireSuppression/ScienceFacility=
+ResearchFirebat/ScienceFacility=
+ResearchG4Charge/BarracksTechLab=K
+ResearchG4Charge/BarracksTechReactor=K
+ResearchGhostEnergyUpgrade/GhostAcademy=Apostrophe
+ResearchGoliath/ScienceFacility=N
+ResearchGraviticBooster/RoboticsBay=I
+ResearchGraviticDrive/RoboticsBay=J
+ResearchHallucination/CyberneticsCore=M
+ResearchHellion/ScienceFacility=J
+ResearchHiSecAutoTracking/EngineeringBay=K
+ResearchHighCapacityBarrels/FactoryTechLab=J
+ResearchHighCapacityBarrels/FactoryTechReactor=J
+ResearchHighTemplarEnergyUpgrade/TemplarArchive=E
+ResearchIncineratorNozzles/BarracksTechLab=U
+ResearchIncineratorNozzles/BarracksTechReactor=U
+ResearchInterceptorLaunchSpeedUpgrade/FleetBeacon=H
+ResearchJackhammerConcussionGrenade/BarracksTechLab=I
+ResearchJackhammerConcussionGrenade/BarracksTechReactor=I
+ResearchLocustLifetimeIncrease/InfestationPit=I
+ResearchMedic/ScienceFacility=H
+ResearchMedivacEnergyUpgrade/StarportTechLab=I
+ResearchMedivacEnergyUpgrade/StarportTechReactor=I
+ResearchMultiLockTargetingSystem/FactoryTechLab=M
+ResearchMultiLockTargetingSystem/FactoryTechReactor=M
+ResearchNeosteelFrame/EngineeringBay=H
+ResearchNeuralParasite/InfestationPit=Slash
+ResearchPerditionTurret/ScienceFacility=
+ResearchPersonalCloaking/GhostAcademy=H
+ResearchPsiStorm/TemplarArchive=I
+ResearchPunisherGrenades/BarracksTechLab=I
+ResearchPunisherGrenades/BarracksTechReactor=I
+ResearchRavenEnergyUpgrade/StarportTechLab=Apostrophe
+ResearchRavenEnergyUpgrade/StarportTechReactor=Apostrophe
+ResearchReaper/ScienceFacility=Apostrophe
+ResearchRegenerativeBioSteel/FactoryTechLab=Apostrophe
+ResearchRegenerativeBioSteel/FactoryTechReactor=Apostrophe
+ResearchSeekerMissile/StarportTechLab=K
+ResearchSeekerMissile/StarportTechReactor=K
+ResearchShapedBlast/FactoryTechLab=K
+ResearchShapedBlast/FactoryTechReactor=K
+ResearchShieldWall/BarracksTechLab=J
+ResearchShieldWall/BarracksTechReactor=J
+ResearchSiegeTank/ScienceFacility=K
+ResearchSiegeTech/FactoryTechLab=K
+ResearchSiegeTech/FactoryTechReactor=K
+ResearchStabilizerMedPacks/BarracksTechLab=8
+ResearchStabilizerMedPacks/BarracksTechReactor=8
+ResearchStalkerTeleport/TwilightCouncil=I
+ResearchStrikeCannons/FactoryTechLab=M
+ResearchStrikeCannons/FactoryTechReactor=M
+ResearchTechReactor/ScienceFacility=Y
+ResearchTransformationServos/FactoryTechLab=Apostrophe
+ResearchVoidRaySpeedUpgrade/FleetBeacon=E
+ResearchWarpGate/CyberneticsCore=Slash
+ResourceStun/Oracle=D
+RespawnZergling/Hatchery=W
+RespawnZergling/Hive=W
+RespawnZergling/Lair=W
+ReturnCargo=I
+Roach/Larva=K
+RoachWarren/Drone=8
+RoboticsBay/Probe=8
+RoboticsFacility/Probe=J
+RogueGhostCloak/Spectre=H
+SCV=I
+SJFighter1PH/SJHyperion=H
+SJHyperionBlink/SJHyperion=Slash
+SJHyperionFighters/SJHyperion=H
+SJHyperionFightersRecall/SJHyperion=Apostrophe
+SJHyperionLightningStorm/SJHyperion=M
+SJHyperionYamato/SJHyperion=I
+Salvage/Bunker=K
+SapStructure/Baneling=I
+Scan/CommandCenter=M
+Scan/OrbitalCommand=K
+Scourge/Larva=Y
+SelectBuilder=E
+SensorTower/SCV=Comma
+Sentry=K
+SetBunkerRallyPoint/Bunker=C
+SetRallyPointSwarmHost/SwarmHostBurrowedMP=H
+ShapedBlast/SiegeBreakerSieged=W
+ShapedBlast/SiegeTankSieged=W
+SiegeMode=I
+SiegeTank/Factory=K
+Snipe/Ghost=Slash
+SpawnBanelings/K5Kerrigan=Comma
+SpawnChangeling/Overseer=I
+SpawningPool/Drone=I
+Spectre/Barracks=Comma
+SpectreHoldFire/Spectre=N
+SpectreNukeArm/GhostAcademy=Comma
+SpectreNukeCalldown/Spectre=Comma
+SpectreWeaponsFree/Spectre=Apostrophe
+SpeedUpgrade/FleetBeacon=W
+SpiderMine/Vulture=I
+SpiderMineReplenish/Vulture=Slash
+SpineCrawler/Drone=J
+SpineCrawlerRoot/SpineCrawlerUprooted=I
+SpineCrawlerUproot/SpineCrawler=I
+Spire/Drone=I
+SporeCrawler/Drone=H
+SporeCrawlerRoot/SporeCrawlerUprooted=I
+SporeCrawlerUproot/SporeCrawler=I
+Stalker=I
+StalkerHallucination/Sentry=U
+Stargate/Probe=I
+Starport/SCV=I
+Stim=Slash
+StimFirebat/DevilDog=Slash
+StimFirebat/Firebat=Slash
+Stimpack/BarracksTechLab=Slash
+Stimpack/BarracksTechReactor=Slash
+Stop=8
+StopGenerateCreep/Overlord=Slash
+StopPlanetaryFortress/PlanetaryFortress=8
+StukovCrystalChannel/InfestedStukov=W
+StukovInfestedTerrans/InfestedStukov=Slash
+SummonNydusWorm/NydusNetwork=J
+SupplyDepot/SCV=J
+SupplyDepotDrop/SCV=J
+SupplyDrop/OrbitalCommand=H
+SwarmHost/SwarmHostBurrowedMP=Slash
+SwarmHost/SwarmHostMP=Slash
+SwarmHostBurrowDown=H
+SwarmHostBurrowUp=I
+SwarmHostDeepBurrow/SwarmHostSplitB=M
+SwarmHostDeepBurrow/SwarmHostSplitBBurrowed=M
+SwarmHostDeepBurrow/SwarmHostSplitBRooted=M
+SwarmHostMP/Larva=M
+SwarmHostRoot/SwarmHost=H
+SwarmHostRoot/SwarmHostSplitA=H
+SwarmHostRoot/SwarmHostSplitB=H
+SwarmHostUproot/SwarmHostRooted=I
+SwarmHostUproot/SwarmHostSplitARooted=I
+SwarmHostUproot/SwarmHostSplitBRooted=I
+SwarmHostUprootUnburrow/SwarmHostBurrowed=I
+SwarmHostUprootUnburrow/SwarmHostSplitABurrowed=I
+SwarmHostUprootUnburrow/SwarmHostSplitBBurrowed=I
+SwarmQueenCorpser/HugeSwarmQueen=I
+SwarmQueenCorpser/LargeSwarmQueen=I
+SwarmQueenCorpser/SwarmQueen=I
+SwarmQueenHydralisk/HugeSwarmQueen=Apostrophe
+SwarmQueenHydralisk/SwarmQueenEgg=Apostrophe
+SwarmQueenHydraliskImpaler/HugeSwarmQueen=Apostrophe
+SwarmQueenHydraliskImpaler/LargeSwarmQueen=Apostrophe
+SwarmQueenHydraliskImpaler/SwarmQueen=Apostrophe
+SwarmQueenHydraliskLurker/HugeSwarmQueen=Apostrophe
+SwarmQueenHydraliskLurker/LargeSwarmQueen=Apostrophe
+SwarmQueenHydraliskLurker/SwarmQueen=Apostrophe
+SwarmQueenParasiticInvasion/HugeSwarmQueen=M
+SwarmQueenParasiticInvasion/LargeSwarmQueen=M
+SwarmQueenParasiticInvasion/SwarmQueen=M
+SwarmQueenRaptor/HugeSwarmQueen=Slash
+SwarmQueenRaptor/LargeSwarmQueen=Slash
+SwarmQueenRaptor/SwarmQueen=Slash
+SwarmQueenRoach/HugeSwarmQueen=I
+SwarmQueenRoach/LargeSwarmQueen=I
+SwarmQueenRoach/SwarmQueenEgg=I
+SwarmQueenSwarmling/HugeSwarmQueen=Slash
+SwarmQueenSwarmling/LargeSwarmQueen=Slash
+SwarmQueenSwarmling/SwarmQueen=Slash
+SwarmQueenVile/HugeSwarmQueen=I
+SwarmQueenVile/LargeSwarmQueen=I
+SwarmQueenVile/SwarmQueen=I
+SwarmQueenZergling/HugeSwarmQueen=Slash
+SwarmQueenZergling/LargeSwarmQueen=Slash
+SwarmQueenZergling/SwarmQueen=Slash
+SwarmQueenZergling/SwarmQueenEgg=Slash
+TechLabBarracks/Barracks=M
+TechLabBarracks/BarracksFlying=M
+TechLabFactory/Factory=M
+TechLabStarport/Starport=M
+TechReactor/Barracks=M
+TechReactor/BarracksFlying=M
+TechReactor/Factory=M
+TechReactor/FactoryFlying=M
+TechReactor/Starport=M
+TechReactor/StarportFlying=M
+TechReactorAI/Barracks=W
+TechReactorAI/Factory=W
+TechReactorAI/Starport=W
+Tempest/Stargate=K
+TempestRangeUpgrade/FleetBeacon=W
+TemplarArchive/Probe=H
+TemporalField/Mothership=H
+TemporalField/MothershipCore=H
+TerranBuild/SCV=Apostrophe
+TerranBuildAdvanced/SCV=Slash
+TerranInfantryArmorLevel1/EngineeringBay=I
+TerranInfantryArmorVanadiumPlatingLevel1/EngineeringBay=I
+TerranInfantryArmorVanadiumPlatingLevel2/EngineeringBay=I
+TerranInfantryArmorVanadiumPlatingLevel3/EngineeringBay=I
+TerranInfantryWeaponsLevel1/EngineeringBay=J
+TerranInfantryWeaponsUltraCapacitorsLevel1/EngineeringBay=J
+TerranInfantryWeaponsUltraCapacitorsLevel2/EngineeringBay=J
+TerranInfantryWeaponsUltraCapacitorsLevel3/EngineeringBay=J
+TerranShipPlatingLevel1/Armory=I
+TerranShipPlatingVanadiumPlatingLevel1/Armory=I
+TerranShipPlatingVanadiumPlatingLevel2/Armory=I
+TerranShipPlatingVanadiumPlatingLevel3/Armory=I
+TerranShipWeaponsLevel1/Armory=J
+TerranShipWeaponsUltraCapacitorsLevel1/Armory=J
+TerranShipWeaponsUltraCapacitorsLevel2/Armory=J
+TerranShipWeaponsUltraCapacitorsLevel3/Armory=J
+TerranVehicleAndShipPlatingLevel1/Armory=I
+TerranVehiclePlatingLevel1/Armory=K
+TerranVehiclePlatingVanadiumPlatingLevel1/Armory=K
+TerranVehiclePlatingVanadiumPlatingLevel2/Armory=K
+TerranVehiclePlatingVanadiumPlatingLevel3/Armory=K
+TerranVehicleWeaponsLevel1/Armory=Slash
+TerranVehicleWeaponsUltraCapacitorsLevel1/Armory=Slash
+TerranVehicleWeaponsUltraCapacitorsLevel2/Armory=Slash
+TerranVehicleWeaponsUltraCapacitorsLevel3/Armory=Slash
+TheMorosDevice/Raynor=Comma
+Thor/Factory=8
+TimeWarp/Nexus=K
+TornadoMissile/WarHound=I
+TossGrenade/Raynor=I
+TossGrenadeTychus/TychusCommando=I
+Transfusion/Queen=Slash
+Transfusion/Queen2=Slash
+TransportMode/WarpPrism=Slash
+TwilightCouncil/Probe=Slash
+Ultralisk/Larva=N
+UltraliskCavern/Drone=K
+UltrasonicPulse/Spectre=I
+Unsiege=H
+UpgradeBuildingArmorLevel1/EngineeringBay=Slash
+UpgradeToPlanetaryFortress/CommandCenter=K
+UpgradeToWarpGate/Gateway=Slash
+VikingFighter/Starport=J
+Viper/Larva=Comma
+Viper/MutaliskViper=Slash
+ViperConsume/Viper=Slash
+ViperConsumption/Viper=Slash
+VoidRay/Stargate=Slash
+VoidRayHallucination/Sentry=8
+VoidRaySwarmDamageBoost/VoidRay=I
+VoidSiphon/Oracle=R
+VoodooShield/Tosh=Slash
+Vortex/Artanis=Slash
+Vortex/Mothership=Slash
+VortexKO/Mothership=Slash
+Vulture/Factory=I
+WarHound/Factory=C
+WarpInScout/Stargate=E
+WarpPrism/RoboticsFacility=J
+WarpPrismHallucination/Sentry=Apostrophe
+WeaponsFree/Ghost=N
+WidowMine/Factory=I
+WidowMineAttack/WidowMine=Comma
+WidowMineBurrow/WidowMine=I
+WidowMineUnburrow/WidowMine=H
+WildMutation/K5Kerrigan=Comma
+WildMutation/K5KerriganBurrowed=R
+Wraith/Starport=U
+WraithCloak/StarportTechLab=W
+WraithCloak/StarportTechReactor=W
+WraithCloakOff/Wraith=M
+WraithCloakOn/Wraith=H
+YamatoGun=I
+Zealot=J
+ZealotHallucination/Sentry=Comma
+ZeratulBlink/Zeratul=I
+ZeratulStun/Zeratul=Slash
+ZergBuild/Drone=Apostrophe
+ZergBuildAdvanced/Drone=Slash
+Zergling/Larva=J
+hydraliskspeed/HydraliskDen=I
+overlordspeed=M
+zergflyerarmor1=I
+zergflyerattack1=J
+zerggroundarmor1/EvolutionChamber=I
+zerglingattackspeed/SpawningPool=I
+zerglingmovementspeed/SpawningPool=J
+zergmeleeweapons1/EvolutionChamber=Slash
+zergmissileweapons1/EvolutionChamber=J
+'''
+
 loadHotkeys =(file) ->
 	window = {} unless window
 
@@ -289,10 +1094,67 @@ loadHotkeys =(file) ->
 			'UltraliskCavern'
 			]
 
-	exiledCommands = [
+	campaignCommands = [
 		'MorphMorphalisk'
 		'CinematicSkip'
 		'SupplyDepotDrop'
+		'Medic'
+		'Firebat'
+		'TechReactor'
+		'MercMedic'
+		'MercReaper'
+		'HireDevilDogs'
+		'HireKelmorianMiners'
+		'HireHammerSecurities'
+		'HireSiegeBreakers'
+		'HireHelsAngels'
+		'HireDuskWing'
+		'HireDukesRevenge'
+		'MengskUnits'
+		'Spectre'
+		'Predator'
+		'Goliath'
+		'WarHound'
+		'TechReactorAI'
+		'HireHammerSecurities'
+		'CampaignVehicles'
+		'MercHellion'
+		'MercReaper'
+		'MercMedic'
+		'MercCompound'
+		'MercMedicHeal'
+		'MicroBot'
+		'BuildHercules'
+		'HireSpartanCompany'
+		'SpectreWeaponsFree'
+		'SpectreNukeCalldown'
+		'SpectreNukeArm'
+		'SpectreHoldFire'
+		'WraithCloak'
+		'WraithCloakOn'
+		'WraithCloakOff'
+		'ShapedBlast'
+		'JackhammerConcussionGrenade'
+		'ImmortalityProtocol'
+		'EvolveOrganicCarapace'
+		'RespawnZergling'
+		'EvolvePeristalsis'
+		'AutomatedRefinery'
+		'AutomatedExtractor'
+		'PerditionTurret'
+		'PsiDisruptor'
+		'HiveMindEmulator'
+		'EvolveAnabolicSynthesis2'
+		'MorphToSwarmHostSplitB'
+		'MorphToSwarmHostSplitA'
+		'DeepTunnel'
+		'HydraliskFrenzy'
+		'WarpInScout'
+		'TempestRangeUpgrade'
+		'ResearchVoidRaySpeedUpgrade'
+		'VoidSiphon'
+		'PhaseShield'
+		'ResourceStun'
 	]
 
 	unitCommandMap = window.unitCommandMap = {}
@@ -307,7 +1169,7 @@ loadHotkeys =(file) ->
 	globalHotkeys = window.globalHotkeys = parseHotkeys hotkeyText
 	globalHotkeys['Select'] = 'LeftMouseButton'
 	globalHotkeys['Interact'] = 'RightMouseButton'
-	delete globalHotkeys[exile] for exile in exiledCommands
+	delete globalHotkeys[exile] for exile in campaignCommands
 	commandHotkeys = window.commandHotkeys = parseHotkeys commandsText
 
 	hotkeyMap = window.hotkeyMap = invert globalHotkeys
@@ -315,7 +1177,7 @@ loadHotkeys =(file) ->
 	for command, key of commandHotkeys
 		m = command.match /^(\w+)(\/(\w+))?$/
 		[_, command, _, unit] = m
-		continue if command in exiledCommands
+		continue if command in campaignCommands
 		units = unless unit
 			unmappedCommands[command] or []
 		else if unitCommandMap[command]
@@ -340,7 +1202,8 @@ loadHotkeys =(file) ->
 do loadHotkeys
 #
 
-commandDisplayMap = {}
+commandDisplayMap =
+	HellionTank: 'Hellbat'
 commandDisplayName =(command)->
 	if m = command.match /(ControlGroup|Camera)\w+(\d)/
 		m[2]
@@ -375,6 +1238,9 @@ keyboards =
 		{'SHIFT L':2.25, ';', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z', 'SHIFT R':2.75}
 		{'CTRL L':1.5,'WIN L','ALT L':1.5,'SPACE':6,'ALT R':1.5,'WIN R','MENU','CTRL R':1.5}
 	]
+keyCodeMaps =
+	'US QWERTY': {27:'ESC',9:'TAB',16:'SHIFT',17:'CTRL',18:'ALT',32:'SPACE',13:'ENTER',46:'BACKSPACE',"48":"0","49":"1","50":"2","51":"3","52":"4","53":"5","54":"6","55":"7","56":"8","57":"9","65":"a","66":"b","67":"c","68":"d","69":"e","70":"f","71":"g","72":"h","73":"i","74":"j","75":"k","76":"l","77":"m","78":"n","79":"o","80":"p","81":"q","82":"r","83":"s","84":"t","85":"u","86":"v","87":"w","88":"x","89":"y","90":"z","186":";","187":"=","188":",","189":"-","190":".","191":"/","192":"`","219":"[","220":"\\","221":"]","222":"'",112:'F1',113:'F2',114:'F3',115:'F4',116:'F5',117:'F6',118:'F7',119:'F8',120:'F9',121:'F10',122:'F11',123:'F12'}
+keyCodeMaps['US Dvorak'] = keyCodeMaps['US QWERTY']
 
 for keyboard in keyboards
 	for row in keyboard
@@ -451,14 +1317,17 @@ commandIconMap = {
 	'TimeWarp':'ChronoBoost'
 	'Charge'
 	'Blink'
+	'ZergBuild':'Build'
+	'ZergBuildAdvanced':'BuildAdvanced'
+	'TerranBuild':'Build'
+	'TerranBuildAdvanced':'BuildAdvanced'
+	'ProtossBuild':'Build'
+	'ProtossBuildAdvanced':'BuildAdvanced'
 }
 
 commandIconMap[command] = match[1] for command, icon of commandIconMap when match = command.match(/^Move(\w+)/)
 commandIconMap[command] = match[1] for command, icon of commandIconMap when match = command.match(/^(Stop)\w+/)
 commandIconMap[command] = match[1] for command, icon of commandIconMap when match = command.match(/^\w+(Load|Root|Uproot)/)
-
-
-
 
 commandUnitIconMap = {
 	'UpgradeToPlanetaryFortress':'planetaryfortress'
@@ -468,10 +1337,14 @@ commandUnitIconMap = {
 	'Assimilator'
 	'Refinery'
 	'DarkShrine'
+	'TechLabBarracks':'TechLab'
+	'TechLabStarport':'TechLab'
+	'TechLabFactory':'TechLab'
+	'TechReactor':'Reactor'
+	'HellionTank':'Hellbat'
+	'SwarmHostMP':'SwarmHost'
+	'Mutalisk'
 }
-
-
-
 
 commandUnitIconMap[unit] = unit for unit, [race, kind, proxy] of raceMap when proxy is unit
 
@@ -949,6 +1822,7 @@ html ->
 	# script "window.hotkeysFiles = #{JSON.stringify(hotkeysFiles)};"
 	script "window.containerTemplate = #{containerTemplate.toString()};"
 	script "window.keyboards = #{JSON.stringify(keyboards)};"
+	script "window.keyCodeMaps = #{JSON.stringify(keyCodeMaps)};"
 	script "window.keyboardTemplate = #{renderKeyboard.toString()};"
 	script "window.touch = #{touch.toString()};"
 	script "window.blankRow = #{blankRow.toString()};"
@@ -972,6 +1846,7 @@ html ->
 
 	coffeescript ->
 		currentMods = []
+		currentKeyboard = null
 
 		showMapsForUnit =($icon)->
 			race = (($icon.closest '.race-commands')[0].className.match /race-commands race-(\w+)/)[1]
@@ -1057,18 +1932,16 @@ html ->
 					do showCurrentUnitMaps
 			else
 				$(".keyboard .key-#{key}").removeClass('selected')
-		keyCodes =
-			'U+0020': 'SPACE'
-			'U+007F': 'BACKSPACE'
-			'U+0009': 'TAB'
+
 		$(window).on 'keydown keyup', (e)->
 			currentMods = (key for attr, key of modKeyAttrs when e[attr])
 			do highlightModKeys
-			key = keyClass(keyCodes[e.keyIdentifier] or JSON.parse("\"#{e.keyIdentifier.replace /U\+/, '\\u'}\""))
+			key = keyClass(keyCodeMaps[currentKeyboard][e.keyCode])
 			keyFn = switch e.type
 				when 'keydown' then keyPress
 				when 'keyup' then keyRelease
 			keyFn key if key.match /^\w+$/
+			e.preventDefault()
 			do showCurrentUnitMaps
 
 
@@ -1110,8 +1983,8 @@ html ->
 			do showCurrentUnitMaps
 
 		$('select.keyboard-layout').change ->
-			layout = $(this).val()
-			$('.keyboard .inner').html coffeecup.render(keyboardTemplate, keyboard: keyboards[layout], hardcode: {touch, sizeClass, blankRow, formatKeyCap})
+			currentKeyboard = $(this).val()
+			$('.keyboard .inner').html coffeecup.render(keyboardTemplate, keyboard: keyboards[currentKeyboard], hardcode: {touch, sizeClass, blankRow, formatKeyCap})
 			do showCurrentUnitMaps
 
 		$('select.display-side').change()
