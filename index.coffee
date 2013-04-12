@@ -426,7 +426,7 @@ keySizes = [0.5, 1, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 6]
 keySizeStyles = indented -> "key-size-width '#{sizeClass size}', #{size}" for size in keySizes
 
 unitClass = (unitName)-> unitName
-unitStyles = indented -> "unit-class '#{unitClass unit}'" for unit, [race, kind, proxy] of raceMap when proxy is unit
+unitStyles = indented -> "unit-class '#{unitClass unit}', '#{unit.toLowerCase()}'" for unit, [race, kind, proxy] of raceMap when proxy is unit
 
 raceClass = (raceName)-> raceName
 
@@ -782,9 +782,9 @@ key-color = gray
 		hover-transition 0.2s
 
 
-	unit-class(unit)
+	unit-class(unit, icon)
 		&.unit-{unit}
-			background-image url('images/' + unit + '.jpg')
+			background-image url('images/' + icon + '.jpg')
 	#{unitStyles indent: 1}
 zerg-color = violet
 protoss-color = gold
