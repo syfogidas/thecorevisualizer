@@ -312,9 +312,7 @@ loadHotkeys =(file) ->
 
 	hotkeyMap = window.hotkeyMap = invert globalHotkeys
 	commandKeyMap = window.commandKeyMap = invert commandHotkeys
-	console.log commandHotkeys
 	for command, key of commandHotkeys
-		console.log command, key if command.match /Root/
 		m = command.match /^(\w+)(\/(\w+))?$/
 		[_, command, _, unit] = m
 		continue if command in exiledCommands
@@ -892,9 +890,7 @@ renderKeyboard = (keyboard)->
 					div '.cap', ->
 					div '.maps', ->
 		button which, size for which, size of {Left:1, Middle:0.5,Right:1,Forward:0.5,Back:0.5}
-	console.log 'rendered mouse', blankRow
 	for row in keyboard
-		console.log 'blank',row,'?', blankRow row
 		div ".row.#{'row-0-5' if blankRow row}", ->
 			for key, size of row
 				size = 1 if typeof size is 'string'
@@ -970,7 +966,7 @@ html ->
 	script "window.loadHotkeys = #{loadHotkeys.toString()};"
 	coffeescript ->
 		loadHotkeys (v for k, v of hotkeysFiles)[0]
-		$('body').html coffeecup.render(containerTemplate)
+		$('.container').html coffeecup.render(containerTemplate)
 
 	coffeescript -> String.prototype.trim = -> @replace /(^\s+|\s+$)/g, ''
 
@@ -1115,7 +1111,6 @@ html ->
 
 		$('select.keyboard-layout').change ->
 			layout = $(this).val()
-			console.log 'selecting layout', layout
 			$('.keyboard .inner').html coffeecup.render(keyboardTemplate, keyboard: keyboards[layout], hardcode: {touch, sizeClass, blankRow, formatKeyCap})
 			do showCurrentUnitMaps
 

@@ -468,11 +468,9 @@ body{font-family:'Helvetica',sans-serif}
     }
     return _results;
   });
-  console.log('rendered mouse', blankRow);
   _results = [];
   for (_k = 0, _len2 = keyboard.length; _k < _len2; _k++) {
     row = keyboard[_k];
-    console.log('blank', row, '?', blankRow(row));
     _results.push(div(".row." + (blankRow(row) ? 'row-0-5' : void 0), function() {
       var _results1;
 
@@ -814,13 +812,9 @@ body{font-family:'Helvetica',sans-serif}
   commandHotkeys = window.commandHotkeys = parseHotkeys(commandsText);
   hotkeyMap = window.hotkeyMap = invert(globalHotkeys);
   commandKeyMap = window.commandKeyMap = invert(commandHotkeys);
-  console.log(commandHotkeys);
   _results = [];
   for (command in commandHotkeys) {
     key = commandHotkeys[command];
-    if (command.match(/Root/)) {
-      console.log(command, key);
-    }
     m = command.match(/^(\w+)(\/(\w+))?$/);
     _ = m[0], command = m[1], _ = m[2], unit = m[3];
     if (__indexOf.call(exiledCommands, command) >= 0) {
@@ -897,7 +891,7 @@ body{font-family:'Helvetica',sans-serif}
       }
       return _results;
     })())[0]);
-    return $('body').html(coffeecup.render(containerTemplate));
+    return $('.container').html(coffeecup.render(containerTemplate));
   }).call(this);</script><script>var __slice = Array.prototype.slice;var __hasProp = Object.prototype.hasOwnProperty;var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };var __extends = function(child, parent) {  for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }  function ctor() { this.constructor = child; }  ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype;  return child; };var __indexOf = Array.prototype.indexOf || function(item) {  for (var i = 0, l = this.length; i < l; i++) {    if (this[i] === item) return i;  } return -1; };(function () {
     return String.prototype.trim = function() {
       return this.replace(/(^\s+|\s+$)/g, '');
@@ -1178,7 +1172,6 @@ body{font-family:'Helvetica',sans-serif}
       var layout;
 
       layout = $(this).val();
-      console.log('selecting layout', layout);
       $('.keyboard .inner').html(coffeecup.render(keyboardTemplate, {
         keyboard: keyboards[layout],
         hardcode: {
