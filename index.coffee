@@ -1164,6 +1164,8 @@ appTemplate =->
 			'DefensiveMatrix'
 			'MissilePods'
 			'Wraith'
+			'ResearchSiegeTech'
+			'ResearchSiegeTank'
 		]
 
 		unitCommandMap = window.unitCommandMap = {}
