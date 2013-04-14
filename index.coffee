@@ -1549,6 +1549,13 @@ body
 	padding 10px
 	a
 		cursor pointer
+		margin-right 20px
+		text-decoration none
+		&:visited
+			color white
+		&:hover
+			text-shadow white 0 0 20px
+
 
 .keyboard
 	height 400px
@@ -2097,6 +2104,7 @@ Terran-color = crimson
 								do dismiss
 			div '.footer', ->
 				a '.show-tutorial', -> 'Show Tutorial'
+				a href:'https://github.com/cushman/thecorevisualizer', target: 'blank', -> 'About'
 				coffeescript ->
 					$('.footer .show-tutorial').on 'click', -> $('.tutorial,.tutorial-overlay').show()
 
