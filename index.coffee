@@ -1551,10 +1551,10 @@ body
 		cursor pointer
 		margin-right 20px
 		text-decoration none
-		&:visited
-			color white
+		color white !important
+		text-shadow white 0 0 20px
 		&:hover
-			text-shadow white 0 0 20px
+			text-shadow white 0 0 5px
 
 
 .keyboard
