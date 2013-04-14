@@ -1409,6 +1409,8 @@ appTemplate =->
 	commandIcons = indented -> "command-icon '#{command}', '#{icon}.png'" for command, icon of commandIconMap
 	commandUnitIcons = indented -> "command-icon '#{command}', '#{icon.toLowerCase()}.jpg'" for command, icon of commandUnitIconMap
 
+	preloadUrls =-> ((new Array).concat ("url('images/#{command}.png')" for command, icon of commandIconMap), ("url('images/#{command}.jpg')" for command, icon of commandUnitIconMap)).join(' ')
+
 	doctype 5
 	html ->
 		head ->
@@ -1462,6 +1464,10 @@ text-shadow()
 
 fade(color, alpha)
 	rgba(red(color),green(color),blue(color),alpha)
+
+body:after
+	content #{do preloadUrls}
+	display none
 
 body
 	font-family 'Helvetica', sans-serif
