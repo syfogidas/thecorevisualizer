@@ -2056,7 +2056,7 @@ Terran-color = crimson
 				'''
 				h3 'The Tilt'
 				img src:'tilt.jpg'
-				p -> 'The Core is designed to be used with your off-hand on the side of your keyboard closest to you mouse, with a tilted keyboard to keep your wrist straight.'
+				p -> 'The Core is designed to be used with your off-hand on the side of your keyboard closest to your mouse, with a tilted keyboard to keep your wrist straight.'
 				img src:'pull-keys.jpg'
 				p -> 'You\'ll need to press Shift, Ctrl and Shift-Ctrl a lot, so you may want to remove the keys between Alt and Ctrl.'
 				a '.select-chameleon', -> "If you're on a laptop or can't tilt your keyboard, try The Chameleon instead."
