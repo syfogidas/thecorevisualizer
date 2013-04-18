@@ -1287,7 +1287,7 @@ appTemplate =->
 
 	keyClassMap = {}
 	keyClassMap[v] = k for k, v of classKeyMap
-	keyClass = (key)-> if voidKey key then 'void' else keyClassMap[key.split(' ')[0]] or key.trim()
+	keyClass = (key)-> if voidKey key then 'void' else keyClassMap[(key or '').split(' ')[0]] or (key or '').trim()
 
 
 	indented = (fn)->(args..., o={})->
@@ -1409,7 +1409,7 @@ appTemplate =->
 	commandIcons = indented -> "command-icon '#{command}', '#{icon}.png'" for command, icon of commandIconMap
 	commandUnitIcons = indented -> "command-icon '#{command}', '#{icon.toLowerCase()}.jpg'" for command, icon of commandUnitIconMap
 
-	preloadUrls =-> ((new Array).concat ("url('images/#{command}.png')" for command, icon of commandIconMap), ("url('images/#{command}.jpg')" for command, icon of commandUnitIconMap)).join(' ')
+	preloadUrls =-> ((new Array).concat ("url('images/#{command}.png')" for command, icon of commandIconMap), ("url('images/#{command.toLowerCase()}.jpg')" for command, icon of commandUnitIconMap)).join(' ')
 
 	doctype 5
 	html ->
@@ -1466,7 +1466,7 @@ fade(color, alpha)
 	rgba(red(color),green(color),blue(color),alpha)
 
 body:after
-	content #{do preloadUrls}
+	content #{dopreloadUrls if false}
 	display none
 
 body
@@ -2001,7 +2001,7 @@ Terran-color = crimson
 
 		blankRow = (row)-> Object.keys(row).length is 0
 
-		voidKey = (key)-> key.match /_\d+/
+		voidKey = (key)-> key and key.match /_\d+/
 		formatKeyCap =(key)->
 			return '&nbsp;' if voidKey key
 			key.split(' ')[0]
@@ -2261,7 +2261,7 @@ Terran-color = crimson
 				$(window).on 'keydown keyup', (e)->
 					currentMods = (key for attr, key of modKeyAttrs when e[attr])
 					do highlightModKeys
-					key = keyClass(keyCodeMaps[currentKeyboard][e.keyCode].toUpperCase())
+					key = keyClass(keyCodeMaps[currentKeyboard][e.keyCode]?.toUpperCase())
 					console.log key, e.keyCode
 					keyFn = switch e.type
 						when 'keydown' then keyPress
