@@ -3202,8 +3202,8 @@ ga('send', 'pageview');
 		div '.tutorial', ->
 			img src: 'logo-strip.png'
 			h1 style: 'text-align:center', -> 'Interactive Demo'
-			p -> '''
-				Instead of looking at a list of keys, put your hands on the keyboard and see what does what.
+			p -> ''' The Core is a highly-optimized alternative hotkey layout for StarCraft 2.
+				Instead of looking at a list of keys, use this tool to put your hands on the keyboard and see what does what.
 			'''
 			h3 'The Tilt'
 			img src:'tilt.jpg'
