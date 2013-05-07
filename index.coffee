@@ -1,1420 +1,2511 @@
+fnJSON = (o) -> JSON.stringify o, (k,v) ->
+	if typeof v is 'function' then v.toString() else v
+
+commandCards =
+	global:
+
+		PTT:
+			hotkeyCode: "PTT"
+			displayText: "PTT"
+
+		ChatAll:
+			hotkeyCode: "ChatAll"
+			displayText: "Chat All"
+			if: -> not @chatting
+			on: -> @chatting = yes
+
+		ChatAllies:
+			hotkeyCode: "ChatAllies"
+			displayText: "Chat Allies"
+			if: -> not @chatting
+			on: -> @chatting = yes
+
+		ChatCancel:
+			hotkeyCode: "ChatCancel"
+			displayText: "Chat Cancel"
+			if: -> @chatting
+			on: -> @chatting = no
+
+		ChatDefault:
+			hotkeyCode: "ChatDefault"
+			displayText: "Chat Default"
+			if: -> not @chatting
+			on: -> @chatting = yes
+
+		ChatIndividual:
+			hotkeyCode: "ChatIndividual"
+			displayText: "Chat Individual"
+			if: -> not @chatting
+			on: -> @chatting = yes
+
+		ChatRecipient:
+			hotkeyCode: "ChatRecipient"
+			displayText: "Chat Recipient"
+			if: -> not @chatting
+			on: -> @chatting = yes
+
+		DialogDismiss:
+			hotkeyCode: "DialogDismiss"
+			displayText: "Dialog Dismiss"
+			if: -> @dialog
+
+		MenuAchievements:
+			hotkeyCode: "MenuAchievements"
+			displayText: "Menu Achievements"
+
+		MenuGame:
+			hotkeyCode: "MenuGame"
+			displayText: "Menu Game"
+
+		MenuHelp:
+			hotkeyCode: "MenuHelp"
+			displayText: "Menu Help"
+
+		MenuMessages:
+			hotkeyCode: "MenuMessages"
+			displayText: "Menu Messages"
+
+		LeaderNone:
+			hotkeyCode: "LeaderNone"
+			displayText: "Leader None"
+			if: -> @observer
+
+		LeaderResources:
+			hotkeyCode: "LeaderResources"
+			displayText: "Leader Resources"
+			if: -> @observer
+
+		LeaderIncome:
+			hotkeyCode: "LeaderIncome"
+			displayText: "Leader Income"
+			if: -> @observer
+
+		LeaderSpending:
+			hotkeyCode: "LeaderSpending"
+			displayText: "Leader Spending"
+			if: -> @observer
+
+		LeaderUnits:
+			hotkeyCode: "LeaderUnits"
+			displayText: "Leader Units"
+			if: -> @observer
+
+		LeaderStructures:
+			hotkeyCode: "LeaderStructures"
+			displayText: "Leader Structures"
+			if: -> @observer
+
+		LeaderUnitsLost:
+			hotkeyCode: "LeaderUnitsLost"
+			displayText: "Leader Units Lost"
+			if: -> @observer
+
+		LeaderProduction:
+			hotkeyCode: "LeaderProduction"
+			displayText: "Leader Production"
+			if: -> @observer
+
+		LeaderUpgrades:
+			hotkeyCode: "LeaderUpgrades"
+			displayText: "Leader Upgrades"
+			if: -> @observer
+
+		LeaderArmy:
+			hotkeyCode: "LeaderArmy"
+			displayText: "Leader Army"
+			if: -> @observer
+
+		LeaderAPM:
+			hotkeyCode: "LeaderAPM"
+			displayText: "Leader APM"
+			if: -> @observer
+
+		LeaderCPM:
+			hotkeyCode: "LeaderCPM"
+			displayText: "Leader CPM"
+			if: -> @observer
+
+		ObserveAllPlayers:
+			hotkeyCode: "ObserveAllPlayers"
+			displayText: "Observe All Players"
+			if: -> @observer
+
+		ObserveAutoCamera:
+			hotkeyCode: "ObserveAutoCamera"
+			displayText: "Observe Auto Camera"
+			if: -> @observer
+
+		ObserveClearSelection:
+			hotkeyCode: "ObserveClearSelection"
+			displayText: "Observe Clear Selection"
+			if: -> @observer
+
+		ObservePreview:
+			hotkeyCode: "ObservePreview"
+			displayText: "Observe Preview"
+			if: -> @observer
+
+		ObserveSelected:
+			hotkeyCode: "ObserveSelected"
+			displayText: "Observe Selected"
+			if: -> @observer
+
+		ObserveStatusBars:
+			hotkeyCode: "ObserveStatusBars"
+			displayText: "Observe Status Bars"
+			if: -> @observer
+
+		NamePanel:
+			hotkeyCode: "NamePanel"
+			displayText: "Name Panel"
+			if: -> @observer
+
+		StatPanelResources:
+			hotkeyCode: "StatPanelResources"
+			displayText: "Stat Panel Resources"
+			if: -> @observer
+
+		StatPanelArmySupply:
+			hotkeyCode: "StatPanelArmySupply"
+			displayText: "Stat Panel Army Supply"
+			if: -> @observer
+
+		StatPanelUnitsLost:
+			hotkeyCode: "StatPanelUnitsLost"
+			displayText: "Stat Panel Units Lost"
+			if: -> @observer
+
+		StatPanelAPM:
+			hotkeyCode: "StatPanelAPM"
+			displayText: "Stat Panel APM"
+			if: -> @observer
+
+		StatPanelCPM:
+			hotkeyCode: "StatPanelCPM"
+			displayText: "Stat Panel CPM"
+			if: -> @observer
+
+		ToggleVersusModeSides:
+			hotkeyCode: "ToggleVersusModeSides"
+			displayText: "Toggle Versus Mode Sides"
+			if: -> @observer
+
+		ToggleWorldPanel:
+			hotkeyCode: "ToggleWorldPanel"
+			displayText: "Toggle World Panel"
+			if: -> @observer
+
+		AlertRecall:
+			hotkeyCode: "AlertRecall"
+			displayText: "Alert Recall"
+
+		ArmySelect:
+			hotkeyCode: "ArmySelect"
+			displayText: "Army Select"
+
+		CameraCenter:
+			hotkeyCode: "CameraCenter"
+			displayText: "Camera Center"
+
+		CameraFollow:
+			hotkeyCode: "CameraFollow"
+			displayText: "Camera Follow"
+
+		CameraTurnLeft:
+			hotkeyCode: "CameraTurnLeft"
+			displayText: "Camera Turn Left"
+
+		CameraTurnRight:
+			hotkeyCode: "CameraTurnRight"
+			displayText: "Camera Turn Right"
 
 
-appTemplate =->
-	raceMap = raceCommands = globalHotkeys = null
+		GameTooltipsOn:
+			hotkeyCode: "GameTooltipsOn"
+			displayText: "Game Tooltips On"
 
-	'''
-	[Settings]
-	AllowSetConflicts=1
+		IdleWorker:
+			hotkeyCode: "IdleWorker"
+			displayText: "Idle Worker"
 
-	[Hotkeys]
-	Music=F2
-	Sound=F4
-	PTT=Control+Tab
-	ChatAll=Shift+Enter
-	ChatAllies=Control+Enter
-	ChatCancel=BracketClose,Escape
-	ChatDefault=Enter
-	ChatIndividual=Control+Shift+Enter
-	ChatRecipient=Alt+Enter
-	DialogDismiss=BracketClose,Escape
-	MenuAchievements=F12
-	MenuGame=F9
-	MenuHelp=F1
-	MenuMessages=F11
-	LeaderNone=Y
-	LeaderResources=N
-	LeaderIncome=U
-	LeaderSpending=Comma
-	LeaderUnits=P
-	LeaderStructures=S
-	LeaderUnitsLost=I
-	LeaderProduction=J
-	LeaderUpgrades=E
-	LeaderArmy=H
-	LeaderAPM=7
-	LeaderCPM=Equals
-	ObserveAllPlayers=0
-	ObserveAutoCamera=9
-	ObserveClearSelection=BracketClose,Escape
-	ObserveCommentator=
-	ObservePlayer0=Control+P
-	ObservePlayer1=Control+O
-	ObservePlayer2=Control+I
-	ObservePlayer3=Control+J
-	ObservePlayer4=Control+Minus
-	ObservePlayer5=Control+0
-	ObservePlayer6=Control+9
-	ObservePlayer7=Control+U
-	ObservePlayer8=Control+SemiColon
-	ObservePlayer9=Control+L
-	ObservePlayer10=Control+K
-	ObservePlayer11=Control+N
-	ObservePlayer12=Control+Slash
-	ObservePlayer13=Control+Comma
-	ObservePlayer14=Control+M
-	ObservePlayer15=Control+H
-	ObservePreview=D
-	ObserveSelected=Shift+T
-	ObserveStatusBars=Shift+Y
-	NamePanel=Control+B
-	StatPanelResources=Shift+Minus
-	StatPanelArmySupply=Shift+I
-	StatPanelUnitsLost=Shift+J
-	StatPanelAPM=Shift+K
-	StatPanelCPM=Shift+BracketOpen
-	ToggleVersusModeSides=B
-	ToggleWorldPanel=G
-	CinematicSkip=LeftMouseButton,BracketClose
-	AlertRecall=Control+Shift+Alt+F10
-	ArmySelect=Control+Shift+Alt+F6
-	CameraCenter=Alt
-	CameraFollow=Control+Shift+Alt+F5
-	CameraTurnLeft=Grave
-	CameraTurnRight=CapsLock
-	ControlGroupAppend0=Control+Period
-	ControlGroupAppend1=Control+Equals
-	ControlGroupAppend2=Control+Minus
-	ControlGroupAppend3=Control+0
-	ControlGroupAppend4=Control+9
-	ControlGroupAppend5=Control+BracketOpen
-	ControlGroupAppend6=Control+P
-	ControlGroupAppend7=Control+O
-	ControlGroupAppend8=Control+SemiColon
-	ControlGroupAppend9=Control+L
-	ControlGroupAssign0=Control+Shift+Period
-	ControlGroupAssign1=Control+Shift+Equals
-	ControlGroupAssign2=Control+Shift+Minus
-	ControlGroupAssign3=Control+Shift+0
-	ControlGroupAssign4=Control+Shift+9
-	ControlGroupAssign5=Control+Shift+BracketOpen
-	ControlGroupAssign6=Control+Shift+P
-	ControlGroupAssign7=Control+Shift+O
-	ControlGroupAssign8=Control+Shift+SemiColon
-	ControlGroupAssign9=Control+Shift+L
-	ControlGroupRecall0=Period
-	ControlGroupRecall1=Equals
-	ControlGroupRecall2=Minus
-	ControlGroupRecall3=0
-	ControlGroupRecall4=9
-	ControlGroupRecall5=BracketOpen
-	ControlGroupRecall6=P
-	ControlGroupRecall7=O
-	ControlGroupRecall8=SemiColon
-	ControlGroupRecall9=L
-	GameTooltipsOn=Control+Shift+Alt+D
-	IdleWorker=Y
-	MinimapColors=F3
-	MinimapPing=F8
-	MinimapTerrain=Alt+4
-	PauseGame=Pause,F7
-	QuickPing=Control+Shift+Alt+F4
-	QuickSave=Control+Slash
-	ReplayPlayPause=K
-	ReplayRestart=Control+8
-	ReplaySkipBack=M
-	ReplaySkipNext=Apostrophe
-	ReplaySpeedDec=BracketOpen
-	ReplaySpeedInc=Minus
-	ReplayStop=Shift+Apostrophe
-	ReplayHide=Shift+H
-	SelectionCancelDrag=BracketClose,Escape
-	StatusAll=Control+Shift+Alt+F7
-	StatusOwner=Control+Alt+F5
-	StatusAlly=Control+Alt+F6
-	StatusEnemy=Control+Alt+F7
-	SubgroupNext=ForwardMouseButton
-	SubgroupPrev=BackMouseButton
-	TeamResources=F6
-	TownCamera=F10
-	WarpIn=Control+Shift+Alt+F9
-	CameraSave0=Alt+P
-	CameraSave1=Alt+O
-	CameraSave2=Alt+SemiColon
-	CameraSave3=Alt+L
-	CameraSave4=Alt+0
-	CameraSave5=Alt+9
-	CameraSave6=Control+Shift+I
-	CameraSave7=Control+Shift+J
-	CameraView0=Shift+P
-	CameraView1=Shift+O
-	CameraView2=Shift+SemiColon
-	CameraView3=Shift+L
-	CameraView4=Shift+0
-	CameraView5=Shift+9
-	CameraView6=Control+I
-	CameraView7=Control+J
+		MinimapColors:
+			hotkeyCode: "MinimapColors"
+			displayText: "Minimap Colors"
 
-	[Commands]
-	250mmStrikeCannons/Thor=I
-	330mmBarrageCannons/Thor=I
-	AWrp=Slash
-	Aberration/Larva=Comma
-	AnionPulseCrystals/FleetBeacon=J
-	Apocalypse/K5Kerrigan=M
-	ArchonHallucination/Sentry=Slash
-	ArmorpiercingMode=I
-	Armory/SCV=Slash
-	AssaultMode=I
-	Assimilator/Probe=K
-	Attack=J
-	AutoTurret/Raven=I
-	AutomatedExtractor/Drone=K
-	AutomatedRefinery/SCV=K
-	Baneling/HotSRaptor=I
-	Baneling/HotSSwarmling=I
-	Baneling/Zergling=I
-	Baneling/Zergling2=I
-	BanelingNest/Drone=U
-	Banshee/Starport=K
-	Barracks/SCV=I
-	Battlecruiser/Starport=8
-	BlindingCloud/Viper=H
-	Blink/Stalker=I
-	BonesHeal/Stetmann=H
-	BroodLord/Corruptor=Slash
-	BroodLord/MutaliskBroodlord=Slash
-	BuildAutoTurret/Raven=I
-	BuildCreepTumor/Queen=M
-	BuildCreepTumor/Queen2=M
-	BuildCreepTumorPropagate/CreepTumorBurrowed=M
-	BuildHercules/Starport=Comma
-	BuildPointDefenseDrone/Raven=Slash
-	BuildScienceVessel/Starport=Apostrophe
-	BuildTechLabFactory/FactoryFlying=M
-	BuildTechLabStarport/StarportFlying=M
-	Bunker/SCV=8
-	BunkerFortified/SCV=8
-	BunkerLoad=D
-	BunkerUnloadAll=I
-	BurrowChargeCampaign/HotSTorrasque=I
-	BurrowChargeCampaign/Ultralisk=I
-	BurrowChargeCampaignNoxious/HotSNoxious=I
-	BurrowChargeMP/Ultralisk=I
-	BurrowDown=H
-	BurrowHydraliskImpalerDown=H
-	BurrowHydraliskImpalerUp=I
-	BurrowHydraliskLurkerDown=H
-	BurrowHydraliskLurkerUp=I
-	BurrowProtector/Viper=K
-	BurrowUp=I
-	CalldownMULE/CommandCenter=J
-	CalldownMULE/OrbitalCommand=J
-	CampaignVehicles/Factory=S
-	CampaignVehicles/Starport=S
-	Cancel=BracketClose
-	CancelCocoon=BracketClose
-	CancelMutateMorph=BracketClose
-	CancelUpgradeMorph=BracketClose
-	Carrier/Stargate=H
-	Charge/Zealot=I
-	CloakOff=M
-	CloakOnBanshee=H
-	Colossus/RoboticsFacility=K
-	ColossusHallucination/Sentry=K
-	CommandCenter/SCV=Apostrophe
-	CommandCenterLoad=M
-	CommandCenterOrbRelay/SCV=Apostrophe
-	CommandCenterUnloadAll=H
-	Consume/GiantYeti=Slash
-	Consume/Lyote=Slash
-	Consumption/Tosh=H
-	Contaminate/Overseer=Slash
-	CorruptionAbility/Corruptor=I
-	Corruptor/Larva=8
-	CyberneticsCore/Probe=8
-	D8Charge/MercReaper=I
-	D8Charge/Reaper=I
-	DarkShrine/Probe=M
-	DarkTemplar=H
-	DeepTunnel/Queen=W
-	DefensiveMatrix/Battlecruiser=H
-	DefensiveMatrix/DukesRevenge=H
-	DehakaHeal/Dehaka=M
-	DehakaMirrorImage/Dehaka=Slash
-	DevastatingShot/InfestedStukov=I
-	Diamondback/Factory=Apostrophe
-	DisableBuildingAttack/Baneling=M
-	DisableBuildingAttack/HotSHunter=M
-	DisableBuildingAttack/HotSSplitterlingBig=M
-	DisableBuildingAttack/baneling=M
-	DisableBuildingAttack/baneling2=M
-	DisablingCloud/Viper=H
-	Domination/Nova=I
-	Drag/Dehaka=I
-	Drag/DehakaMirrorImage=I
-	Drone/Larva=I
-	DutchPlaceTurret/Swann=I
-	EMP/Ghost=I
-	EnableBuildingAttack/Baneling=I
-	EnableBuildingAttack/HotSHunter=I
-	EnableBuildingAttack/HotSSplitterlingBig=I
-	EnableBuildingAttack/baneling=I
-	EnableBuildingAttack/baneling2=I
-	EngineeringBay/SCV=M
-	EvolutionChamber/Drone=M
-	EvolveAnabolicSynthesis2/UltraliskCavern=E
-	EvolveBurrowCharge/UltraliskCavern=I
-	EvolveCentrificalHooks/BanelingNest=J
-	EvolveChitinousPlating/UltraliskCavern=J
-	EvolveGlialRegeneration/RoachWarren=J
-	EvolveInfestorEnergyUpgrade/InfestationPit=J
-	EvolveOrganicCarapace/RoachWarren=E
-	EvolvePeristalsis/InfestationPit=E
-	EvolveTunnelingClaws/RoachWarren=I
-	EvolveVentralSacks=U
-	ExperimentalPlasmaGun/Raynor=Slash
-	Explode/Baneling=Slash
-	Explode/BanelingBurrowed=Slash
-	Explode/HotSHunter=Slash
-	Explode/HotSHunterBurrowed=Slash
-	Explode/HotSSplitterlingBig=Slash
-	Explode/HotSSplitterlingBigBurrowed=Slash
-	Explode/baneling=Slash
-	Explode/baneling2=Slash
-	ExplosiveMode=H
-	Extractor/Drone=K
-	FaceEmbrace/Viper=I
-	Factory/SCV=J
-	Feedback/HighTemplar=H
-	FighterMode=H
-	Firebat/Barracks=U
-	FleetBeacon/Probe=Apostrophe
-	ForceField/Sentry=I
-	ForceField2/Sentry2=I
-	Forge/Probe=M
-	FungalGrowth/Infestor=I
-	FungalGrowth/Infestor2=I
-	FusionCore/SCV=Apostrophe
-	Gateway/Probe=I
-	GatherProt=D
-	GenerateCreep/Overlord=Slash
-	Ghost/Barracks=Apostrophe
-	GhostAcademy/SCV=H
-	GhostHoldFire/Ghost=N
-	GiantYetiLeap/GiantYeti=I
-	Goliath/Factory=N
-	GravitonBeam/Phoenix=I
-	GravitonBeam/Urun=I
-	GreaterSpire/Spire=Slash
-	GreaterSpireBroodlord/Spire=Slash
-	GrowHugeQueen/LargeSwarmQueen=Apostrophe
-	GrowLargeQueen/SwarmQueen=Apostrophe
-	GrowSwarmQueen/LarvalQueen=Apostrophe
-	GuardianShield/Sentry=H
-	GuardianShield/Sentry2=H
-	Hallucination/Sentry=Slash
-	Hallucination/Sentry2=Slash
-	Halt=M
-	Hatchery/Drone=Apostrophe
-	Heal/Medivac=H
-	Heal/Medivac2=H
-	Hellion/Factory=J
-	HellionTank/Factory=Apostrophe
-	HerculesLoad/Hercules=D
-	HerculesUnloadAll/Hercules=I
-	HeroNukeCalldown/Nova=Comma
-	HeroNukeCalldown/Tosh=Comma
-	HighTemplar=Apostrophe
-	HighTemplarHallucination/Sentry=M
-	HireDevilDogs/Barracks=D
-	HireDevilDogs/MercCompound=Slash
-	HireDukesRevenge/MercCompound=8
-	HireDukesRevenge/Starport=W
-	HireDuskWing/MercCompound=Comma
-	HireDuskWing/Starport=C
-	HireHammerSecurities/Barracks=C
-	HireHammerSecurities/MercCompound=I
-	HireHelsAngels/MercCompound=H
-	HireHelsAngels/Starport=D
-	HireKelmorianMiners/Barracks=W
-	HireKelmorianMiners/MercCompound=J
-	HireSiegeBreakers/Factory=W
-	HireSiegeBreakers/MercCompound=K
-	HireSpartanCompany/Factory=C
-	HireSpartanCompany/MercCompound=U
-	Hive/Lair=N
-	HiveMindEmulator/SCV=N
-	HotSBioPlasmidDischarge/HotSLeviathan=I
-	HotSBioStasis/HotSLeviathan=Slash
-	HunterSeekerMissile/Raven=H
-	Hydralisk/Larva=H
-	HydraliskDen/Drone=J
-	HydraliskFrenzy/Hydralisk=I
-	HydraliskFrenzy/HydraliskImpaler=I
-	HydraliskFrenzy/HydraliskLurker=I
-	Immortal/RoboticsFacility=Slash
-	ImmortalHallucination/Sentry=H
-	ImmortalityProtocol/Thor=W
-	ImmortalityProtocol/ThorWreckage=I
-	Impaler/HydraliskImpaler=Slash
-	ImpalerBurrowDown=H
-	ImpalerBurrowUp=I
-	ImpalerDen/HydraliskDen=N
-	IncineratorNozzles/DevilDog=W
-	IncineratorNozzles/Firebat=W
-	InfestationPit/Drone=H
-	InfestedTerrans/Infestor=Slash
-	InfestedTerrans/Infestor2=Slash
-	InfestedTerrans/InfestorBurrowed=Slash
-	Infestor/Larva=U
-	InfestorConsumption/Infestor=Slash
-	Interceptor/Carrier=I
-	Interceptor/Selendis=I
-	Irradiate/ScienceVessel=I
-	JackhammerConcussionGrenade/Marauder=W
-	K5DropPods/K5Kerrigan=M
-	K5Leviathan/K5Kerrigan=M
-	K5Leviathan/K5KerriganBurrowed=E
-	Lair/Hatchery=N
-	Land=Slash
-	Larva=I
-	Lift=Slash
-	LightofAiur/Oracle=H
-	LocustFlyingLaunch/SwarmHostSplitABurrowed=Slash
-	LocustFlyingLaunch/SwarmHostSplitARooted=Slash
-	LocustLaunch/SwarmHostBurrowed=Slash
-	LocustLaunch/SwarmHostRooted=Slash
-	LocustLaunchCreeper/SwarmHostSplitBBurrowed=Slash
-	LocustLaunchCreeper/SwarmHostSplitBRooted=Slash
-	Lower/SupplyDepot=J
-	Lurker/HydraliskLurker=Slash
-	LurkerBurrowDown=H
-	LurkerBurrowUp=I
-	LurkerDen/HydraliskDen=N
-	Marauder/Barracks=I
-	Marine/Barracks=J
-	MassRecall/Artanis=I
-	MassRecall/Mothership=I
-	MassRecall/MothershipCore=I
-	Medic/Barracks=8
-	MedicHeal/Medic=H
-	Medivac/Starport=I
-	MedivacSpeedBoost/Medivac=Slash
-	MengskUnits/Barracks=S
-	MercCompound/SCV=W
-	MercHellion/Factory=D
-	MercHellion/MercCompound=C
-	MercMedic/Barracks=S
-	MercMedic/MercCompound=D
-	MercMedicHeal/MercMedic=H
-	MercReaper/Barracks=X
-	MercReaper/MercCompound=X
-	MicroBot/Factory=C
-	MindBlast/Tosh=I
-	MindBolt/K5Kerrigan=Slash
-	MindBolt/K5KerriganBurrowed=D
-	MindBolt/KerriganGhostLab=Slash
-	MindControl/HiveMindEmulator=J
-	MissilePods/Battlecruiser=Slash
-	MissilePods/DukesRevenge=Slash
-	MissileTurret/SCV=H
-	MorphBackToGateway/WarpGate=D
-	MorphMorphalisk/Queen=I
-	MorphMorphalisk/Queen2=I
-	MorphToCorpser/Larva=K
-	MorphToHellion/Hellion=H
-	MorphToHellionTank/Hellion=I
-	MorphToHotSNoxious/Larva=N
-	MorphToHotSTorrasque/Larva=N
-	MorphToHydraliskImpaler/Larva=H
-	MorphToHydraliskLurker/Larva=H
-	MorphToMothership/MothershipCore=M
-	MorphToMutaliskBroodlord/Larva=Apostrophe
-	MorphToMutaliskViper/Larva=Apostrophe
-	MorphToOverseer/Overlord=H
-	MorphToRaptor/Larva=J
-	MorphToSwarmHostSplitA/Larva=M
-	MorphToSwarmHostSplitB/Larva=M
-	MorphToSwarmling/Larva=J
-	MorphToVile/Larva=K
-	MorphtoDefiler/Larva=U
-	MorphtoHunter/HotSRaptor=I
-	MorphtoHunter/HotSSwarmling=I
-	MorphtoSplitterling/HotSRaptor=I
-	MorphtoSplitterling/HotSSwarmling=I
-	Mothership/Nexus=Slash
-	MothershipCore/Nexus=Slash
-	MothershipCoreMassRecall/MothershipCore=I
-	MothershipCoreWeapon/MothershipCore=Slash
-	MothershipMassRecall/Mothership=I
-	Move=C
-	MoveHoldPosition=K
-	MovePatrol=U
-	MuscularAugments/HydraliskDen=J
-	Mutalisk/Larva=Apostrophe
-	NPSwarm/Infestor=M
-	NanoRepair/ScienceVessel=H
-	NeuralParasite/Infestor=M
-	NeuralParasite/Infestor2=M
-	Nexus/Probe=Apostrophe
-	NovaSnipe/Nova=Slash
-	NukeArm/GhostAcademy=Comma
-	NukeCalldown/Ghost=Comma
-	NydusNetwork/Drone=Apostrophe
-	Obliterate/Spectre=Slash
-	Observer/RoboticsFacility=I
-	OdinBarrage/Odin=I
-	OdinNukeCalldown/Odin=Comma
-	Oracle/Stargate=I
-	OracleEnergyUpgrade/FleetBeacon=E
-	OracleHallucination/Sentry=I
-	OracleRevelation/Oracle=M
-	OracleWeaponOff/Oracle=Slash
-	OracleWeaponOn/Oracle=I
-	OrbitalCommand/CommandCenter=J
-	Overlord/Larva=Slash
-	ParasiticInvasion/LarvalQueen=M
-	PerditionTurret/SCV=B
-	PhaseShield/Oracle=C
-	PhasingMode/WarpPrism=H
-	Phoenix/Stargate=J
-	PhoenixHallucination/Sentry=J
-	PhotonCannon/Probe=H
-	PlantC4Charge/Raynor=M
-	PointDefenseDrone/Raven=Slash
-	PoisonNova/HotSNoxious=Slash
-	Predator/Factory=B
-	PrimalHeal/K5Kerrigan=Comma
-	PrimalSlash/K5Kerrigan=Slash
-	Probe/Nexus=I
-	ProbeHallucination/Sentry=N
-	ProtossAirArmorLevel1/CyberneticsCore=I
-	ProtossAirWeaponsLevel1/CyberneticsCore=J
-	ProtossBuild/Probe=Apostrophe
-	ProtossBuildAdvanced/Probe=Slash
-	ProtossGroundArmorLevel1/Forge=I
-	ProtossGroundWeaponsLevel1/Forge=J
-	ProtossShieldsLevel1/Forge=Slash
-	PsiDisruptor/SCV=N
-	PsiStorm/HighTemplar=I
-	PsiStrike/K5Kerrigan=I
-	PsionicLift/K5Kerrigan=I
-	PsionicLift/K5KerriganBurrowed=C
-	PsionicLift/KerriganGhostLab=I
-	Pylon/Probe=J
-	Queen=Comma
-	QueenBurstHeal/Queen=Slash
-	Raise/SupplyDepotLowered=J
-	Rally=R
-	RallyEgg=D
-	Raven/Starport=Apostrophe
-	RaynorSnipe/RaynorCommando=I
-	Reactor/Barracks=H
-	Reactor/BarracksFlying=H
-	Reactor/Factory=H
-	Reactor/FactoryFlying=H
-	Reactor/Starport=H
-	Reactor/StarportFlying=H
-	Reaper/Barracks=K
-	ReaperSpeed/BarracksTechLab=K
-	ReaperSpeed/BarracksTechReactor=K
-	ReaperSpeed/MercCompound=W
-	Refinery/SCV=K
-	ReleaseMinion/Nova=N
-	Repair=H
-	ResearchBansheeCloak/StarportTechLab=H
-	ResearchBansheeCloak/StarportTechReactor=H
-	ResearchBattlecruiserEnergyUpgrade/FusionCore=8
-	ResearchBattlecruiserSpecializations/FusionCore=I
-	ResearchBunkerUpgrade/ScienceFacility=
-	ResearchBurrow=8
-	ResearchCerberusMines/FactoryTechLab=I
-	ResearchCerberusMines/FactoryTechReactor=I
-	ResearchCharge/TwilightCouncil=J
-	ResearchDrillClaws/FactoryTechLab=I
-	ResearchDurableMaterials/StarportTechLab=Slash
-	ResearchDurableMaterials/StarportTechReactor=Slash
-	ResearchExtendedThermalLance/RoboticsBay=K
-	ResearchFireSuppression/ScienceFacility=
-	ResearchFirebat/ScienceFacility=
-	ResearchG4Charge/BarracksTechLab=K
-	ResearchG4Charge/BarracksTechReactor=K
-	ResearchGhostEnergyUpgrade/GhostAcademy=Apostrophe
-	ResearchGoliath/ScienceFacility=N
-	ResearchGraviticBooster/RoboticsBay=I
-	ResearchGraviticDrive/RoboticsBay=J
-	ResearchHallucination/CyberneticsCore=M
-	ResearchHellion/ScienceFacility=J
-	ResearchHiSecAutoTracking/EngineeringBay=K
-	ResearchHighCapacityBarrels/FactoryTechLab=J
-	ResearchHighCapacityBarrels/FactoryTechReactor=J
-	ResearchHighTemplarEnergyUpgrade/TemplarArchive=E
-	ResearchIncineratorNozzles/BarracksTechLab=U
-	ResearchIncineratorNozzles/BarracksTechReactor=U
-	ResearchInterceptorLaunchSpeedUpgrade/FleetBeacon=H
-	ResearchJackhammerConcussionGrenade/BarracksTechLab=I
-	ResearchJackhammerConcussionGrenade/BarracksTechReactor=I
-	ResearchLocustLifetimeIncrease/InfestationPit=I
-	ResearchMedic/ScienceFacility=H
-	ResearchMedivacEnergyUpgrade/StarportTechLab=I
-	ResearchMedivacEnergyUpgrade/StarportTechReactor=I
-	ResearchMultiLockTargetingSystem/FactoryTechLab=M
-	ResearchMultiLockTargetingSystem/FactoryTechReactor=M
-	ResearchNeosteelFrame/EngineeringBay=H
-	ResearchNeuralParasite/InfestationPit=Slash
-	ResearchPerditionTurret/ScienceFacility=
-	ResearchPersonalCloaking/GhostAcademy=H
-	ResearchPsiStorm/TemplarArchive=I
-	ResearchPunisherGrenades/BarracksTechLab=I
-	ResearchPunisherGrenades/BarracksTechReactor=I
-	ResearchRavenEnergyUpgrade/StarportTechLab=Apostrophe
-	ResearchRavenEnergyUpgrade/StarportTechReactor=Apostrophe
-	ResearchReaper/ScienceFacility=Apostrophe
-	ResearchRegenerativeBioSteel/FactoryTechLab=Apostrophe
-	ResearchRegenerativeBioSteel/FactoryTechReactor=Apostrophe
-	ResearchSeekerMissile/StarportTechLab=K
-	ResearchSeekerMissile/StarportTechReactor=K
-	ResearchShapedBlast/FactoryTechLab=K
-	ResearchShapedBlast/FactoryTechReactor=K
-	ResearchShieldWall/BarracksTechLab=J
-	ResearchShieldWall/BarracksTechReactor=J
-	ResearchSiegeTank/ScienceFacility=K
-	ResearchSiegeTech/FactoryTechLab=K
-	ResearchSiegeTech/FactoryTechReactor=K
-	ResearchStabilizerMedPacks/BarracksTechLab=8
-	ResearchStabilizerMedPacks/BarracksTechReactor=8
-	ResearchStalkerTeleport/TwilightCouncil=I
-	ResearchStrikeCannons/FactoryTechLab=M
-	ResearchStrikeCannons/FactoryTechReactor=M
-	ResearchTechReactor/ScienceFacility=Y
-	ResearchTransformationServos/FactoryTechLab=Apostrophe
-	ResearchVoidRaySpeedUpgrade/FleetBeacon=E
-	ResearchWarpGate/CyberneticsCore=Slash
-	ResourceStun/Oracle=D
-	RespawnZergling/Hatchery=W
-	RespawnZergling/Hive=W
-	RespawnZergling/Lair=W
-	ReturnCargo=I
-	Roach/Larva=K
-	RoachWarren/Drone=8
-	RoboticsBay/Probe=8
-	RoboticsFacility/Probe=J
-	RogueGhostCloak/Spectre=H
-	SCV=I
-	SJFighter1PH/SJHyperion=H
-	SJHyperionBlink/SJHyperion=Slash
-	SJHyperionFighters/SJHyperion=H
-	SJHyperionFightersRecall/SJHyperion=Apostrophe
-	SJHyperionLightningStorm/SJHyperion=M
-	SJHyperionYamato/SJHyperion=I
-	Salvage/Bunker=K
-	SapStructure/Baneling=I
-	Scan/CommandCenter=M
-	Scan/OrbitalCommand=K
-	Scourge/Larva=Y
-	SelectBuilder=E
-	SensorTower/SCV=Comma
-	Sentry=K
-	SetBunkerRallyPoint/Bunker=C
-	SetRallyPointSwarmHost/SwarmHostBurrowedMP=H
-	ShapedBlast/SiegeBreakerSieged=W
-	ShapedBlast/SiegeTankSieged=W
-	SiegeMode=I
-	SiegeTank/Factory=K
-	Snipe/Ghost=Slash
-	SpawnBanelings/K5Kerrigan=Comma
-	SpawnChangeling/Overseer=I
-	SpawningPool/Drone=I
-	Spectre/Barracks=Comma
-	SpectreHoldFire/Spectre=N
-	SpectreNukeArm/GhostAcademy=Comma
-	SpectreNukeCalldown/Spectre=Comma
-	SpectreWeaponsFree/Spectre=Apostrophe
-	SpeedUpgrade/FleetBeacon=W
-	SpiderMine/Vulture=I
-	SpiderMineReplenish/Vulture=Slash
-	SpineCrawler/Drone=J
-	SpineCrawlerRoot/SpineCrawlerUprooted=I
-	SpineCrawlerUproot/SpineCrawler=I
-	Spire/Drone=I
-	SporeCrawler/Drone=H
-	SporeCrawlerRoot/SporeCrawlerUprooted=I
-	SporeCrawlerUproot/SporeCrawler=I
-	Stalker=I
-	StalkerHallucination/Sentry=U
-	Stargate/Probe=I
-	Starport/SCV=I
-	Stim=Slash
-	StimFirebat/DevilDog=Slash
-	StimFirebat/Firebat=Slash
-	Stimpack/BarracksTechLab=Slash
-	Stimpack/BarracksTechReactor=Slash
-	Stop=8
-	StopGenerateCreep/Overlord=Slash
-	StopPlanetaryFortress/PlanetaryFortress=8
-	StukovCrystalChannel/InfestedStukov=W
-	StukovInfestedTerrans/InfestedStukov=Slash
-	SummonNydusWorm/NydusNetwork=J
-	SupplyDepot/SCV=J
-	SupplyDepotDrop/SCV=J
-	SupplyDrop/OrbitalCommand=H
-	SwarmHost/SwarmHostBurrowedMP=Slash
-	SwarmHost/SwarmHostMP=Slash
-	SwarmHostBurrowDown=H
-	SwarmHostBurrowUp=I
-	SwarmHostDeepBurrow/SwarmHostSplitB=M
-	SwarmHostDeepBurrow/SwarmHostSplitBBurrowed=M
-	SwarmHostDeepBurrow/SwarmHostSplitBRooted=M
-	SwarmHostMP/Larva=M
-	SwarmHostRoot/SwarmHost=H
-	SwarmHostRoot/SwarmHostSplitA=H
-	SwarmHostRoot/SwarmHostSplitB=H
-	SwarmHostUproot/SwarmHostRooted=I
-	SwarmHostUproot/SwarmHostSplitARooted=I
-	SwarmHostUproot/SwarmHostSplitBRooted=I
-	SwarmHostUprootUnburrow/SwarmHostBurrowed=I
-	SwarmHostUprootUnburrow/SwarmHostSplitABurrowed=I
-	SwarmHostUprootUnburrow/SwarmHostSplitBBurrowed=I
-	SwarmQueenCorpser/HugeSwarmQueen=I
-	SwarmQueenCorpser/LargeSwarmQueen=I
-	SwarmQueenCorpser/SwarmQueen=I
-	SwarmQueenHydralisk/HugeSwarmQueen=Apostrophe
-	SwarmQueenHydralisk/SwarmQueenEgg=Apostrophe
-	SwarmQueenHydraliskImpaler/HugeSwarmQueen=Apostrophe
-	SwarmQueenHydraliskImpaler/LargeSwarmQueen=Apostrophe
-	SwarmQueenHydraliskImpaler/SwarmQueen=Apostrophe
-	SwarmQueenHydraliskLurker/HugeSwarmQueen=Apostrophe
-	SwarmQueenHydraliskLurker/LargeSwarmQueen=Apostrophe
-	SwarmQueenHydraliskLurker/SwarmQueen=Apostrophe
-	SwarmQueenParasiticInvasion/HugeSwarmQueen=M
-	SwarmQueenParasiticInvasion/LargeSwarmQueen=M
-	SwarmQueenParasiticInvasion/SwarmQueen=M
-	SwarmQueenRaptor/HugeSwarmQueen=Slash
-	SwarmQueenRaptor/LargeSwarmQueen=Slash
-	SwarmQueenRaptor/SwarmQueen=Slash
-	SwarmQueenRoach/HugeSwarmQueen=I
-	SwarmQueenRoach/LargeSwarmQueen=I
-	SwarmQueenRoach/SwarmQueenEgg=I
-	SwarmQueenSwarmling/HugeSwarmQueen=Slash
-	SwarmQueenSwarmling/LargeSwarmQueen=Slash
-	SwarmQueenSwarmling/SwarmQueen=Slash
-	SwarmQueenVile/HugeSwarmQueen=I
-	SwarmQueenVile/LargeSwarmQueen=I
-	SwarmQueenVile/SwarmQueen=I
-	SwarmQueenZergling/HugeSwarmQueen=Slash
-	SwarmQueenZergling/LargeSwarmQueen=Slash
-	SwarmQueenZergling/SwarmQueen=Slash
-	SwarmQueenZergling/SwarmQueenEgg=Slash
-	TechLabBarracks/Barracks=M
-	TechLabBarracks/BarracksFlying=M
-	TechLabFactory/Factory=M
-	TechLabStarport/Starport=M
-	TechReactor/Barracks=M
-	TechReactor/BarracksFlying=M
-	TechReactor/Factory=M
-	TechReactor/FactoryFlying=M
-	TechReactor/Starport=M
-	TechReactor/StarportFlying=M
-	TechReactorAI/Barracks=W
-	TechReactorAI/Factory=W
-	TechReactorAI/Starport=W
-	Tempest/Stargate=K
-	TempestRangeUpgrade/FleetBeacon=W
-	TemplarArchive/Probe=H
-	TemporalField/Mothership=H
-	TemporalField/MothershipCore=H
-	TerranBuild/SCV=Apostrophe
-	TerranBuildAdvanced/SCV=Slash
-	TerranInfantryArmorLevel1/EngineeringBay=I
-	TerranInfantryArmorVanadiumPlatingLevel1/EngineeringBay=I
-	TerranInfantryArmorVanadiumPlatingLevel2/EngineeringBay=I
-	TerranInfantryArmorVanadiumPlatingLevel3/EngineeringBay=I
-	TerranInfantryWeaponsLevel1/EngineeringBay=J
-	TerranInfantryWeaponsUltraCapacitorsLevel1/EngineeringBay=J
-	TerranInfantryWeaponsUltraCapacitorsLevel2/EngineeringBay=J
-	TerranInfantryWeaponsUltraCapacitorsLevel3/EngineeringBay=J
-	TerranShipPlatingLevel1/Armory=I
-	TerranShipPlatingVanadiumPlatingLevel1/Armory=I
-	TerranShipPlatingVanadiumPlatingLevel2/Armory=I
-	TerranShipPlatingVanadiumPlatingLevel3/Armory=I
-	TerranShipWeaponsLevel1/Armory=J
-	TerranShipWeaponsUltraCapacitorsLevel1/Armory=J
-	TerranShipWeaponsUltraCapacitorsLevel2/Armory=J
-	TerranShipWeaponsUltraCapacitorsLevel3/Armory=J
-	TerranVehicleAndShipPlatingLevel1/Armory=I
-	TerranVehiclePlatingLevel1/Armory=K
-	TerranVehiclePlatingVanadiumPlatingLevel1/Armory=K
-	TerranVehiclePlatingVanadiumPlatingLevel2/Armory=K
-	TerranVehiclePlatingVanadiumPlatingLevel3/Armory=K
-	TerranVehicleWeaponsLevel1/Armory=Slash
-	TerranVehicleWeaponsUltraCapacitorsLevel1/Armory=Slash
-	TerranVehicleWeaponsUltraCapacitorsLevel2/Armory=Slash
-	TerranVehicleWeaponsUltraCapacitorsLevel3/Armory=Slash
-	TheMorosDevice/Raynor=Comma
-	Thor/Factory=8
-	TimeWarp/Nexus=K
-	TornadoMissile/WarHound=I
-	TossGrenade/Raynor=I
-	TossGrenadeTychus/TychusCommando=I
-	Transfusion/Queen=Slash
-	Transfusion/Queen2=Slash
-	TransportMode/WarpPrism=Slash
-	TwilightCouncil/Probe=Slash
-	Ultralisk/Larva=N
-	UltraliskCavern/Drone=K
-	UltrasonicPulse/Spectre=I
-	Unsiege=H
-	UpgradeBuildingArmorLevel1/EngineeringBay=Slash
-	UpgradeToPlanetaryFortress/CommandCenter=K
-	UpgradeToWarpGate/Gateway=Slash
-	VikingFighter/Starport=J
-	Viper/Larva=Comma
-	Viper/MutaliskViper=Slash
-	ViperConsume/Viper=Slash
-	ViperConsumption/Viper=Slash
-	VoidRay/Stargate=Slash
-	VoidRayHallucination/Sentry=8
-	VoidRaySwarmDamageBoost/VoidRay=I
-	VoidSiphon/Oracle=R
-	VoodooShield/Tosh=Slash
-	Vortex/Artanis=Slash
-	Vortex/Mothership=Slash
-	VortexKO/Mothership=Slash
-	Vulture/Factory=I
-	WarHound/Factory=C
-	WarpInScout/Stargate=E
-	WarpPrism/RoboticsFacility=J
-	WarpPrismHallucination/Sentry=Apostrophe
-	WeaponsFree/Ghost=N
-	WidowMine/Factory=I
-	WidowMineAttack/WidowMine=Comma
-	WidowMineBurrow/WidowMine=I
-	WidowMineUnburrow/WidowMine=H
-	WildMutation/K5Kerrigan=Comma
-	WildMutation/K5KerriganBurrowed=R
-	Wraith/Starport=U
-	WraithCloak/StarportTechLab=W
-	WraithCloak/StarportTechReactor=W
-	WraithCloakOff/Wraith=M
-	WraithCloakOn/Wraith=H
-	YamatoGun=I
-	Zealot=J
-	ZealotHallucination/Sentry=Comma
-	ZeratulBlink/Zeratul=I
-	ZeratulStun/Zeratul=Slash
-	ZergBuild/Drone=Apostrophe
-	ZergBuildAdvanced/Drone=Slash
-	Zergling/Larva=J
-	hydraliskspeed/HydraliskDen=I
-	overlordspeed=M
-	zergflyerarmor1=I
-	zergflyerattack1=J
-	zerggroundarmor1/EvolutionChamber=I
-	zerglingattackspeed/SpawningPool=I
-	zerglingmovementspeed/SpawningPool=J
-	zergmeleeweapons1/EvolutionChamber=Slash
-	zergmissileweapons1/EvolutionChamber=J
-	'''
+		MinimapPing:
+			hotkeyCode: "MinimapPing"
+			displayText: "Minimap Ping"
 
-	loadHotkeys =(file) ->
-		window = {} unless window
+		MinimapTerrain:
+			hotkeyCode: "MinimapTerrain"
+			displayText: "Minimap Terrain"
 
-		parseHotkeys =(keyText)->
-			map = {}
-			for line in keyText.split '\n'
-				continue unless m = line.match /([\w\/]+)=([\w\+]+)/
-				map[m[1]] = m[2]
-			map
+		PauseGame:
+			hotkeyCode: "PauseGame"
+			displayText: "Pause Game"
 
-		invert =(o)->
-			i = []
-			for k, v of o
-				i[v] or= []
-				i[v].push k
-			i
+		QuickPing:
+			hotkeyCode: "QuickPing"
+			displayText: "Quick Ping"
 
-		raceCommands = window.raceCommands =
-			Terran:
-				buildings: {
-					'CommandCenter'
-					'OrbitalCommand'
-					'PlanetaryFortress'
-					'SupplyDepot'
-					'SupplyDepotLowered':'SupplyDepot'
-					'Barracks'
-					'BarracksFlying':'Barracks'
-					'BarracksTechLab'
-					'BarracksTechReactor':'BarracksTechLab'
-					'Bunker'
-					'MissileTurret'
-					'EngineeringBay'
-					'Factory'
-					'FactoryFlying':'Factory'
-					'FactoryTechLab'
-					'FactoryTechReactor':'FactoryTechLab'
-					'Starport'
-					'StarportFlying':'Starport'
-					'StarportTechLab'
-					'StarportTechReactor':'StarportTechLab'
-					'Armory'
-					'GhostAcademy'
-					'FusionCore'
-					'SensorTower'
-				}
-				units: {
-					'SCV'
-					'SCVBuildBasic'
-					'SCVBuildAdvanced'
-					'Marine'
-					'Marauder'
-					'Reaper'
-					'Ghost'
-					'WidowMine'
-					'Hellion'
-					'SiegeTank'
-					'SiegeTankSieged':'SiegeTank'
-					'Thor'
-					'Viking'
-					'Raven'
-					'Medivac'
-					'Medivac2':'Medivac'
-					'Battlecruiser'
-				}
-			Zerg:
-				buildings: {
-					'Hatchery'
-					'Lair'
-					'Hive'
-					'SpineCrawler'
-					'SporeCrawler'
-					'SpawningPool'
-					'RoachWarren'
-					'EvolutionChamber'
-					'HydraliskDen'
-					'InfestationPit'
-					'UltraliskCavern'
-					'BanelingNest'
-					'Spire'
-					'GreaterSpire'
-					'NydusNetwork'
-					'CreepTumor'
-					'CreepTumorBurrowed':'CreepTumor'
-				}
-				units: {
-					'Larva'
-					'Egg'
-					'Drone'
-					'DroneBuildBasic'
-					'DroneBuildAdvanced'
-					'Overlord'
-					'Zergling'
-					'Zergling2':'Zergling'
-					'Roach'
-					'Queen'
-					'Queen2':'Queen'
-					'SpineCrawlerUprooted'
-					'SporeCrawlerUprooted'
-					'Baneling'
-					'baneling':'Baneling'
-					'baneling2':'Baneling'
-					'BanelingBurrowed':'Baneling'
-					'Ultralisk'
-					'Hydralisk'
-					'HydraliskImpaler':'Hydralisk'
-					'HydraliskLurker':'Hydralisk'
-					'Infestor'
-					'Infestor2':'Infestor'
-					'InfestorBurrowed':'Infestor'
-					'SwarmHost'
-					'SwarmHostMP':'SwarmHost'
-					'SwarmHostSplitB':'SwarmHost'
-					'SwarmHostSplitA':'SwarmHost'
-					'SwarmHostSplitABurrowed':'SwarmHost'
-					'SwarmHostSplitARooted':'SwarmHost'
-					'SwarmHostBurrowed':'SwarmHost'
-					'SwarmHostRooted':'SwarmHost'
-					'SwarmHostSplitBBurrowed':'SwarmHost'
-					'SwarmHostSplitBRooted':'SwarmHost'
-					'SwarmHostBurrowedMP':'SwarmHost'
-					'Viper'
-					'Corruptor'
-					'Overseer'
-				}
-			Protoss:
-				buildings: {
-					'Nexus'
-					'Gateway'
-					'WarpGate':'Gateway'
-					'Forge'
-					'PhotonCannon'
-					'CyberneticsCore'
-					'RoboticsFacility'
-					'RoboticsBay'
-					'Stargate'
-					'TwilightCouncil'
-					'TemplarArchive'
-					'FleetBeacon'
-				}
-				units: {
-					'Probe'
-					'ProbeBuildBasic'
-					'ProbeBuildAdvanced'
-					'Zealot'
-					'Stalker'
-					'HighTemplar'
-					'DarkTemplar'
-					'Oracle'
-					'MothershipCore'
-					'Phoenix'
-					'WarpPrism'
-					'Sentry'
-					'Sentry2':'Sentry'
-					'VoidRay'
-					'Carrier'
-					'Mothership'
-				}
+		QuickSave:
+			hotkeyCode: "QuickSave"
+			displayText: "Quick Save"
+			if: -> @campaign
 
-		raceMap = window.raceMap = {}
+		ReplayPlayPause:
+			hotkeyCode: "ReplayPlayPause"
+			displayText: "Replay Play Pause"
+			if: -> @replay
 
-		for race, kinds of raceCommands
-			for kind, units of kinds
-				for unit, proxy of units
-					units[unit] = {} if unit is proxy
-					raceMap[unit] = [race, kind, proxy]
+		ReplayRestart:
+			hotkeyCode: "ReplayRestart"
+			displayText: "Replay Restart"
+			if: -> @replay
 
-		unmappedCommands = window.unmappedCommands =
-			AWrp: ['HighTemplar']
-			ArmorpiercingMode: ['Thor']
-			AssaultMode: ['Viking']
-			Attack: ['units','MissileTurret','Bunker','PlanetaryFortress','PhotonCannon','SpineCrawler','SporeCrawler']
-			BunkerLoad: ['Bunker']
-			BunkerUnloadAll: ['Bunker']
-			BurrowDown: ['Hydralisk']
-			BurrowHydraliskImpalerDown: ['Hydralisk']
-			BurrowHydraliskImpalerUp: ['Hydralisk']
-			BurrowHydraliskLurkerDown: ['Hydralisk']
-			BurrowHydraliskLurkerUp: ['Hydralisk']
-			BurrowUp: ['Hydralisk']
-			Cancel: ['units', 'buildings']
-			CloakOff: ['Banshee', 'Ghost']
-			CloakOnBanshee: ['Banshee', 'Ghost']
-			CommandCenterLoad: ['CommandCenter']
-			CommandCenterUnloadAll: ['CommandCenter']
-			DarkTemplar: ['Gateway']
-			EvolveVentralSacks: ['Hatchery']
-			ExplosiveMode: ['Thor']
-			FighterMode: ['Viking']
-			GatherProt: ['Probe']
-			Halt: ['units']
-			HighTemplar: ['Gateway']
-			ImpalerBurrowDown: ['Impaler']
-			ImpalerBurrowUp: ['Impaler']
-			Land: ['Terran buildings']
-			Larva: ['Queen']
-			Lift: ['Terran buildings']
-			LurkerBurrowDown: ['Lurker']
-			LurkerBurrowUp: ['Lurker']
-			Move: ['units']
-			MoveHoldPosition: ['units']
-			MovePatrol: ['units']
-			Queen: ['Larva']
-			Rally: ['Buildings']
-			RallyEgg: ['Egg']
-			Repair: ['SCV']
-			ResearchBurrow: ['Hatchery']
-			ReturnCargo: ['SCV', 'Probe', 'Drone']
-			SCV: ['CommandCenter', 'PlanetaryFortress', 'OrbitalCommand']
-			SelectBuilder: ['Buildings']
-			Sentry: ['Stargate']
-			SiegeMode: ['SiegeTank']
-			Stalker: ['Gateway']
-			Stim: ['Marine', 'Marauder']
-			Stop: ['units']
-			SwarmHostBurrowDown: ['SwarmHost']
-			SwarmHostBurrowUp: ['SwarmHost']
-			Unsiege: ['SiegeTank']
-			YamatoGun: ['Battlecruiser']
-			Zealot: ['Gateway']
-			overlordspeed: ['Hatchery']
-			zergflyerarmor1: ['Spire', 'GreaterSpire']
-			zergflyerattack1: ['Spire', 'GreaterSpire']
+		ReplaySkipBack:
+			hotkeyCode: "ReplaySkipBack"
+			displayText: "Replay Skip Back"
+			if: -> @replay
 
-		pseudoUnits = window.pseudoUnits = [
-			'SCVBuildBasic'
-			'SCVBuildAdvanced'
-			'ProbeBuildBasic'
-			'ProbeBuildAdvanced'
-			'DroneBuildBasic'
-			'DroneBuildAdvanced'
-		]
+		ReplaySkipNext:
+			hotkeyCode: "ReplaySkipNext"
+			displayText: "Replay Skip Next"
 
-		commandUnits = window.commandUnits =
-			OrbitalCommand: [
-				'CalldownMULE'
-				'Scan'
-			]
-			SCVBuildBasic: [
-				'CommandCenter'
-				'SupplyDepot'
-				'Barracks'
-				'Refinery'
-				'EngineeringBay'
-				'Bunker'
-				'MissileTurret'
-				]
-			SCVBuildAdvanced: [
-				'SensorTower'
-				'Factory'
-				'GhostAcademy'
-				'FusionCore'
-				'Starport'
-				'Armory'
-				]
-			ProbeBuildBasic: [
-				'Nexus'
-				'Pylon '
-				'Assimilator'
-				'Gateway'
-				'Forge'
-				'PhotonCannon'
-				'CyberneticsCore'
-				]
-			ProbeBuildAdvanced: [
-				'TwilightCouncil'
-				'RoboticsFacility'
-				'Stargate'
-				'TemplarArchives'
-				'DarkShrine'
-				'RoboticsBay'
-				'FleetBeacon'
-				]
-			DroneBuildBasic: [
-				'Hatchery'
-				'Extractor'
-				'SpawningPool'
-				'EvolutionChamber	'
-				'SpineCrawler'
-				'SporeCrawler'
-				'RoachWarren'
-				]
-			DroneBuildAdvanced: [
-				'BanelingNest'
-				'HydraliskDen'
-				'InfestationPit'
-				'Spire'
-				'NydusNetwork'
-				'UltraliskCavern'
-				]
+		ReplaySpeedDec:
+			hotkeyCode: "ReplaySpeedDec"
+			displayText: "Replay Speed Dec"
+			if: -> @replay
 
-		campaignCommands = [
-			'MorphMorphalisk'
-			'CinematicSkip'
-			'SupplyDepotDrop'
-			'Medic'
-			'Firebat'
-			'TechReactor'
-			'MercMedic'
-			'MercReaper'
-			'HireDevilDogs'
-			'HireKelmorianMiners'
-			'HireHammerSecurities'
-			'HireSiegeBreakers'
-			'HireHelsAngels'
-			'HireDuskWing'
-			'HireDukesRevenge'
-			'MengskUnits'
-			'Spectre'
-			'Predator'
-			'Goliath'
-			'WarHound'
-			'TechReactorAI'
-			'HireHammerSecurities'
-			'CampaignVehicles'
-			'MercHellion'
-			'MercReaper'
-			'MercMedic'
-			'MercCompound'
-			'MercMedicHeal'
-			'MicroBot'
-			'BuildHercules'
-			'HireSpartanCompany'
-			'SpectreWeaponsFree'
-			'SpectreNukeCalldown'
-			'SpectreNukeArm'
-			'SpectreHoldFire'
-			'WraithCloak'
-			'WraithCloakOn'
-			'WraithCloakOff'
-			'ShapedBlast'
-			'JackhammerConcussionGrenade'
-			'ImmortalityProtocol'
-			'EvolveOrganicCarapace'
-			'RespawnZergling'
-			'EvolvePeristalsis'
-			'AutomatedRefinery'
-			'AutomatedExtractor'
-			'PerditionTurret'
-			'PsiDisruptor'
-			'HiveMindEmulator'
-			'EvolveAnabolicSynthesis2'
-			'MorphToSwarmHostSplitB'
-			'MorphToSwarmHostSplitA'
-			'DeepTunnel'
-			'HydraliskFrenzy'
-			'WarpInScout'
-			'TempestRangeUpgrade'
-			'ResearchVoidRaySpeedUpgrade'
-			'VoidSiphon'
-			'PhaseShield'
-			'ResourceStun'
-			'CommandCenterOrbRelay'
-			'D8Charge'
-			'ArmorpiercingMode'
-			'DefensiveMatrix'
-			'MissilePods'
-			'Wraith'
-			'ResearchSiegeTech'
-			'ResearchSiegeTank'
-		]
+		ReplaySpeedInc:
+			hotkeyCode: "ReplaySpeedInc"
+			displayText: "Replay Speed Inc"
+			if: -> @replay
 
-		unitCommandMap = window.unitCommandMap = {}
-		for unit, commands of commandUnits
-			unitCommandMap[command] = unit for command in commands
+		ReplayStop:
+			hotkeyCode: "ReplayStop"
+			displayText: "Replay Stop"
+			if: -> @replay
 
-		return unless file
+		ReplayHide:
+			hotkeyCode: "ReplayHide"
+			displayText: "Replay Hide"
+			if: -> @replay
 
-		hotkeyText = file.match(/\[Hotkeys\]([^\[]+)(\[|$)/)[1]
-		commandsText = file.match(/\[Commands\]([^\[]+)(\[|$)/)[1]
+		SelectionCancelDrag:
+			hotkeyCode: "SelectionCancelDrag"
+			displayText: "Selection Cancel Drag"
+			if: -> @dragging
 
-		globalHotkeys = window.globalHotkeys = parseHotkeys hotkeyText
-		globalHotkeys['Select'] = 'LeftMouseButton'
-		globalHotkeys['Interact'] = 'RightMouseButton'
-		delete globalHotkeys[exile] for exile in campaignCommands
-		commandHotkeys = window.commandHotkeys = parseHotkeys commandsText
+		StatusAll:
+			hotkeyCode: "StatusAll"
+			displayText: "Status All"
 
-		hotkeyMap = window.hotkeyMap = invert globalHotkeys
-		commandKeyMap = window.commandKeyMap = invert commandHotkeys
-		for command, key of commandHotkeys
-			m = command.match /^(\w+)(\/(\w+))?$/
-			[_, command, _, unit] = m
-			continue if command in campaignCommands
-			units = unless unit
-				unmappedCommands[command] or []
-			else if unitCommandMap[command]
-				[unitCommandMap[command]]
-			else
-				[unit]
+		StatusOwner:
+			hotkeyCode: "StatusOwner"
+			displayText: "Status Owner"
 
-			for unit in units
-				if unit in ['buildings', 'units']
-					for race, kinds of raceCommands
-						for unitName, unitCommands of kinds[unit]
-							unitCommands[command] = key if typeof unitCommands is 'object' and unitName not in pseudoUnits
-				else if unit is 'Terran buildings'
-					for unitName, unitCommands of raceCommands.Terran.buildings
-						unitCommands[command] = key if typeof unitCommands is 'object'
-				else if raceMap[unit]
-					[race, kind, name] = raceMap[unit]
-					unitCommands = raceCommands[race][kind][name]
-					unitCommands[command] = key
+		StatusAlly:
+			hotkeyCode: "StatusAlly"
+			displayText: "Status Ally"
+
+		StatusEnemy:
+			hotkeyCode: "StatusEnemy"
+			displayText: "Status Enemy"
+
+		SubgroupNext:
+			hotkeyCode: "SubgroupNext"
+			displayText: "Subgroup Next"
+
+		SubgroupPrev:
+			hotkeyCode: "SubgroupPrev"
+			displayText: "Subgroup Prev"
+
+		TeamResources:
+			hotkeyCode: "TeamResources"
+			displayText: "Team Resources"
+
+		TownCamera:
+			hotkeyCode: "TownCamera"
+			displayText: "Town Camera"
+
+		Select:
+			hotkeyCode: "Select"
+			displayText: "Select"
+		Interact:
+			hotkeyCode: "Interact"
+			displayText: "Interact"
+
+	unit:
+		movement:
+			Move:
+				displayText: 'Move'
+				icon: 'Move.png'
+				if: -> not (@buildCard or @hallucinateCard or @rooted or @burrowed or @sieged)
+			HoldPosition:
+				hotkeyCode: 'MoveHoldPosition'
+				displayText: 'Hold Position'
+				icon: 'HoldPosition.png'
+				if: -> not (@buildCard or @hallucinateCard or @rooted or @burrowed or @sieged)
+			Patrol:
+				hotkeyCode: 'MovePatrol'
+				displayText: 'Patrol'
+				icon: 'Patrol.png'
+				if: -> not (@buildCard or @hallucinateCard or @rooted or @burrowed or @sieged)
+			Stop:
+				displayText: 'Stop'
+				icon: 'Stop.png'
+				if: -> not (@buildCard or @hallucinateCard or @rooted or @burrowed or @sieged)
+		cancel:
+			Cancel:
+				displayText: 'Cancel'
+				icon: 'Cancel.png'
+		burrow:
+			BurrowDown:
+				icon: 'BurrowDown.png'
+				hotkeyCode: 'BurrowDown'
+				displayText: 'Burrow'
+				if: -> not @burrowed
+				on: -> @burrowed = yes
+			BurrowUp:
+				icon: 'BurrowUp.png'
+				hotkeyCode: 'BurrowUp'
+				displayText: 'Unburrow'
+				if: -> @burrowed
+				on: -> @burrowed = no
+	building:
+		flying:
+			Liftoff:
+				icon: 'Lift.png'
+				hotkeyCode: 'Lift'
+				displayText: 'Lift Off'
+				if: -> @upgrade isnt 'PlanetaryFortress' and not @lifted
+				on: -> @lifted = yes
+			Land:
+				icon: 'Land.png'
+				hotkeyCode: 'Land'
+				displayText: 'Land Building'
+				if: -> @lifted
+				on: -> @lifted = no
+			Move:
+				displayText: 'Move'
+				icon: 'Move.png'
+				if: -> @lifted
+			Stop:
+				displayText: 'Stop'
+				icon: 'Stop.png'
+				if: -> @lifted
+
+		combat:
+			Attack:
+				displayText: 'Attack'
+				icon: 'Attack.png'
+				if: -> not (@buildCard or @hallucinateCard)
+
+for n in [0..9]
+	commandCards.global["ControlGroupRecall#{n}"] =
+		hotkeyCode: "ControlGroupRecall#{n}"
+		keyCap: "#{n}"
+		displayText: "Select Group #{n}"
+		on: (->@select @controlGroup[N]).toString().replace(/N/, n.toString())
+
+for n in [0..9]
+	commandCards.global["ControlGroupAppend#{n}"] =
+		hotkeyCode: "ControlGroupAppend#{n}"
+		keyCap: "#{n}"
+		displayText: "Add Selection to Group #{n}"
+		on: (->@controlGroup[N] = @currentUnit).toString().replace(/N/, n.toString())
+
+for n in [0..9]
+	commandCards.global["ControlGroupAssign#{n}"] =
+		hotkeyCode: "ControlGroupAssign#{n}"
+		keyCap: "#{n}"
+		displayText: "Set Group #{n} to Selection"
+		on: (->@controlGroup[N] = @currentUnit).toString().replace(/N/, n.toString())
+
+for n in [0..15]
+	commandCards.global["ObservePlayer#{n}"] =
+			hotkeyCode: "ObservePlayer#{n}"
+			displayText: "Observe Player #{n}"
+
+for n in [0..7]
+	commandCards.global["CameraSave#{n}"] =
+			hotkeyCode: "CameraSave#{n}"
+			keyCap: "#{n}"
+			displayText: "Save Camera #{n}"
+
+for n in [0..7]
+	commandCards.global["CameraView#{n}"] =
+			hotkeyCode: "CameraView#{n}"
+			keyCap: "#{n}"
+			displayText: "Go to Camera #{n}"
+
+raceCards =
+	Protoss:
+		units:
+			Probe:
+				icon: "probe.jpg"
+				displayText: "Probe"
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					Cancel:
+						displayText: 'Cancel'
+						icon: 'Cancel.png'
+						on: -> @buildCard = null
+						if: -> @buildCard
+					Gather:
+						icon: "Gather.png"
+						hotkeyCode: "GatherProt"
+						displayText: "Gather"
+						if: -> not @buildCard
+
+					BuildBasic:
+						displayText: 'Build Basic'
+						hotkeyCode: 'ProtossBuild/Probe'
+						icon: 'Build.png'
+						on: -> @buildCard = 'basic'
+						if: -> not @buildCard
+
+					BuildPylon:
+						icon: "pylon.jpg"
+						hotkeyCode: "Pylon/Probe"
+						displayText: "Pylon"
+						if: -> @buildCard is 'basic'
+
+					BuildAssimilator:
+						icon: "assimilator.jpg"
+						hotkeyCode: "Assimilator/Probe"
+						displayText: "Build Assimilator"
+						if: -> @buildCard is 'basic'
+
+					BuildCyberneticsCore:
+						icon: "cyberneticscore.jpg"
+						hotkeyCode: "CyberneticsCore/Probe"
+						displayText: "Build Cybernetics Core"
+						if: -> @buildCard is 'basic'
+
+					BuildForge:
+						icon: "forge.jpg"
+						hotkeyCode: "Forge/Probe"
+						displayText: "Build Forge"
+						if: -> @buildCard is 'basic'
+
+					BuildGateway:
+						icon: "gateway.jpg"
+						hotkeyCode: "Gateway/Probe"
+						displayText: "Build Gateway"
+						if: -> @buildCard is 'basic'
+
+					BuildNexus:
+						icon: "nexus.jpg"
+						hotkeyCode: "Nexus/Probe"
+						displayText: "Build Nexus"
+						if: -> @buildCard is 'basic'
+
+					BuildPhotonCannon:
+						icon: "photoncannon.jpg"
+						hotkeyCode: "PhotonCannon/Probe"
+						displayText: "Build Photon Cannon"
+						if: -> @buildCard is 'basic'
+
+					BuilAdvanced:
+						displayText: 'Build Advanced'
+						hotkeyCode: 'ProtossBuildAdvanced/Probe'
+						icon: 'BuildAdvanced.png'
+						on: -> @buildCard = 'advanced'
+						if: -> not @buildCard
+
+					BuildDarkShrine:
+						icon: "darkshrine.jpg"
+						hotkeyCode: "DarkShrine/Probe"
+						displayText: "Build Dark Shrine"
+						if: -> @buildCard is 'advanced'
+
+					BuildFleetBeacon:
+						icon: "fleetbeacon.jpg"
+						hotkeyCode: "FleetBeacon/Probe"
+						displayText: "Build Fleet Beacon"
+						if: -> @buildCard is 'advanced'
+
+					BuildRoboticsBay:
+						icon: "RoboticsBay.jpg"
+						hotkeyCode: "RoboticsBay/Probe"
+						displayText: "Build Robotics Bay"
+						if: -> @buildCard is 'advanced'
+
+					BuildRoboticsFacility:
+						icon: "RoboticsFacility.jpg"
+						hotkeyCode: "RoboticsFacility/Probe"
+						displayText: "Build Robotics Facility"
+						if: -> @buildCard is 'advanced'
+
+					BuildStargate:
+						icon: "Stargate.jpg"
+						hotkeyCode: "Stargate/Probe"
+						displayText: "Build Stargate"
+						if: -> @buildCard is 'advanced'
+
+					BuildTwilightCouncil:
+						icon: "TwilightCouncil.jpg"
+						hotkeyCode: "TwilightCouncil/Probe"
+						displayText: "Build Twilight Council"
+						if: -> @buildCard is 'advanced'
+
+					BuildTemplarArchive:
+						icon: "TemplarArchive.jpg"
+						hotkeyCode: "TemplarArchive/Probe"
+						displayText: "Build Templar Archive"
+						if: -> @buildCard is 'advanced'
+
+					ReturnCargo:
+						icon: "ReturnCargo.png"
+						hotkeyCode: "ReturnCargo"
+						displayText: "Return Cargo"
+						if: -> not @buildCard
 
 
-	do loadHotkeys
-	#
-
-	commandDisplayMap =
-		HellionTank: 'Hellbat'
-	commandDisplayName =(command)->
-		if m = command.match /(ControlGroup|Camera)\w+(\d)/
-			m[2]
-		else
-			commandDisplayMap[command] or command.replace /([a-z])([A-Z])/g, "$1 $2"
-
-	commandClassMap = {}
-	commandClass =(command)->
-		if m = command.match /((ControlGroup|Camera)\w+)\d/
-			m[1]
-		else
-			commandClassMap[command] or command
-
-	#
-
-	keyboards =
-		'US QWERTY': [
-			{'ESC', '_0', 'F1', 'F2', 'F3', 'F4','_1':0.5, 'F5', 'F6', 'F7', 'F8','_2':0.5, 'F9', 'F10', 'F11', 'F12'}
-			{}
-			{'`', '1 ', '2 ', '3 ', '4 ', '5 ', '6 ', '7 ', '8 ', '9 ', '0 ', '-', '=', 'BACKSPACE':2}
-			{'TAB':1.5 ,'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\':1.5}
-			{'CAPS':1.75, 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'ENTER':2.25}
-			{'SHIFT L':2.25, 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'SHIFT R':2.75}
-			{'CTRL L':1.5,'WIN L','ALT L':1.5,'SPACE':6,'ALT R':1.5,'WIN R','MENU','CTRL R':1.5}
-		]
-		'US Dvorak': [
-			{'ESC', '_0', 'F1', 'F2', 'F3', 'F4','_1':0.5, 'F5', 'F6', 'F7', 'F8','_2':0.5, 'F9', 'F10', 'F11', 'F12'}
-			{}
-			{'`', '1 ', '2 ', '3 ', '4 ', '5 ', '6 ', '7 ', '8 ', '9 ', '0 ', '[', ']', 'BACKSPACE':2}
-			{'TAB':1.5 ,'\'', ',', '.', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', '/', '=', '\\':1.5}
-			{'CAPS':1.75, 'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', '-', 'ENTER':2.25}
-			{'SHIFT L':2.25, ';', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z', 'SHIFT R':2.75}
-			{'CTRL L':1.5,'WIN L','ALT L':1.5,'SPACE':6,'ALT R':1.5,'WIN R','MENU','CTRL R':1.5}
-		]
-	keyCodeMaps =
-		'US QWERTY': {27:'ESC',9:'TAB',16:'SHIFT',17:'CTRL',18:'ALT',32:'SPACE',13:'ENTER',46:'BACKSPACE',"48":"0","49":"1","50":"2","51":"3","52":"4","53":"5","54":"6","55":"7","56":"8","57":"9",59:';',"65":"a","66":"b","67":"c","68":"d","69":"e","70":"f","71":"g","72":"h","73":"i","74":"j","75":"k","76":"l","77":"m","78":"n","79":"o","80":"p","81":"q","82":"r","83":"s","84":"t","85":"u","86":"v","87":"w","88":"x","89":"y","90":"z","186":";","187":"=","188":",","189":"-","190":".","191":"/","192":"`","219":"[","220":"\\","221":"]","222":"'",112:'F1',113:'F2',114:'F3',115:'F4',116:'F5',117:'F6',118:'F7',119:'F8',120:'F9',121:'F10',122:'F11',123:'F12'}
-	keyCodeMaps['US Dvorak'] = keyCodeMaps['US QWERTY']
-
-	for keyboard in keyboards
-		for row in keyboard
-			for key, size of row
-				row[key] = 1 if typeof size is 'string'
-
-	String.prototype.repeat = (n)-> if n then new Array( n + 1 ).join(this) else ''
-	String.prototype.trim = -> @replace /(^\s+|\s+$)/g, ''
-
-	touch =->text '&nbsp;'
+			Zealot:
+				icon: "zealot.jpg"
+				displayText: "Zealot"
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					Charge:
+						icon: "Charge.png"
+						hotkeyCode: "Charge/Zealot"
+						displayText: "Charge"
 
 
-	classKeyMap =
-		Apostrophe: '\''
-		SemiColon: ';'
-		Slash: '/'
-		Comma: ','
-		Grave: '`'
-		BracketClose: ']'
-		BracketOpen: '['
-		CapsLock: 'CAPS'
-		Control: 'CTRL'
-		Shift: 'SHIFT'
-		Alt: 'ALT'
-		Windows: 'WIN'
-		Menu: 'MENU'
-		Space: 'SPACE'
-		Period: '.'
-		Minus: '-'
-		Equals: '='
-		Backslash: '\\'
-		Tab: 'TAB'
+			Stalker:
+				icon: "stalker.jpg"
+				displayText: "Stalker"
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					Blink:
+						icon: "Blink.png"
+						hotkeyCode: "Blink/Stalker"
+						displayText: "Blink"
 
-	keyClassMap = {}
-	keyClassMap[v] = k for k, v of classKeyMap
-	keyClass = (key)-> if voidKey key then 'void' else keyClassMap[(key or '').split(' ')[0]] or (key or '').trim()
+			HighTemplar:
+				icon: "hightemplar.jpg"
+				displayText: "High Templar"
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					AWrp:
+						icon: "AWrp.png"
+						hotkeyCode: "AWrp"
+						displayText: "Archon Warp"
+
+					Feedback:
+						icon: "Feedback.png"
+						hotkeyCode: "Feedback/HighTemplar"
+						displayText: "Feedback"
+
+					PsiStorm:
+						icon: "PsiStorm.png"
+						hotkeyCode: "PsiStorm/HighTemplar"
+						displayText: "Psi Storm"
+
+			DarkTemplar:
+				icon: "darktemplar.jpg"
+				displayText: "Dark Templar"
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+
+			Oracle:
+				icon: "oracle.jpg"
+				displayText: "Oracle"
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					LightofAiur:
+						icon: "Envision.png"
+						hotkeyCode: "LightofAiur/Oracle"
+						displayText: "Lightof Aiur"
+
+					OracleRevelation:
+						icon: "OracleRevelation.png"
+						hotkeyCode: "OracleRevelation/Oracle"
+						displayText: "Oracle Revelation"
+
+					OracleWeaponOff:
+						icon: "OracleWeaponOff.png"
+						hotkeyCode: "OracleWeaponOff/Oracle"
+						displayText: "Oracle Weapon Off"
+
+					OracleWeaponOn:
+						icon: "OracleWeaponOn.png"
+						hotkeyCode: "OracleWeaponOn/Oracle"
+						displayText: "Oracle Weapon On"
+
+			MothershipCore:
+				icon: "mothershipcore.jpg"
+				displayText: "Mothership Core"
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					MassRecall:
+						icon: "MassRecall.png"
+						hotkeyCode: "MassRecall/MothershipCore"
+						displayText: "Mass Recall"
+
+					MorphToMothership:
+						icon: "MorphToMothership.png"
+						hotkeyCode: "MorphToMothership/MothershipCore"
+						displayText: "Morph To Mothership"
+
+					MothershipCoreMassRecall:
+						icon: "MothershipCoreMassRecall.png"
+						hotkeyCode: "MothershipCoreMassRecall/MothershipCore"
+						displayText: "Mothership Core Mass Recall"
+
+					MothershipCoreWeapon:
+						icon: "MothershipCoreWeapon.png"
+						hotkeyCode: "MothershipCoreWeapon/MothershipCore"
+						displayText: "Mothership Core Weapon"
+
+					TemporalField:
+						icon: "TemporalField.png"
+						hotkeyCode: "TemporalField/MothershipCore"
+						displayText: "Temporal Field"
+
+			Phoenix:
+				icon: "phoenix.jpg"
+				displayText: "Phoenix"
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					GravitonBeam:
+						icon: "GravitonBeam.png"
+						hotkeyCode: "GravitonBeam/Phoenix"
+						displayText: "Graviton Beam"
+
+			WarpPrism:
+				icon: "warpprism.jpg"
+				displayText: "Warp Prism"
+				commands:
+					inherit: ['unit.movement']
+					PhasingMode:
+						icon: "PhasingMode.png"
+						hotkeyCode: "PhasingMode/WarpPrism"
+						displayText: "Phasing Mode"
+
+					TransportMode:
+						icon: "TransportMode.png"
+						hotkeyCode: "TransportMode/WarpPrism"
+						displayText: "Transport Mode"
+
+			Sentry:
+				icon: "sentry.jpg"
+				displayText: "Sentry"
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					Cancel:
+						icon: "Cancel.png"
+						hotkeyCode: "Cancel"
+						displayText: "Cancel"
+						if: -> @hallucinateCard
+						on: -> @hallucinateCard = no
+					ArchonHallucination:
+						icon: "ArchonHallucination.png"
+						hotkeyCode: "ArchonHallucination/Sentry"
+						displayText: "Archon Hallucination"
+						if: -> @hallucinateCard
+
+					ColossusHallucination:
+						icon: "ColossusHallucination.png"
+						hotkeyCode: "ColossusHallucination/Sentry"
+						displayText: "Colossus Hallucination"
+						if: -> @hallucinateCard
+
+					ForceField:
+						icon: "ForceField.png"
+						hotkeyCode: "ForceField/Sentry"
+						displayText: "Force Field"
+						if: -> not @hallucinateCard
+
+					GuardianShield:
+						icon: "GuardianShield.png"
+						hotkeyCode: "GuardianShield/Sentry"
+						displayText: "Guardian Shield"
+						if: -> not @hallucinateCard
+
+					Hallucination:
+						icon: "Hallucination.png"
+						hotkeyCode: "Hallucination/Sentry"
+						displayText: "Hallucination"
+						on: -> @hallucinateCard = yes
+						if: -> not @hallucinateCard
+
+					HighTemplarHallucination:
+						icon: "hightemplar.jpg"
+						hotkeyCode: "HighTemplarHallucination/Sentry"
+						displayText: "High Templar Hallucination"
+						if: -> @hallucinateCard
+
+					ImmortalHallucination:
+						icon: "immortal.jpg"
+						hotkeyCode: "ImmortalHallucination/Sentry"
+						displayText: "Immortal Hallucination"
+						if: -> @hallucinateCard
+
+					OracleHallucination:
+						icon: "oracle.jpg"
+						hotkeyCode: "OracleHallucination/Sentry"
+						displayText: "Oracle Hallucination"
+						if: -> @hallucinateCard
+
+					PhoenixHallucination:
+						icon: "phoenix.jpg"
+						hotkeyCode: "PhoenixHallucination/Sentry"
+						displayText: "Phoenix Hallucination"
+						if: -> @hallucinateCard
+
+					ProbeHallucination:
+						icon: "probe.jpg"
+						hotkeyCode: "ProbeHallucination/Sentry"
+						displayText: "Probe Hallucination"
+						if: -> @hallucinateCard
+
+					StalkerHallucination:
+						icon: "stalker.jpg"
+						hotkeyCode: "StalkerHallucination/Sentry"
+						displayText: "Stalker Hallucination"
+						if: -> @hallucinateCard
+
+					VoidRayHallucination:
+						icon: "voidray.jpg"
+						hotkeyCode: "VoidRayHallucination/Sentry"
+						displayText: "Void Ray Hallucination"
+						if: -> @hallucinateCard
+
+					WarpPrismHallucination:
+						icon: "warpprism.jpg"
+						hotkeyCode: "WarpPrismHallucination/Sentry"
+						displayText: "Warp Prism Hallucination"
+						if: -> @hallucinateCard
+
+					ZealotHallucination:
+						icon: "zealot.jpg"
+						hotkeyCode: "ZealotHallucination/Sentry"
+						displayText: "Zealot Hallucination"
+						if: -> @hallucinateCard
+
+			VoidRay:
+				icon: "voidray.jpg"
+				displayText: "Void Ray"
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					VoidRaySwarmDamageBoost:
+						icon: "prismatic_beams.png"
+						hotkeyCode: "VoidRaySwarmDamageBoost/VoidRay"
+						displayText: "Prismatic Alignment"
+
+			Carrier:
+				icon: "carrier.jpg"
+				displayText: "Carrier"
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					Interceptor:
+						icon: "Interceptor.png"
+						hotkeyCode: "Interceptor/Carrier"
+						displayText: "Interceptor"
+
+			Mothership:
+				icon: "mothership.jpg"
+				displayText: "Mothership"
+				commands:
+					inherit: ['unit.movement']
+					MassRecall:
+						icon: "MassRecall.png"
+						hotkeyCode: "MassRecall/Mothership"
+						displayText: "Mass Recall"
+
+					TemporalField:
+						icon: "TemporalField.png"
+						hotkeyCode: "TemporalField/Mothership"
+						displayText: "Temporal Field"
+
+					Vortex:
+						icon: "Vortex.png"
+						hotkeyCode: "Vortex/Mothership"
+						displayText: "Vortex"
+
+					VortexKO:
+						icon: "VortexKO.png"
+						hotkeyCode: "VortexKO/Mothership"
+						displayText: "Vortex KO"
+
+		buildings:
+			Nexus:
+				icon: "nexus.jpg"
+				displayText: "Nexus"
+				commands:
+					MothershipCore:
+						icon: "mothershipcore.jpg"
+						hotkeyCode: "MothershipCore/Nexus"
+						displayText: "Mothership Core"
+
+					Probe:
+						icon: "probe.jpg"
+						hotkeyCode: "Probe/Nexus"
+						displayText: "Probe"
+
+					TimeWarp:
+						icon: "ChronoBoost.png"
+						hotkeyCode: "TimeWarp/Nexus"
+						displayText: "Time Warp"
+
+			Gateway:
+				icon: "gateway.jpg"
+				displayText: "Gateway"
+				commands:
+					DarkTemplar:
+						icon: "darktemplar.jpg"
+						hotkeyCode: "DarkTemplar"
+						displayText: "Dark Templar"
+
+					HighTemplar:
+						icon: "hightemplar.jpg"
+						hotkeyCode: "HighTemplar"
+						displayText: "High Templar"
+
+					MorphBackToGateway:
+						icon: "gateway.jpg"
+						hotkeyCode: "MorphBackToGateway"
+						displayText: "Morph Back To Gateway"
+
+					Stalker:
+						icon: "stalker.jpg"
+						hotkeyCode: "Stalker"
+						displayText: "Stalker"
+
+					UpgradeToWarpGate:
+						icon: "warpgate.jpg"
+						hotkeyCode: "UpgradeToWarpGate/Gateway"
+						displayText: "Upgrade to Warp Gate"
+
+					Zealot:
+						icon: "zealot.jpg"
+						hotkeyCode: "Zealot"
+						displayText: "Zealot"
+
+			Forge:
+				icon: "forge.jpg"
+				displayText: "Forge"
+				commands:
+					ProtossGroundArmorLevel1:
+						icon: "ProtossGroundArmorLevel1.gif"
+						hotkeyCode: "ProtossGroundArmorLevel1/Forge"
+						displayText: "Protoss Ground Armor 1"
+
+					ProtossGroundWeaponsLevel1:
+						icon: "ProtossGroundWeaponsLevel1.gif"
+						hotkeyCode: "ProtossGroundWeaponsLevel1/Forge"
+						displayText: "Protoss Ground Weapons 1"
+
+					ProtossShieldsLevel1:
+						icon: "ProtossShieldsLevel1.gif"
+						hotkeyCode: "ProtossShieldsLevel1/Forge"
+						displayText: "Protoss Shields 1"
+
+			PhotonCannon:
+				icon: "photoncannon.jpg"
+				displayText: "Photon Cannon"
+				commands:
+					inherit: ['unit.combat']
+
+			CyberneticsCore:
+				icon: "cyberneticscore.jpg"
+				displayText: "Cybernetics Core"
+				commands:
+					ProtossAirArmorLevel1:
+						icon: "ProtossAirArmorLevel1.gif"
+						hotkeyCode: "ProtossAirArmorLevel1/CyberneticsCore"
+						displayText: "Protoss Air Armor Level1"
+
+					ProtossAirWeaponsLevel1:
+						icon: "ProtossAirWeaponsLevel1.gif"
+						hotkeyCode: "ProtossAirWeaponsLevel1/CyberneticsCore"
+						displayText: "Protoss Air Weapons Level1"
+
+					ResearchWarpGate:
+						icon: "ResearchWarpgate.gif"
+						hotkeyCode: "ResearchWarpGate/CyberneticsCore"
+						displayText: "Research Warp Gate"
+
+			RoboticsFacility:
+				icon: "roboticsfacility.jpg"
+				displayText: "Robotics Facility"
+				commands:
+					Colossus:
+						icon: "colossus.jpg"
+						hotkeyCode: "Colossus/RoboticsFacility"
+						displayText: "Colossus"
+
+					Immortal:
+						icon: "immortal.jpg"
+						hotkeyCode: "Immortal/RoboticsFacility"
+						displayText: "Immortal"
+
+					Observer:
+						icon: "observer.jpg"
+						hotkeyCode: "Observer/RoboticsFacility"
+						displayText: "Observer"
+
+					WarpPrism:
+						icon: "warpprism.jpg"
+						hotkeyCode: "WarpPrism/RoboticsFacility"
+						displayText: "Warp Prism"
+
+			RoboticsBay:
+				icon: "roboticsbay.jpg"
+				displayText: "Robotics Bay"
+				commands:
+					ResearchExtendedThermalLance:
+						icon: "ColossusRange.gif"
+						hotkeyCode: "ResearchExtendedThermalLance/RoboticsBay"
+						displayText: "Colossus Range"
+
+					ResearchGraviticBooster:
+						icon: "ObserverSpeed.gif"
+						hotkeyCode: "ResearchGraviticBooster/RoboticsBay"
+						displayText: "Observer Speed"
+
+					ResearchGraviticDrive:
+						icon: "WarpPrismSpeed.gif"
+						hotkeyCode: "ResearchGraviticDrive/RoboticsBay"
+						displayText: "Warp Prism Speed"
+
+			Stargate:
+				icon: "stargate.jpg"
+				displayText: "Stargate"
+				commands:
+					Carrier:
+						icon: "carrier.jpg"
+						hotkeyCode: "Carrier/Stargate"
+						displayText: "Carrier"
+
+					Oracle:
+						icon: "oracle.jpg"
+						hotkeyCode: "Oracle/Stargate"
+						displayText: "Oracle"
+
+					Phoenix:
+						icon: "phoenix.jpg"
+						hotkeyCode: "Phoenix/Stargate"
+						displayText: "Phoenix"
+
+					Sentry:
+						icon: "sentry.jpg"
+						hotkeyCode: "Sentry/Stargate"
+						displayText: "Sentry"
+
+					Tempest:
+						icon: "Tempest.png"
+						hotkeyCode: "Tempest/Stargate"
+						displayText: "Tempest"
+
+					VoidRay:
+						icon: "voidray.jpg"
+						hotkeyCode: "VoidRay/Stargate"
+						displayText: "Void Ray"
+
+			TwilightCouncil:
+				icon: "twilightcouncil.jpg"
+				displayText: "Twilight Council"
+				commands:
+					ResearchCharge:
+						icon: "Charge.png"
+						hotkeyCode: "ResearchCharge"
+						displayText: "Research Charge"
+
+					ResearchStalkerTeleport:
+						icon: "Blink.png"
+						hotkeyCode: "ResearchStalkerTeleport"
+						displayText: "Research Blink"
+
+			TemplarArchive:
+				icon: "templararchive.jpg"
+				displayText: "Templar Archive"
+				commands:
+					ResearchPsiStorm:
+						icon: "PsiStorm.png"
+						hotkeyCode: "ResearchPsiStorm"
+						displayText: "Research Psi Storm"
+
+			FleetBeacon:
+				icon: "fleetbeacon.jpg"
+				displayText: "Fleet Beacon"
+				commands:
+					AnionPulseCrystals:
+						icon: "AnionPulseCrystals.png"
+						hotkeyCode: "AnionPulseCrystals"
+						displayText: "Phoenix Range"
+
+					ResearchInterceptorLaunchSpeedUpgrade:
+						icon: "ResearchInterceptorLaunchSpeedUpgrade.png"
+						hotkeyCode: "ResearchInterceptorLaunchSpeedUpgrade"
+						displayText: "Interceptor Launch Speed"
+
+	Terran:
+		units:
+			SCV:
+				icon: 'scv.jpg'
+				displayText: 'SCV'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					Repair:
+						icon: 'Repair.png'
+						hotkeyCode: 'Repair/SCV'
+						displayText: 'Repair'
+						if: -> not @buildCard
+					ReturnCargo:
+						icon: 'ReturnCargo.png'
+						hotkeyCode: 'ReturnCargo/SCV'
+						displayText: 'Return Cargo'
+						if: -> not @buildCard
+					Build:
+						icon: 'Build.png'
+						hotkeyCode: 'TerranBuild/SCV'
+						displayText: 'Build Basic'
+						if: -> not @buildCard
+						on: -> @buildCard = 'basic'
+					BuildAdvanced:
+						icon: 'BuildAdvanced.png'
+						hotkeyCode: 'TerranBuildAdvanced/SCV'
+						displayText: 'Build Advanced'
+						if: -> not @buildCard
+						on: -> @buildCard = 'advanced'
+					Cancel:
+						icon: 'Cancel.png'
+						hotkeyCode: 'Cancel'
+						displayText: 'Cancel'
+						if: -> @buildCard
+						on: -> @buildCard = null
+
+					BuildBarracks:
+						icon: 'barracks.jpg'
+						hotkeyCode: 'Barracks/SCV'
+						displayText: 'Build Barracks'
+						if: -> @buildCard is 'basic'
+					BuildBunker:
+						icon: 'bunker.jpg'
+						hotkeyCode: 'Bunker/SCV'
+						displayText: 'Build Bunker'
+						if: -> @buildCard is 'basic'
+					BuildCommandCenter:
+						icon: 'commandcenter.jpg'
+						hotkeyCode: 'CommandCenter/SCV'
+						displayText: 'Build Command Center'
+						if: -> @buildCard is 'basic'
+					BuildEngineeringBay:
+						icon: 'engineeringbay.jpg'
+						hotkeyCode: 'EngineeringBay/SCV'
+						displayText: 'Build Engineering Bay'
+						if: -> @buildCard is 'basic'
+					BuildMissileTurret:
+						icon: 'missileturret.jpg'
+						hotkeyCode: 'MissileTurret/SCV'
+						displayText: 'Build Missile Turret'
+						if: -> @buildCard is 'basic'
+					Refinery:
+						icon: 'Refinery.png'
+						hotkeyCode: 'Refinery/SCV'
+						displayText: 'Refinery'
+						if: -> @buildCard is 'basic'
+					BuildSupplyDepot:
+						icon: 'supplydepot.jpg'
+						hotkeyCode: 'SupplyDepot/SCV'
+						displayText: 'Build Supply Depot'
+						if: -> @buildCard is 'basic'
+					BuildArmory:
+						icon: 'armory.jpg'
+						hotkeyCode: 'Armory/SCV'
+						displayText: 'Build Armory'
+						if: -> @buildCard is 'advanced'
+					BuildFactory:
+						icon: 'factory.jpg'
+						hotkeyCode: 'Factory/SCV'
+						displayText: 'Build Factory'
+						if: -> @buildCard is 'advanced'
+					BuildFusionCore:
+						icon: 'fusioncore.jpg'
+						hotkeyCode: 'FusionCore/SCV'
+						displayText: 'Build Fusion Core'
+						if: -> @buildCard is 'advanced'
+					BuildGhostAcademy:
+						icon: 'ghostacademy.jpg'
+						hotkeyCode: 'GhostAcademy/SCV'
+						displayText: 'Build Ghost Academy'
+						if: -> @buildCard is 'advanced'
+					BuildSensorTower:
+						icon: 'sensortower.jpg'
+						hotkeyCode: 'SensorTower/SCV'
+						displayText: 'Build Sensor Tower'
+						if: -> @buildCard is 'advanced'
+					BuildStarport:
+						icon: 'starport.jpg'
+						hotkeyCode: 'Starport/SCV'
+						displayText: 'Build Starport'
+						if: -> @buildCard is 'advanced'
+			Marine:
+				icon: 'marine.jpg'
+				displayText: 'Marine'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					Stim:
+						icon: 'Stim.png'
+						hotkeyCode: 'Stim'
+						displayText: 'Stim'
+			Marauder:
+				icon: 'marauder.jpg'
+				displayText: 'Marauder'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					Stim:
+						icon: 'Stim.png'
+						hotkeyCode: 'Stim'
+						displayText: 'Stim'
+			Reaper:
+				icon: 'reaper.jpg'
+				displayText: 'Reaper'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+			Ghost:
+				icon: 'ghost.jpg'
+				displayText: 'Ghost'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					CloakOff:
+						icon: 'CloakOff.png'
+						hotkeyCode: 'CloakOff'
+						displayText: 'Cloak Off'
+						if: -> @cloaked
+						on: -> @cloaked = no
+					CloakOn:
+						icon: 'Cloak.png'
+						hotkeyCode: 'CloakOnBanshee'
+						displayText: 'Cloak On'
+						if: -> not @cloaked
+						on: -> @cloaked = yes
+					EMP:
+						icon: 'EMP.png'
+						hotkeyCode: 'EMP/Ghost'
+						displayText: 'EMP'
+					GhostHoldFire:
+						icon: 'GhostHoldFire.png'
+						hotkeyCode: 'GhostHoldFire/Ghost'
+						displayText: 'Ghost Hold Fire'
+					NukeCalldown:
+						icon: 'NukeCalldown.png'
+						hotkeyCode: 'NukeCalldown/Ghost'
+						displayText: 'Nuke Calldown'
+					Snipe:
+						icon: 'Snipe.png'
+						hotkeyCode: 'Snipe/Ghost'
+						displayText: 'Snipe'
+					WeaponsFree:
+						icon: 'WeaponsFree.png'
+						hotkeyCode: 'WeaponsFree/Ghost'
+						displayText: 'Weapons Free'
+			WidowMine:
+				icon: 'widowmine.jpg'
+				displayText: 'Widow Mine'
+				commands:
+					inherit: ['unit.movement']
+					WidowMineAttack:
+						icon: 'WidowMineAttack.png'
+						hotkeyCode: 'WidowMineAttack/WidowMine'
+						displayText: 'Widow Mine Attack'
+					WidowMineBurrow:
+						icon: 'WidowMineBurrow.png'
+						hotkeyCode: 'WidowMineBurrow/WidowMine'
+						displayText: 'Widow Mine Burrow'
+						if: -> not @burrowed
+						on: -> @burrowed = yes
+					WidowMineUnburrow:
+						icon: 'WidowMineUnburrow.png'
+						hotkeyCode: 'WidowMineUnburrow/WidowMine'
+						displayText: 'Widow Mine Unburrow'
+						if: -> @burrowed
+						on: -> @burrowed = no
+			Hellion:
+				icon: 'hellion.jpg'
+				displayText: 'Hellion'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					MorphToHellion:
+						icon: 'hellion.jpg'
+						hotkeyCode: 'MorphToHellion/Hellion'
+						displayText: 'Morph To Hellion'
+						if: -> @hellbat
+						on: -> @hellbat = no
+					MorphToHellbat:
+						icon: 'hellbat.jpg'
+						hotkeyCode: 'MorphToHellionTank/Hellion'
+						displayText: 'Morph To Hellbat'
+						if: -> not @hellbat
+						on: -> @hellbat = yes
+			SiegeTank:
+				icon: 'siegetank.jpg'
+				displayText: 'Siege Tank'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					SiegeMode:
+						icon: 'SiegeMode.png'
+						hotkeyCode: 'SiegeMode'
+						displayText: 'Siege Mode'
+						if: -> not @sieged
+						on: -> @sieged = yes
+					Unsiege:
+						icon: 'Unsiege.png'
+						hotkeyCode: 'Unsiege'
+						displayText: 'Unsiege'
+						if: -> @sieged
+						on: -> @sieged = no
+			Thor:
+				icon: 'thor.jpg'
+				displayText: 'Thor'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					'250mmStrikeCannons':
+						icon: '250mmStrikeCannons.png'
+						hotkeyCode: '250mmStrikeCannons/Thor'
+						displayText: '250mm Strike Cannons'
+					'330mmBarrageCannons':
+						icon: '330mmBarrageCannons.png'
+						hotkeyCode: '330mmBarrageCannons/Thor'
+						displayText: '330mm Barrage Cannons'
+					ExplosiveMode:
+						icon: 'ExplosiveMode.png'
+						hotkeyCode: 'ExplosiveMode/Thor'
+						displayText: 'Explosive Mode'
+			Viking:
+				icon: 'viking.jpg'
+				displayText: 'Viking'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					AssaultMode:
+						icon: 'AssaultMode.png'
+						hotkeyCode: 'AssaultMode/Viking'
+						displayText: 'Assault Mode'
+					FighterMode:
+						icon: 'FighterMode.png'
+						hotkeyCode: 'FighterMode/Viking'
+						displayText: 'Fighter Mode'
+			Raven:
+				icon: 'raven.jpg'
+				displayText: 'Raven'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					AutoTurret:
+						icon: 'AutoTurret.png'
+						hotkeyCode: 'AutoTurret/Raven'
+						displayText: 'Auto Turret'
+					BuildAutoTurret:
+						icon: 'BuildAutoTurret.png'
+						hotkeyCode: 'BuildAutoTurret/Raven'
+						displayText: 'Build Auto Turret'
+					BuildPointDefenseDrone:
+						icon: 'BuildPointDefenseDrone.png'
+						hotkeyCode: 'BuildPointDefenseDrone/Raven'
+						displayText: 'Build Point Defense Drone'
+					HunterSeekerMissile:
+						icon: 'HunterSeekerMissile.png'
+						hotkeyCode: 'HunterSeekerMissile/Raven'
+						displayText: 'Hunter Seeker Missile'
+					PointDefenseDrone:
+						icon: 'PointDefenseDrone.png'
+						hotkeyCode: 'PointDefenseDrone/Raven'
+						displayText: 'Point Defense Drone'
+			Banshee:
+				icon: 'banshee.jpg'
+				displayText: 'Banshee'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					CloakOff:
+						icon: 'CloakOff.png'
+						hotkeyCode: 'CloakOff'
+						displayText: 'Cloak Off'
+						if: -> @cloaked
+						on: -> @cloaked = no
+					CloakOn:
+						icon: 'Cloak.png'
+						hotkeyCode: 'CloakOnBanshee'
+						displayText: 'Cloak On'
+						if: -> not @cloaked
+						on: -> @cloaked = yes
+			Medivac:
+				icon: 'medivac.jpg'
+				displayText: 'Medivac'
+				commands:
+					inherit: ['unit.movement']
+					Heal:
+						icon: 'Heal.png'
+						hotkeyCode: 'Heal/Medivac'
+						displayText: 'Heal'
+					MedivacSpeedBoost:
+						icon: 'MedivacSpeedBoost.png'
+						hotkeyCode: 'MedivacSpeedBoost/Medivac'
+						displayText: 'Medivac Speed Boost'
+			Battlecruiser:
+				icon: 'battlecruiser.jpg'
+				displayText: 'Battlecruiser'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					YamatoGun:
+						icon: 'YamatoGun.png'
+						hotkeyCode: 'YamatoGun'
+						displayText: 'Yamato Gun'
+		buildings:
+			CommandCenter:
+				icon: 'commandcenter.jpg'
+				displayText: 'Command Center'
+				commands:
+					inherit: ['building.flying']
+					Liftoff:
+						icon: 'Lift.png'
+						hotkeyCode: 'Lift'
+						displayText: 'Lift Off'
+						if: -> @upgrade isnt 'PlanetaryFortress' and not @lifted
+						on: -> @lifted = yes
+					CommandCenterLoad:
+						icon: 'CommandCenterLoad.png'
+						hotkeyCode: 'CommandCenterLoad/CommandCenter'
+						displayText: 'Command Center Load'
+						if: -> @upgrade isnt 'OrbitalCommand'
+					CommandCenterUnloadAll:
+						icon: 'CommandCenterUnloadAll.png'
+						hotkeyCode: 'CommandCenterUnloadAll/CommandCenter'
+						displayText: 'Command Center Unload All'
+						if: -> @upgrade isnt 'OrbitalCommand'
+					BuildOrbitalCommand:
+						icon: 'orbitalcommand.jpg'
+						hotkeyCode: 'OrbitalCommand/CommandCenter'
+						displayText: 'Build Orbital Command'
+						if: -> not @upgrade
+						on: -> @upgrade = 'OrbitalCommand'
+					BuildSCV:
+						icon: 'scv.jpg'
+						hotkeyCode: 'SCV/CommandCenter'
+						displayText: 'Build SCV'
+
+					UpgradeToPlanetaryFortress:
+						icon: 'planetaryfortress.jpg'
+						hotkeyCode: 'UpgradeToPlanetaryFortress/CommandCenter'
+						displayText: 'Upgrade To Planetary Fortress'
+						if: -> not @upgrade
+						on: -> @upgrade = 'PlanetaryFortress'
+					CalldownMULE:
+						icon: 'CalldownMULE.png'
+						hotkeyCode: 'CalldownMULE/OrbitalCommand'
+						displayText: 'Calldown MULE'
+						if: -> @upgrade is 'OrbitalCommand'
+					Scan:
+						icon: 'Scan.png'
+						hotkeyCode: 'Scan/OrbitalCommand'
+						displayText: 'Scan'
+						if: -> @upgrade is 'OrbitalCommand'
+					SupplyDrop:
+						icon: 'SupplyDrop.png'
+						hotkeyCode: 'SupplyDrop/OrbitalCommand'
+						displayText: 'Supply Drop'
+						if: -> @upgrade is 'OrbitalCommand'
+					Attack:
+						icon: 'Attack.png'
+						hotkeyCode: 'Attack'
+						displayText: 'Attack'
+						if: -> @upgrade is 'PlanetaryFortress'
+					Stop:
+						icon: 'Stop.png'
+						hotkeyCode: 'StopPlanetaryFortress/PlanetaryFortress'
+						displayText: 'Stop'
+						if: -> @upgrade is 'PlanetaryFortress'
+			SupplyDepot:
+				icon: 'supplydepot.jpg'
+				displayText: 'Supply Depot'
+				commands:
+					Lower:
+						icon: 'Lower.png'
+						hotkeyCode: 'Lower/SupplyDepot'
+						displayText: 'Lower Supply Depot'
+						if: -> not @lowered
+						on: -> @lowered = yes
+					Raise:
+						icon: 'Raise.png'
+						hotkeyCode: 'Raise/SupplyDepotLowered'
+						displayText: 'Raise Supply Depot'
+						if: -> @lowered
+						on: -> @lowered = no
+			Barracks:
+				icon: 'barracks.jpg'
+				displayText: 'Barracks'
+				commands:
+					inherit: ['building.flying']
+					BuildGhost:
+						icon: 'ghost.jpg'
+						hotkeyCode: 'Ghost/Barracks'
+						displayText: 'Build Ghost'
+					BuildMarauder:
+						icon: 'marauder.jpg'
+						hotkeyCode: 'Marauder/Barracks'
+						displayText: 'Build Marauder'
+					BuildMarine:
+						icon: 'marine.jpg'
+						hotkeyCode: 'Marine/Barracks'
+						displayText: 'Build Marine'
+					BuildReactor:
+						icon: 'reactor.jpg'
+						hotkeyCode: 'Reactor/Barracks'
+						displayText: 'Build Reactor'
+						if: -> not @upgrade
+						on: -> @upgrade = 'Reactor'
+					BuildReaper:
+						icon: 'reaper.jpg'
+						hotkeyCode: 'Reaper/Barracks'
+						displayText: 'Build Reaper'
+					BuildTechLab:
+						icon: 'techlab.jpg'
+						hotkeyCode: 'TechLabBarracks/Barracks'
+						displayText: 'Build Tech Lab'
+						if: -> not @upgrade
+						on: -> @upgrade = 'TechLab'
+			BarracksTechLab:
+				icon: 'barrackstechlab.jpg'
+				displayText: 'Barracks Tech Lab'
+				commands:
+					ReaperSpeed:
+						icon: 'ReaperSpeed.png'
+						hotkeyCode: 'ReaperSpeed/BarracksTechLab'
+						displayText: 'Reaper Speed'
+					ResearchG4Charge:
+						icon: 'ResearchG4Charge.png'
+						hotkeyCode: 'ResearchG4Charge/BarracksTechLab'
+						displayText: 'Research G4Charge'
+					ResearchIncineratorNozzles:
+						icon: 'ResearchIncineratorNozzles.png'
+						hotkeyCode: 'ResearchIncineratorNozzles/BarracksTechLab'
+						displayText: 'Research Incinerator Nozzles'
+					ResearchJackhammerConcussionGrenade:
+						icon: 'ResearchJackhammerConcussionGrenade.png'
+						hotkeyCode: 'ResearchJackhammerConcussionGrenade/BarracksTechLab'
+						displayText: 'Research Jackhammer Concussion Grenade'
+					ResearchPunisherGrenades:
+						icon: 'ResearchPunisherGrenades.png'
+						hotkeyCode: 'ResearchPunisherGrenades/BarracksTechLab'
+						displayText: 'Research Punisher Grenades'
+					ResearchShieldWall:
+						icon: 'ResearchShieldWall.png'
+						hotkeyCode: 'ResearchShieldWall/BarracksTechLab'
+						displayText: 'Research Shield Wall'
+					ResearchStabilizerMedPacks:
+						icon: 'ResearchStabilizerMedPacks.png'
+						hotkeyCode: 'ResearchStabilizerMedPacks/BarracksTechLab'
+						displayText: 'Research Stabilizer Med Packs'
+					ResearchStimpack:
+						icon: 'Stim.png'
+						hotkeyCode: 'Stimpack/BarracksTechLab'
+						displayText: 'Research Stimpack'
+			Bunker:
+				icon: 'bunker.jpg'
+				displayText: 'Bunker'
+				commands:
+					Attack:
+						icon: 'Attack.png'
+						hotkeyCode: 'Attack/Bunker'
+						displayText: 'Attack'
+					BunkerLoad:
+						icon: 'BunkerLoad.png'
+						hotkeyCode: 'BunkerLoad/Bunker'
+						displayText: 'Bunker Load'
+					BunkerUnloadAll:
+						icon: 'BunkerUnloadAll.png'
+						hotkeyCode: 'BunkerUnloadAll/Bunker'
+						displayText: 'Bunker Unload All'
+					Salvage:
+						icon: 'Salvage.png'
+						hotkeyCode: 'Salvage/Bunker'
+						displayText: 'Salvage'
+					Rally:
+						icon: 'Rally.png'
+						hotkeyCode: 'SetBunkerRallyPoint/Bunker'
+						displayText: 'Rally'
+			MissileTurret:
+				icon: 'missileturret.jpg'
+				displayText: 'Missile Turret'
+				commands:
+					inherit: ['unit.combat']
+			EngineeringBay:
+				icon: 'engineeringbay.jpg'
+				displayText: 'Engineering Bay'
+				commands:
+					inherit: ['building.flying']
+					ResearchHiSecAutoTracking:
+						icon: 'ResearchHiSecAutoTracking.png'
+						hotkeyCode: 'ResearchHiSecAutoTracking/EngineeringBay'
+						displayText: 'Research Hi Sec Auto Tracking'
+					ResearchNeosteelFrame:
+						icon: 'ResearchNeosteelFrame.png'
+						hotkeyCode: 'ResearchNeosteelFrame/EngineeringBay'
+						displayText: 'Research Neosteel Frame'
+					TerranInfantryArmorLevel1:
+						icon: 'TerranInfantryArmorLevel1.png'
+						hotkeyCode: 'TerranInfantryArmorLevel1/EngineeringBay'
+						displayText: 'Terran Infantry Armor Level1'
+					TerranInfantryArmorVanadiumPlatingLevel1:
+						icon: 'TerranInfantryArmorVanadiumPlatingLevel1.png'
+						hotkeyCode: 'TerranInfantryArmorVanadiumPlatingLevel1/EngineeringBay'
+						displayText: 'Terran Infantry Armor Vanadium Plating Level1'
+					TerranInfantryArmorVanadiumPlatingLevel2:
+						icon: 'TerranInfantryArmorVanadiumPlatingLevel2.png'
+						hotkeyCode: 'TerranInfantryArmorVanadiumPlatingLevel2/EngineeringBay'
+						displayText: 'Terran Infantry Armor Vanadium Plating Level2'
+					TerranInfantryArmorVanadiumPlatingLevel3:
+						icon: 'TerranInfantryArmorVanadiumPlatingLevel3.png'
+						hotkeyCode: 'TerranInfantryArmorVanadiumPlatingLevel3/EngineeringBay'
+						displayText: 'Terran Infantry Armor Vanadium Plating Level3'
+					TerranInfantryWeaponsLevel1:
+						icon: 'TerranInfantryWeaponsLevel1.png'
+						hotkeyCode: 'TerranInfantryWeaponsLevel1/EngineeringBay'
+						displayText: 'Terran Infantry Weapons Level1'
+					TerranInfantryWeaponsUltraCapacitorsLevel1:
+						icon: 'TerranInfantryWeaponsUltraCapacitorsLevel1.png'
+						hotkeyCode: 'TerranInfantryWeaponsUltraCapacitorsLevel1/EngineeringBay'
+						displayText: 'Terran Infantry Weapons Ultra Capacitors Level1'
+					TerranInfantryWeaponsUltraCapacitorsLevel2:
+						icon: 'TerranInfantryWeaponsUltraCapacitorsLevel2.png'
+						hotkeyCode: 'TerranInfantryWeaponsUltraCapacitorsLevel2/EngineeringBay'
+						displayText: 'Terran Infantry Weapons Ultra Capacitors Level2'
+					TerranInfantryWeaponsUltraCapacitorsLevel3:
+						icon: 'TerranInfantryWeaponsUltraCapacitorsLevel3.png'
+						hotkeyCode: 'TerranInfantryWeaponsUltraCapacitorsLevel3/EngineeringBay'
+						displayText: 'Terran Infantry Weapons Ultra Capacitors Level3'
+					UpgradeBuildingArmorLevel1:
+						icon: 'UpgradeBuildingArmorLevel1.png'
+						hotkeyCode: 'UpgradeBuildingArmorLevel1/EngineeringBay'
+						displayText: 'Upgrade Building Armor Level1'
+			Factory:
+				icon: 'factory.jpg'
+				displayText: 'Factory'
+				commands:
+					inherit: ['building.flying']
+					Diamondback:
+						icon: 'Diamondback.png'
+						hotkeyCode: 'Diamondback/Factory'
+						displayText: 'Diamondback'
+					BuildHellion:
+						icon: 'hellion.jpg'
+						hotkeyCode: 'Hellion/Factory'
+						displayText: 'Build Hellion'
+					HellionTank:
+						icon: 'HellionTank.png'
+						hotkeyCode: 'HellionTank/Factory'
+						displayText: 'Hellion Tank'
+					BuildSiegeTank:
+						icon: 'siegetank.jpg'
+						hotkeyCode: 'SiegeTank/Factory'
+						displayText: 'Build Siege Tank'
+					BuildTechLab:
+						icon: 'TechLab.png'
+						hotkeyCode: 'TechLabFactory/Factory'
+						displayText: 'Build Tech Lab'
+					BuildThor:
+						icon: 'thor.jpg'
+						hotkeyCode: 'Thor/Factory'
+						displayText: 'Build Thor'
+					BuildVulture:
+						icon: 'Vulture.png'
+						hotkeyCode: 'Vulture/Factory'
+						displayText: 'Vulture'
+					BuildWidowMine:
+						icon: 'widowmine.jpg'
+						hotkeyCode: 'WidowMine/Factory'
+						displayText: 'Build Widow Mine'
+
+					BuildReactor:
+						icon: 'reactor.jpg'
+						hotkeyCode: 'Reactor/Factory'
+						displayText: 'Build Reactor'
+						if: -> not @upgrade
+						on: -> @upgrade = 'Reactor'
+					BuildTechLab:
+						icon: 'techlab.jpg'
+						hotkeyCode: 'TechLabFactory/Factory'
+						displayText: 'Build Tech Lab'
+						if: -> not @upgrade
+						on: -> @upgrade = 'TechLab'
+			FactoryTechLab:
+				icon: 'factorytechlab.jpg'
+				displayText: 'Factory Tech Lab'
+				commands:
+					ResearchCerberusMines:
+						icon: 'ResearchCerberusMines.png'
+						hotkeyCode: 'ResearchCerberusMines/FactoryTechLab'
+						displayText: 'Research Cerberus Mines'
+					ResearchDrillClaws:
+						icon: 'ResearchDrillClaws.png'
+						hotkeyCode: 'ResearchDrillClaws/FactoryTechLab'
+						displayText: 'Research Drill Claws'
+					ResearchHighCapacityBarrels:
+						icon: 'ResearchHighCapacityBarrels.png'
+						hotkeyCode: 'ResearchHighCapacityBarrels/FactoryTechLab'
+						displayText: 'Research High Capacity Barrels'
+					ResearchMultiLockTargetingSystem:
+						icon: 'ResearchMultiLockTargetingSystem.png'
+						hotkeyCode: 'ResearchMultiLockTargetingSystem/FactoryTechLab'
+						displayText: 'Research Multi Lock Targeting System'
+					ResearchRegenerativeBioSteel:
+						icon: 'ResearchRegenerativeBioSteel.png'
+						hotkeyCode: 'ResearchRegenerativeBioSteel/FactoryTechLab'
+						displayText: 'Research Regenerative Bio Steel'
+					ResearchShapedBlast:
+						icon: 'ResearchShapedBlast.png'
+						hotkeyCode: 'ResearchShapedBlast/FactoryTechLab'
+						displayText: 'Research Shaped Blast'
+					ResearchStrikeCannons:
+						icon: 'ResearchStrikeCannons.png'
+						hotkeyCode: 'ResearchStrikeCannons/FactoryTechLab'
+						displayText: 'Research Strike Cannons'
+					ResearchTransformationServos:
+						icon: 'ResearchTransformationServos.png'
+						hotkeyCode: 'ResearchTransformationServos/FactoryTechLab'
+						displayText: 'Research Transformation Servos'
+			Starport:
+				icon: 'starport.jpg'
+				displayText: 'Starport'
+				commands:
+					Banshee:
+						icon: 'Banshee.png'
+						hotkeyCode: 'Banshee/Starport'
+						displayText: 'Banshee'
+					BuildBattlecruiser:
+						icon: 'battlecruiser.jpg'
+						hotkeyCode: 'Battlecruiser/Starport'
+						displayText: 'Build Battlecruiser'
+					BuildScienceVessel:
+						icon: 'BuildScienceVessel.png'
+						hotkeyCode: 'BuildScienceVessel/Starport'
+						displayText: 'Build Science Vessel'
+					BuildTechLabStarport:
+						icon: 'BuildTechLabStarport.png'
+						hotkeyCode: 'BuildTechLabStarport'
+						displayText: 'Build Tech Lab Starport'
+					BuildMedivac:
+						icon: 'medivac.jpg'
+						hotkeyCode: 'Medivac/Starport'
+						displayText: 'Build Medivac'
+					BuildRaven:
+						icon: 'raven.jpg'
+						hotkeyCode: 'Raven/Starport'
+						displayText: 'Build Raven'
+					BuildReactor:
+						icon: 'reactor.jpg'
+						hotkeyCode: 'Reactor/Starport'
+						displayText: 'Build Reactor'
+						if: -> not @upgrade
+						on: -> @upgrade = 'Reactor'
+					BuildTechLab:
+						icon: 'techlab.jpg'
+						hotkeyCode: 'TechLabStarport/Starport'
+						displayText: 'Build Tech Lab'
+						if: -> not @upgrade
+						on: -> @upgrade = 'TechLab'
+					VikingFighter:
+						icon: 'VikingFighter.png'
+						hotkeyCode: 'VikingFighter/Starport'
+						displayText: 'Viking Fighter'
+			StarportTechLab:
+				icon: 'starporttechlab.jpg'
+				displayText: 'Starport Tech Lab'
+				commands:
+					ResearchBansheeCloak:
+						icon: 'ResearchBansheeCloak.png'
+						hotkeyCode: 'ResearchBansheeCloak/StarportTechLab'
+						displayText: 'Research Banshee Cloak'
+					ResearchDurableMaterials:
+						icon: 'ResearchDurableMaterials.png'
+						hotkeyCode: 'ResearchDurableMaterials/StarportTechLab'
+						displayText: 'Research Durable Materials'
+					ResearchMedivacEnergyUpgrade:
+						icon: 'ResearchMedivacEnergyUpgrade.png'
+						hotkeyCode: 'ResearchMedivacEnergyUpgrade/StarportTechLab'
+						displayText: 'Research Medivac Energy Upgrade'
+					ResearchRavenEnergyUpgrade:
+						icon: 'ResearchRavenEnergyUpgrade.png'
+						hotkeyCode: 'ResearchRavenEnergyUpgrade/StarportTechLab'
+						displayText: 'Research Raven Energy Upgrade'
+					ResearchSeekerMissile:
+						icon: 'ResearchSeekerMissile.png'
+						hotkeyCode: 'ResearchSeekerMissile/StarportTechLab'
+						displayText: 'Research Seeker Missile'
+			Armory:
+				icon: 'armory.jpg'
+				displayText: 'Armory'
+				commands:
+					TerranShipPlatingLevel1:
+						icon: 'TerranShipPlatingLevel1.png'
+						hotkeyCode: 'TerranShipPlatingLevel1/Armory'
+						displayText: 'Terran Ship Plating Level1'
+					TerranShipPlatingVanadiumPlatingLevel1:
+						icon: 'TerranShipPlatingVanadiumPlatingLevel1.png'
+						hotkeyCode: 'TerranShipPlatingVanadiumPlatingLevel1/Armory'
+						displayText: 'Terran Ship Plating Vanadium Plating Level1'
+					TerranShipPlatingVanadiumPlatingLevel2:
+						icon: 'TerranShipPlatingVanadiumPlatingLevel2.png'
+						hotkeyCode: 'TerranShipPlatingVanadiumPlatingLevel2/Armory'
+						displayText: 'Terran Ship Plating Vanadium Plating Level2'
+					TerranShipPlatingVanadiumPlatingLevel3:
+						icon: 'TerranShipPlatingVanadiumPlatingLevel3.png'
+						hotkeyCode: 'TerranShipPlatingVanadiumPlatingLevel3/Armory'
+						displayText: 'Terran Ship Plating Vanadium Plating Level3'
+					TerranShipWeaponsLevel1:
+						icon: 'TerranShipWeaponsLevel1.png'
+						hotkeyCode: 'TerranShipWeaponsLevel1/Armory'
+						displayText: 'Terran Ship Weapons Level1'
+					TerranShipWeaponsUltraCapacitorsLevel1:
+						icon: 'TerranShipWeaponsUltraCapacitorsLevel1.png'
+						hotkeyCode: 'TerranShipWeaponsUltraCapacitorsLevel1/Armory'
+						displayText: 'Terran Ship Weapons Ultra Capacitors Level1'
+					TerranShipWeaponsUltraCapacitorsLevel2:
+						icon: 'TerranShipWeaponsUltraCapacitorsLevel2.png'
+						hotkeyCode: 'TerranShipWeaponsUltraCapacitorsLevel2/Armory'
+						displayText: 'Terran Ship Weapons Ultra Capacitors Level2'
+					TerranShipWeaponsUltraCapacitorsLevel3:
+						icon: 'TerranShipWeaponsUltraCapacitorsLevel3.png'
+						hotkeyCode: 'TerranShipWeaponsUltraCapacitorsLevel3/Armory'
+						displayText: 'Terran Ship Weapons Ultra Capacitors Level3'
+					TerranVehicleAndShipPlatingLevel1:
+						icon: 'TerranVehicleAndShipPlatingLevel1.png'
+						hotkeyCode: 'TerranVehicleAndShipPlatingLevel1/Armory'
+						displayText: 'Terran Vehicle And Ship Plating Level1'
+					TerranVehiclePlatingLevel1:
+						icon: 'TerranVehiclePlatingLevel1.png'
+						hotkeyCode: 'TerranVehiclePlatingLevel1/Armory'
+						displayText: 'Terran Vehicle Plating Level1'
+					TerranVehiclePlatingVanadiumPlatingLevel1:
+						icon: 'TerranVehiclePlatingVanadiumPlatingLevel1.png'
+						hotkeyCode: 'TerranVehiclePlatingVanadiumPlatingLevel1/Armory'
+						displayText: 'Terran Vehicle Plating Vanadium Plating Level1'
+					TerranVehiclePlatingVanadiumPlatingLevel2:
+						icon: 'TerranVehiclePlatingVanadiumPlatingLevel2.png'
+						hotkeyCode: 'TerranVehiclePlatingVanadiumPlatingLevel2/Armory'
+						displayText: 'Terran Vehicle Plating Vanadium Plating Level2'
+					TerranVehiclePlatingVanadiumPlatingLevel3:
+						icon: 'TerranVehiclePlatingVanadiumPlatingLevel3.png'
+						hotkeyCode: 'TerranVehiclePlatingVanadiumPlatingLevel3/Armory'
+						displayText: 'Terran Vehicle Plating Vanadium Plating Level3'
+					TerranVehicleWeaponsLevel1:
+						icon: 'TerranVehicleWeaponsLevel1.png'
+						hotkeyCode: 'TerranVehicleWeaponsLevel1/Armory'
+						displayText: 'Terran Vehicle Weapons Level1'
+					TerranVehicleWeaponsUltraCapacitorsLevel1:
+						icon: 'TerranVehicleWeaponsUltraCapacitorsLevel1.png'
+						hotkeyCode: 'TerranVehicleWeaponsUltraCapacitorsLevel1/Armory'
+						displayText: 'Terran Vehicle Weapons Ultra Capacitors Level1'
+					TerranVehicleWeaponsUltraCapacitorsLevel2:
+						icon: 'TerranVehicleWeaponsUltraCapacitorsLevel2.png'
+						hotkeyCode: 'TerranVehicleWeaponsUltraCapacitorsLevel2/Armory'
+						displayText: 'Terran Vehicle Weapons Ultra Capacitors Level2'
+					TerranVehicleWeaponsUltraCapacitorsLevel3:
+						icon: 'TerranVehicleWeaponsUltraCapacitorsLevel3.png'
+						hotkeyCode: 'TerranVehicleWeaponsUltraCapacitorsLevel3/Armory'
+						displayText: 'Terran Vehicle Weapons Ultra Capacitors Level3'
+			GhostAcademy:
+				icon: 'ghostacademy.jpg'
+				displayText: 'Ghost Academy'
+				commands:
+					NukeArm:
+						icon: 'NukeArm.png'
+						hotkeyCode: 'NukeArm/GhostAcademy'
+						displayText: 'Nuke Arm'
+					ResearchGhostEnergyUpgrade:
+						icon: 'ResearchGhostEnergyUpgrade.png'
+						hotkeyCode: 'ResearchGhostEnergyUpgrade/GhostAcademy'
+						displayText: 'Research Ghost Energy Upgrade'
+					ResearchPersonalCloaking:
+						icon: 'ResearchPersonalCloaking.png'
+						hotkeyCode: 'ResearchPersonalCloaking/GhostAcademy'
+						displayText: 'Research Personal Cloaking'
+			FusionCore:
+				icon: 'fusioncore.jpg'
+				displayText: 'Fusion Core'
+				commands:
+					ResearchBattlecruiserEnergyUpgrade:
+						icon: 'ResearchBattlecruiserEnergyUpgrade.png'
+						hotkeyCode: 'ResearchBattlecruiserEnergyUpgrade/FusionCore'
+						displayText: 'Research Battlecruiser Energy Upgrade'
+					ResearchBattlecruiserSpecializations:
+						icon: 'ResearchBattlecruiserSpecializations.png'
+						hotkeyCode: 'ResearchBattlecruiserSpecializations/FusionCore'
+						displayText: 'Research Battlecruiser Specializations'
+			SensorTower:
+				icon: 'sensortower.jpg'
+				displayText: 'Sensor Tower'
+	Zerg:
+		units:
+			Larva:
+				icon: 'larva.jpg'
+				displayText: 'Larva'
+				commands:
+					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
+					MorphToCorruptor:
+						icon: 'corruptor.jpg'
+						hotkeyCode: 'Corruptor/Larva'
+						displayText: 'Morph to Corruptor'
+					MorphToDrone:
+						icon: 'drone.jpg'
+						hotkeyCode: 'Drone/Larva'
+						displayText: 'Morph to Drone'
+					MorphToHydralisk:
+						icon: 'hydralisk.jpg'
+						hotkeyCode: 'Hydralisk/Larva'
+						displayText: 'Morph to Hydralisk'
+					MorphToInfestor:
+						icon: 'infestor.jpg'
+						hotkeyCode: 'Infestor/Larva'
+						displayText: 'Morph to Infestor'
+					MorphToMutalisk:
+						icon: 'Mutalisk.png'
+						hotkeyCode: 'Mutalisk/Larva'
+						displayText: 'Mutalisk'
+					MorphToOverlord:
+						icon: 'overlord.jpg'
+						hotkeyCode: 'Overlord/Larva'
+						displayText: 'Morph to Overlord'
+					MorphToQueen:
+						icon: 'queen.jpg'
+						hotkeyCode: 'Queen/Larva'
+						displayText: 'Morph to Queen'
+					MorphToRoach:
+						icon: 'roach.jpg'
+						hotkeyCode: 'Roach/Larva'
+						displayText: 'Morph to Roach'
+					MorphToSwarmHost:
+						icon: 'swarmhost.jpg'
+						hotkeyCode: 'SwarmHostMP/Larva'
+						displayText: 'Morph to Swarm Host'
+					MorphToUltralisk:
+						icon: 'ultralisk.jpg'
+						hotkeyCode: 'Ultralisk/Larva'
+						displayText: 'Morph to Ultralisk'
+					MorphToViper:
+						icon: 'viper.jpg'
+						hotkeyCode: 'Viper/Larva'
+						displayText: 'Morph to Viper'
+					MorphToZergling:
+						icon: 'zergling.jpg'
+						hotkeyCode: 'Zergling/Larva'
+						displayText: 'Morph to Zergling'
+			Egg:
+				icon: 'egg.jpg'
+				displayText: 'Egg'
+				commands:
+					Rally:
+						icon: 'RallyEgg.png'
+						hotkeyCode: 'RallyEgg/Egg'
+						displayText: 'Rally'
+			Drone:
+				icon: 'drone.jpg'
+				displayText: 'Drone'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					ReturnCargo:
+						icon: 'ReturnCargo.png'
+						hotkeyCode: 'ReturnCargo/Drone'
+						displayText: 'Return Cargo'
+						if: -> not @buildCard
+					BuildBasic:
+						icon: 'Build.png'
+						hotkeyCode: 'ZergBuild/Drone'
+						displayText: 'Build Basic'
+						if: -> not @buildCard
+						on: -> @buildCard = 'basic'
+					BuildAdvanced:
+						icon: 'BuildAdvanced.png'
+						hotkeyCode: 'ZergBuildAdvanced/Drone'
+						displayText: 'Build Advanced'
+						if: -> not @buildCard
+						on: -> @buildCard = 'advanced'
+					BuildEvolutionChamber:
+						icon: 'evolutionchamber.jpg'
+						hotkeyCode: 'EvolutionChamber/Drone'
+						displayText: 'Build Evolution Chamber'
+						if: -> @buildCard is 'basic'
+					BuildExtractor:
+						icon: 'Extractor.png'
+						hotkeyCode: 'Extractor'
+						displayText: 'Extractor'
+						if: -> @buildCard is 'basic'
+					BuildHatchery:
+						icon: 'hatchery.jpg'
+						hotkeyCode: 'Hatchery'
+						displayText: 'Build Hatchery'
+						if: -> @buildCard is 'basic'
+					BuildRoachWarren:
+						icon: 'roachwarren.jpg'
+						hotkeyCode: 'RoachWarren'
+						displayText: 'Build Roach Warren'
+						if: -> @buildCard is 'basic'
+					BuildSpawningPool:
+						icon: 'spawningpool.jpg'
+						hotkeyCode: 'SpawningPool'
+						displayText: 'Build Spawning Pool'
+						if: -> @buildCard is 'basic'
+					BuildSpineCrawler:
+						icon: 'spinecrawler.jpg'
+						hotkeyCode: 'SpineCrawler'
+						displayText: 'Build Spine Crawler'
+						if: -> @buildCard is 'basic'
+					BuildSporeCrawler:
+						icon: 'sporecrawler.jpg'
+						hotkeyCode: 'SporeCrawler'
+						displayText: 'Build Spore Crawler'
+						if: -> @buildCard is 'basic'
+					BuildBanelingNest:
+						icon: 'banelingnest.jpg'
+						hotkeyCode: 'BanelingNest'
+						displayText: 'Build Baneling Nest'
+						if: -> @buildCard is 'advanced'
+					BuildHydraliskDen:
+						icon: 'hydraliskden.jpg'
+						hotkeyCode: 'HydraliskDen'
+						displayText: 'Build Hydralisk Den'
+						if: -> @buildCard is 'advanced'
+					BuildInfestationPit:
+						icon: 'infestationpit.jpg'
+						hotkeyCode: 'InfestationPit'
+						displayText: 'Build Infestation Pit'
+						if: -> @buildCard is 'advanced'
+					BuildNydusNetwork:
+						icon: 'nydusnetwork.jpg'
+						hotkeyCode: 'NydusNetwork'
+						displayText: 'Build Nydus Network'
+						if: -> @buildCard is 'advanced'
+					BuildSpire:
+						icon: 'spire.jpg'
+						hotkeyCode: 'Spire'
+						displayText: 'Build Spire'
+						if: -> @buildCard is 'advanced'
+					BuildUltraliskCavern:
+						icon: 'ultraliskcavern.jpg'
+						hotkeyCode: 'UltraliskCavern'
+						displayText: 'Build Ultralisk Cavern'
+						if: -> @buildCard is 'advanced'
+			Overlord:
+				icon: 'overlord.jpg'
+				displayText: 'Overlord'
+				commands:
+					inherit: ['unit.movement']
+					GenerateCreep:
+						icon: 'GenerateCreep.png'
+						hotkeyCode: 'GenerateCreep/Overlord'
+						displayText: 'Generate Creep'
+					MorphToOverseer:
+						icon: 'MorphToOverseer.png'
+						hotkeyCode: 'MorphToOverseer/Overlord'
+						displayText: 'Morph To Overseer'
+					StopGenerateCreep:
+						icon: 'StopGenerateCreep.png'
+						hotkeyCode: 'StopGenerateCreep/Overlord'
+						displayText: 'Stop Generate Creep'
+			Zergling:
+				icon: 'zergling.jpg'
+				displayText: 'Zergling'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					MorphToBaneling:
+						icon: 'baneling.jpg'
+						hotkeyCode: 'Baneling/Zergling'
+						displayText: 'Morph to Baneling'
+			Roach:
+				icon: 'roach.jpg'
+				displayText: 'Roach'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+			Queen:
+				icon: 'queen.jpg'
+				displayText: 'Queen'
+				commands:
+					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
+					BuildCreepTumor:
+						icon: 'BuildCreepTumor.png'
+						hotkeyCode: 'BuildCreepTumor/Queen'
+						displayText: 'Build Creep Tumor'
+					InjectLarva:
+						icon: 'larva.jpg'
+						hotkeyCode: 'Larva/Queen'
+						displayText: 'Inject Larva'
+					QueenBurstHeal:
+						icon: 'QueenBurstHeal.png'
+						hotkeyCode: 'QueenBurstHeal/Queen'
+						displayText: 'Queen Burst Heal'
+					Transfusion:
+						icon: 'Transfusion.png'
+						hotkeyCode: 'Transfusion/Queen'
+						displayText: 'Transfusion'
+			SpineCrawler:
+				icon: 'spinecrawler.jpg'
+				displayText: 'Spine Crawler Uprooted'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					Root:
+						icon: 'Root.png'
+						hotkeyCode: 'SpineCrawlerRoot/SpineCrawlerUprooted'
+						displayText: 'Root'
+						on: -> @rooted = yes
+						if: -> not @rooted
+					Upoot:
+						icon: 'Uproot.png'
+						hotkeyCode: 'SpineCrawlerUpoot/SpineCrawlerUprooted'
+						displayText: 'Uproot'
+						on: -> @rooted = no
+						if: -> @rooted
+			Baneling:
+				icon: 'baneling.jpg'
+				displayText: 'Baneling'
+				commands:
+					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
+					DisableBuildingAttack:
+						icon: 'DisableBuildingAttack.png'
+						hotkeyCode: 'DisableBuildingAttack/Baneling'
+						displayText: 'Disable Building Attack'
+						if: -> @buildingAttack
+						on: -> @buildingAttack = no
+					EnableBuildingAttack:
+						icon: 'EnableBuildingAttack.png'
+						hotkeyCode: 'EnableBuildingAttack/Baneling'
+						displayText: 'Enable Building Attack'
+						if: -> not @buildingAttack
+						on: -> @buildingAttack = yes
+					Explode:
+						icon: 'Explode.png'
+						hotkeyCode: 'Explode/Baneling'
+						displayText: 'Explode'
+					SapStructure:
+						icon: 'SapStructure.png'
+						hotkeyCode: 'SapStructure/Baneling'
+						displayText: 'Sap Structure'
+			Ultralisk:
+				icon: 'ultralisk.jpg'
+				displayText: 'Ultralisk'
+				commands:
+					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
+			Hydralisk:
+				icon: 'hydralisk.jpg'
+				displayText: 'Hydralisk'
+				commands:
+					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
+					BurrowDown:
+						icon: 'BurrowDown.png'
+						hotkeyCode: 'BurrowDown/Hydralisk'
+						displayText: 'Burrow'
+						if: -> not @burrowed
+						on: -> @burrowed = yes
+					BurrowUp:
+						icon: 'BurrowUp.png'
+						hotkeyCode: 'BurrowUp/Hydralisk'
+						displayText: 'Unburrow'
+						if: -> @burrowed
+						on: -> @burrowed = no
+			Infestor:
+				icon: 'infestor.jpg'
+				displayText: 'Infestor'
+				commands:
+					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
+					FungalGrowth:
+						icon: 'FungalGrowth.png'
+						hotkeyCode: 'FungalGrowth/Infestor'
+						displayText: 'Fungal Growth'
+					InfestedTerrans:
+						icon: 'InfestedTerrans.png'
+						hotkeyCode: 'InfestedTerrans/Infestor'
+						displayText: 'Infested Terrans'
+					InfestorConsumption:
+						icon: 'InfestorConsumption.png'
+						hotkeyCode: 'InfestorConsumption/Infestor'
+						displayText: 'Infestor Consumption'
+					NPSwarm:
+						icon: 'NPSwarm.png'
+						hotkeyCode: 'NPSwarm/Infestor'
+						displayText: 'NPSwarm'
+					NeuralParasite:
+						icon: 'NeuralParasite.png'
+						hotkeyCode: 'NeuralParasite/Infestor'
+						displayText: 'Neural Parasite'
+			SwarmHost:
+				icon: 'swarmhost.jpg'
+				displayText: 'Swarm Host'
+				commands:
+					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
+					LocustLaunch:
+						icon: 'LocustLaunch.png'
+						hotkeyCode: 'LocustLaunch/SwarmHostBurrowed'
+						displayText: 'Locust Launch'
+						if: -> @burrowed
+			Viper:
+				icon: 'viper.jpg'
+				displayText: 'Viper'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					BlindingCloud:
+						icon: 'BlindingCloud.png'
+						hotkeyCode: 'BlindingCloud/Viper'
+						displayText: 'Blinding Cloud'
+					BurrowProtector:
+						icon: 'BurrowProtector.png'
+						hotkeyCode: 'BurrowProtector'
+						displayText: 'Burrow Protector'
+					DisablingCloud:
+						icon: 'DisablingCloud.png'
+						hotkeyCode: 'DisablingCloud/Viper'
+						displayText: 'Disabling Cloud'
+					FaceEmbrace:
+						icon: 'FaceEmbrace.png'
+						hotkeyCode: 'FaceEmbrace/Viper'
+						displayText: 'Face Embrace'
+					ViperConsume:
+						icon: 'ViperConsume.png'
+						hotkeyCode: 'ViperConsume/Viper'
+						displayText: 'Viper Consume'
+					ViperConsumption:
+						icon: 'ViperConsumption.png'
+						hotkeyCode: 'ViperConsumption/Viper'
+						displayText: 'Viper Consumption'
+			Corruptor:
+				icon: 'corruptor.jpg'
+				displayText: 'Corruptor'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					BroodLord:
+						icon: 'BroodLord.png'
+						hotkeyCode: 'BroodLord/Corruptor'
+						displayText: 'Brood Lord'
+					CorruptionAbility:
+						icon: 'CorruptionAbility.png'
+						hotkeyCode: 'CorruptionAbility/Corruptor'
+						displayText: 'Corruption Ability'
+			Overseer:
+				icon: 'overseer.jpg'
+				displayText: 'Overseer'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					Contaminate:
+						icon: 'Contaminate.png'
+						hotkeyCode: 'Contaminate/Overseer'
+						displayText: 'Contaminate'
+					SpawnChangeling:
+						icon: 'SpawnChangeling.png'
+						hotkeyCode: 'SpawnChangeling/Overseer'
+						displayText: 'Spawn Changeling'
+		buildings:
+			Hatchery:
+				icon: 'hatchery.jpg'
+				displayText: 'Hatchery'
+				commands:
+					EvolveVentralSacks:
+						icon: 'EvolveVentralSacks.png'
+						hotkeyCode: 'EvolveVentralSacks/Hatchery'
+						displayText: 'Evolve Ventral Sacks'
+						if: -> @upgrade
+					BuildLair:
+						icon: 'lair.jpg'
+						hotkeyCode: 'Lair/Hatchery'
+						displayText: 'Build Lair'
+						if: -> not @upgrade
+						on: -> @upgrade = 'Lair'
+					BuildHive:
+						icon: 'hive.jpg'
+						hotkeyCode: 'Hive/Lair'
+						displayText: 'Build Hive'
+						if: -> @upgrade is 'Lair'
+						on: -> @upgrade = 'Hive'
+					ResearchBurrow:
+						icon: 'ResearchBurrow.png'
+						hotkeyCode: 'ResearchBurrow/Hatchery'
+						displayText: 'Research Burrow'
+						if: -> @upgrade
+					overlordspeed:
+						icon: 'overlordspeed.png'
+						hotkeyCode: 'overlordspeed/Hatchery'
+						displayText: 'overlordspeed'
+			SporeCrawler:
+				icon: 'sporecrawler.jpg'
+				displayText: 'Spore Crawler'
+				commands:
+					inherit: ['unit.combat']
+					Root:
+						icon: 'Root.png'
+						hotkeyCode: 'SporeCrawlerRoot/SporeCrawlerUprooted'
+						displayText: 'Root'
+						on: -> @rooted = yes
+						if: -> not @rooted
+					Upoot:
+						icon: 'Uproot.png'
+						hotkeyCode: 'SporeCrawlerUpoot/SporeCrawlerUprooted'
+						displayText: 'Uproot'
+						on: -> @rooted = no
+						if: -> @rooted
+			SpawningPool:
+				icon: 'spawningpool.jpg'
+				displayText: 'Spawning Pool'
+				commands:
+					zerglingattackspeed:
+						icon: 'zerglingattackspeed.png'
+						hotkeyCode: 'zerglingattackspeed/SpawningPool'
+						displayText: 'zerglingattackspeed'
+					zerglingmovementspeed:
+						icon: 'zerglingmovementspeed.png'
+						hotkeyCode: 'zerglingmovementspeed/SpawningPool'
+						displayText: 'zerglingmovementspeed'
+			RoachWarren:
+				icon: 'roachwarren.jpg'
+				displayText: 'Roach Warren'
+				commands:
+					EvolveGlialRegeneration:
+						icon: 'EvolveGlialRegeneration.png'
+						hotkeyCode: 'EvolveGlialRegeneration/RoachWarren'
+						displayText: 'Evolve Glial Regeneration'
+					EvolveTunnelingClaws:
+						icon: 'EvolveTunnelingClaws.png'
+						hotkeyCode: 'EvolveTunnelingClaws/RoachWarren'
+						displayText: 'Evolve Tunneling Claws'
+			EvolutionChamber:
+				icon: 'evolutionchamber.jpg'
+				displayText: 'Evolution Chamber'
+				commands:
+					zerggroundarmor1:
+						icon: 'zerggroundarmor1.png'
+						hotkeyCode: 'zerggroundarmor1/EvolutionChamber'
+						displayText: 'zerggroundarmor1'
+					zergmeleeweapons1:
+						icon: 'zergmeleeweapons1.png'
+						hotkeyCode: 'zergmeleeweapons1/EvolutionChamber'
+						displayText: 'zergmeleeweapons1'
+					zergmissileweapons1:
+						icon: 'zergmissileweapons1.png'
+						hotkeyCode: 'zergmissileweapons1/EvolutionChamber'
+						displayText: 'zergmissileweapons1'
+			HydraliskDen:
+				icon: 'hydraliskden.jpg'
+				displayText: 'Hydralisk Den'
+				commands:
+					MuscularAugments:
+						icon: 'MuscularAugments.png'
+						hotkeyCode: 'MuscularAugments/HydraliskDen'
+						displayText: 'Muscular Augments'
+					hydraliskspeed:
+						icon: 'hydraliskspeed.png'
+						hotkeyCode: 'hydraliskspeed/HydraliskDen'
+						displayText: 'hydraliskspeed'
+			InfestationPit:
+				icon: 'infestationpit.jpg'
+				displayText: 'Infestation Pit'
+				commands:
+					EvolveInfestorEnergyUpgrade:
+						icon: 'EvolveInfestorEnergyUpgrade.png'
+						hotkeyCode: 'EvolveInfestorEnergyUpgrade/InfestationPit'
+						displayText: 'Evolve Infestor Energy Upgrade'
+					ResearchLocustLifetimeIncrease:
+						icon: 'ResearchLocustLifetimeIncrease.png'
+						hotkeyCode: 'ResearchLocustLifetimeIncrease/InfestationPit'
+						displayText: 'Research Locust Lifetime Increase'
+					ResearchNeuralParasite:
+						icon: 'ResearchNeuralParasite.png'
+						hotkeyCode: 'ResearchNeuralParasite/InfestationPit'
+						displayText: 'Research Neural Parasite'
+			UltraliskCavern:
+				icon: 'ultraliskcavern.jpg'
+				displayText: 'Ultralisk Cavern'
+				commands:
+					EvolveBurrowCharge:
+						icon: 'EvolveBurrowCharge.png'
+						hotkeyCode: 'EvolveBurrowCharge'
+						displayText: 'Evolve Burrow Charge'
+					EvolveChitinousPlating:
+						icon: 'EvolveChitinousPlating.png'
+						hotkeyCode: 'EvolveChitinousPlating/UltraliskCavern'
+						displayText: 'Evolve Chitinous Plating'
+			BanelingNest:
+				icon: 'banelingnest.jpg'
+				displayText: 'Baneling Nest'
+				commands:
+					EvolveCentrificalHooks:
+						icon: 'EvolveCentrificalHooks.png'
+						hotkeyCode: 'EvolveCentrificalHooks/BanelingNest'
+						displayText: 'Evolve Centrifical Hooks'
+			Spire:
+				icon: 'spire.jpg'
+				displayText: 'Spire'
+				commands:
+					BuildGreaterSpire:
+						icon: 'greaterspire.jpg'
+						hotkeyCode: 'GreaterSpire/Spire'
+						displayText: 'Build Greater Spire'
+					GreaterSpireBroodlord:
+						icon: 'GreaterSpireBroodlord.png'
+						hotkeyCode: 'GreaterSpireBroodlord/Spire'
+						displayText: 'Greater Spire Broodlord'
+					zergflyerarmor1:
+						icon: 'zergflyerarmor1.png'
+						hotkeyCode: 'zergflyerarmor1/Spire'
+						displayText: 'zergflyerarmor1'
+					zergflyerattack1:
+						icon: 'zergflyerattack1.png'
+						hotkeyCode: 'zergflyerattack1/Spire'
+						displayText: 'zergflyerattack1'
+			GreaterSpire:
+				icon: 'greaterspire.jpg'
+				displayText: 'Greater Spire'
+				commands:
+					zergflyerarmor1:
+						icon: 'zergflyerarmor1.png'
+						hotkeyCode: 'zergflyerarmor1/GreaterSpire'
+						displayText: 'zergflyerarmor1'
+					zergflyerattack1:
+						icon: 'zergflyerattack1.png'
+						hotkeyCode: 'zergflyerattack1/GreaterSpire'
+						displayText: 'zergflyerattack1'
+			NydusNetwork:
+				icon: 'nydusnetwork.jpg'
+				displayText: 'Nydus Network'
+				commands:
+					SummonNydusWorm:
+						icon: 'SummonNydusWorm.png'
+						hotkeyCode: 'SummonNydusWorm/NydusNetwork'
+						displayText: 'Summon Nydus Worm'
+			CreepTumor:
+				icon: 'creeptumor.jpg'
+				displayText: 'Creep Tumor'
+				commands:
+					BuildCreepTumorPropagate:
+						icon: 'BuildCreepTumorPropagate.png'
+						hotkeyCode: 'BuildCreepTumorPropagate'
+						displayText: 'Build Creep Tumor Propagate'
 
 
-	indented = (fn)->(args..., o={})->
-		out = fn(args..., o)
-		out = out.join('\n') if typeof out is 'object'
-		out = out.replace /\n/g, "\n#{'\t'.repeat o.indent}"
-		out
+loadHotkeys =(keyText)->
+	map = {}
+	for line in keyText.split '\n'
+		continue unless m = line.match /([\w\/]+)=([\w\+]+)/
+		map[m[1]] = m[2]
+	map
 
-	sizeClass = (size)-> size.toString().replace /\./, '-'
-	keySizes = [0.5, 1, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 6]
-	keySizeStyles = indented -> "key-size-width '#{sizeClass size}', #{size}" for size in keySizes
 
-	unitClass = (unitName)-> unitName
-	unitStyles = indented -> "unit-class '#{unitClass unit}', '#{unit.toLowerCase()}'" for unit, [race, kind, proxy] of raceMap when proxy is unit
+commandDisplayMap =
+	HellionTank: 'Hellbat'
+commandDisplayName =(command)->
+	if m = command.match /(ControlGroup|Camera)\w+(\d)/
+		m[2]
+	else
+		commandDisplayMap[command] or command.replace /([a-z])([A-Z])/g, "$1 $2"
 
-	raceClass = (raceName)-> raceName
+commandClassMap = {}
+commandClass =(command)->
+	if m = command.match /((ControlGroup|Camera)\w+)\d/
+		m[1]
+	else
+		commandClassMap[command] or command
 
-	eachRace = indented (fn)-> fn(race) for race of raceCommands
+#
 
-	commandIconMap = {
-		'Attack'
-		'MovePatrol'
-		'MoveHoldPosition'
-		'Halt'
-		'ReturnCargo'
-		'Repair'
-		'Cancel'
-		'CalldownMULE'
-		'SupplyDrop'
-		'Scan'
-		'StopPlanetaryFortress'
-		'Stop'
-		'Lift'
-		'EMP'
-		'Snipe'
-		'WeaponsFree'
-		'NukeCalldown'
-		'CloakOnBanshee':'Cloak'
-		'CommandCenterLoad'
-		'WidowMineBurrow'
-		'WidowMineUnburrow':'Unburrow'
-		'WidowMineAttack'
-		'SporeCrawlerUproot'
-		'SporeCrawlerRoot'
-		'SpineCrawlerUproot'
-		'SpineCrawlerRoot'
-		'Explode'
-		'TimeWarp':'ChronoBoost'
-		'Charge'
-		'Blink'
-		'ZergBuild':'Build'
-		'ZergBuildAdvanced':'BuildAdvanced'
-		'TerranBuild':'Build'
-		'TerranBuildAdvanced':'BuildAdvanced'
-		'ProtossBuild':'Build'
-		'ProtossBuildAdvanced':'BuildAdvanced'
-		'SiegeMode'
-		'Unsiege'
-		'250mmStrikeCannons':'ImpactMode'
-		'ExplosiveMode'
-		'AssaultMode'
-		'FighterMode'
-		'Move'
-		'HunterSeekerMissile'
-		'BuildPointDefenseDrone'
-		'BuildAutoTurret'
-		'MedivacSpeedBoost'
-		'Heal'
-		'YamatoGun'
-		'MorphToOverseer'
-		'GenerateCreep'
-		'Transfusion'
-		'EnableBuildingAttack'
-		'AWrp'
-		'Feedback'
-		'PsiStorm'
-		'LightofAiur':'Envision'
-		'OracleRevelation'
-		'TemporalField'
-		'MorphToMothership'
-		'MassRecall'
-		'MothershipCoreWeapon'
-		'ForceField'
-		'Hallucination'
-		'GuardianShield'
-		'VoidRaySwarmDamageBoost':'PrismaticAlignment'
-		'PhasingMode'
-		'TransportMode'
-		'SelectionCancelDrag':'Cancel'
-	}
+keyboards =
+	'US QWERTY': [
+		{'ESC', '_0', 'F1', 'F2', 'F3', 'F4','_1':0.5, 'F5', 'F6', 'F7', 'F8','_2':0.5, 'F9', 'F10', 'F11', 'F12'}
+		{}
+		{'`', '1 ', '2 ', '3 ', '4 ', '5 ', '6 ', '7 ', '8 ', '9 ', '0 ', '-', '=', 'BACKSPACE':2}
+		{'TAB':1.5 ,'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\':1.5}
+		{'CAPS':1.75, 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'ENTER':2.25}
+		{'SHIFT L':2.25, 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'SHIFT R':2.75}
+		{'CTRL L':1.5,'WIN L','ALT L':1.5,'SPACE':6,'ALT R':1.5,'WIN R','MENU','CTRL R':1.5}
+	]
+	'US Dvorak': [
+		{'ESC', '_0', 'F1', 'F2', 'F3', 'F4','_1':0.5, 'F5', 'F6', 'F7', 'F8','_2':0.5, 'F9', 'F10', 'F11', 'F12'}
+		{}
+		{'`', '1 ', '2 ', '3 ', '4 ', '5 ', '6 ', '7 ', '8 ', '9 ', '0 ', '[', ']', 'BACKSPACE':2}
+		{'TAB':1.5 ,'\'', ',', '.', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', '/', '=', '\\':1.5}
+		{'CAPS':1.75, 'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', '-', 'ENTER':2.25}
+		{'SHIFT L':2.25, ';', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z', 'SHIFT R':2.75}
+		{'CTRL L':1.5,'WIN L','ALT L':1.5,'SPACE':6,'ALT R':1.5,'WIN R','MENU','CTRL R':1.5}
+	]
+keyCodeMaps =
+	'US QWERTY': {27:'ESC',9:'TAB',16:'SHIFT',17:'CTRL',18:'ALT',32:'SPACE',13:'ENTER',46:'BACKSPACE',"48":"0","49":"1","50":"2","51":"3","52":"4","53":"5","54":"6","55":"7","56":"8","57":"9",59:';',"65":"a","66":"b","67":"c","68":"d","69":"e","70":"f","71":"g","72":"h","73":"i","74":"j","75":"k","76":"l","77":"m","78":"n","79":"o","80":"p","81":"q","82":"r","83":"s","84":"t","85":"u","86":"v","87":"w","88":"x","89":"y","90":"z","186":";","187":"=","188":",","189":"-","190":".","191":"/","192":"`","219":"[","220":"\\","221":"]","222":"'",112:'F1',113:'F2',114:'F3',115:'F4',116:'F5',117:'F6',118:'F7',119:'F8',120:'F9',121:'F10',122:'F11',123:'F12'}
+keyCodeMaps['US Dvorak'] = keyCodeMaps['US QWERTY']
 
-	commandIconMap[command] = match[1] for command, icon of commandIconMap when match = command.match(/^Move(\w+)/)
-	commandIconMap[command] = match[1] for command, icon of commandIconMap when match = command.match(/^(Stop)\w+/)
-	commandIconMap[command] = match[1] for command, icon of commandIconMap when match = command.match(/^\w+(Load|Root|Uproot)/)
+for keyboard in keyboards
+	for row in keyboard
+		for key, size of row
+			row[key] = 1 if typeof size is 'string'
 
-	commandUnitIconMap = {
-		'MorphToHellionTank':'Hellbat'
-		'MorphToHellion':'Hellion'
-		'UpgradeToPlanetaryFortress':'planetaryfortress'
-		'Reactor'
-		'Pylon'
-		'Extractor'
-		'Assimilator'
-		'Refinery'
-		'DarkShrine'
-		'TechLabBarracks':'TechLab'
-		'TechLabStarport':'TechLab'
-		'TechLabFactory':'TechLab'
-		'TechReactor':'Reactor'
-		'HellionTank':'Hellbat'
-		'SwarmHostMP':'SwarmHost'
-		'Mutalisk'
-		'VikingFighter':'Viking'
-		'Banshee'
-	}
+String.prototype.repeat = (n)-> if n then new Array( n + 1 ).join(this) else ''
+String.prototype.trim = -> @replace /(^\s+|\s+$)/g, ''
 
-	commandUnitIconMap[unit] = unit for unit, [race, kind, proxy] of raceMap when proxy is unit
+touch =->text '&nbsp;'
 
-	commandIcons = indented -> "command-icon '#{command}', '#{icon}.png'" for command, icon of commandIconMap
-	commandUnitIcons = indented -> "command-icon '#{command}', '#{icon.toLowerCase()}.jpg'" for command, icon of commandUnitIconMap
 
-	preloadUrls =-> ((new Array).concat ("url('images/#{command}.png')" for command, icon of commandIconMap), ("url('images/#{command.toLowerCase()}.jpg')" for command, icon of commandUnitIconMap)).join(' ')
+classKeyMap =
+	Apostrophe: '\''
+	SemiColon: ';'
+	Slash: '/'
+	Comma: ','
+	Grave: '`'
+	BracketClose: ']'
+	BracketOpen: '['
+	CapsLock: 'CAPS'
+	Control: 'CTRL'
+	Shift: 'SHIFT'
+	Alt: 'ALT'
+	Enter:'ENTER'
+	Windows: 'WIN'
+	Menu: 'MENU'
+	Space: 'SPACE'
+	Period: '.'
+	Minus: '-'
+	Equals: '='
+	Backslash: '\\'
+	Tab: 'TAB'
 
-	doctype 5
-	html ->
-		head ->
-			styles = """
+keyClassMap = {}
+keyClassMap[v] = k for k, v of classKeyMap
+keyClass = (key)-> if voidKey key then 'void' else keyClassMap[(key or '').split(' ')[0]] or (key or '').trim()
+
+
+indented = (fn)->(args..., o={})->
+	out = fn(args..., o)
+	out = out.join('\n') if typeof out is 'object'
+	out = out.replace /\n/g, "\n#{'\t'.repeat o.indent}"
+	out
+
+sizeClass = (size)-> size.toString().replace /\./, '-'
+keySizes = [0.5, 1, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 6]
+keySizeStyles = indented -> "key-size-width '#{sizeClass size}', #{size}" for size in keySizes
+
+unitStyles = indented ->
+	icons = []
+	for raceName, race of raceCards
+		for kind, units of race
+			for unitName, unit of units
+				icons.push "unit-class '#{unitName}', '#{unit.icon}'"
+	icons
+
+raceClass = (raceName)-> raceName
+
+eachRace = indented (fn)-> fn(race) for race of raceCards
+
+commandIcons = indented ->
+	icons = []
+	for raceName, race of raceCards
+		for kind, units of race
+			for unitName, unit of units
+				for name, command of unit.commands
+					icons.push "command-icon '#{name}', '#{command.icon or "#{name}.png"}'"
+	for cat, commands of commandCards.unit
+		for name, command of commands
+			icons.push "command-icon '#{name}', '#{command.icon or "#{name}.png"}'" if command.icon
+	icons
+
+preloadUrls =-> ((new Array).concat ("url('images/#{command}.png')" for command, icon of commandIconMap), ("url('images/#{command.toLowerCase()}.jpg')" for command, icon of commandUnitIconMap)).join(' ')
+
+doctype 5
+html ->
+	head ->
+		styles = """
 
 border-radius()
 	-webkit-border-radius arguments
@@ -1462,6 +2553,9 @@ text-shadow()
 	-o-text-shadow arguments
 	-ms-text-shadow arguments
 
+uiColor = #18c6c6
+uiGlowColor = #16b6b6
+
 fade(color, alpha)
 	rgba(red(color),green(color),blue(color),alpha)
 
@@ -1475,29 +2569,52 @@ body
 body
 	background-color black
 	margin 0
-	padding 0
+	padding 0 0 0 20px
 	color white
 	text-shadow white 0 0 5px
+	background-image url('gray-background.png')
+	background-position 202px 0px
+	.left-strip
+		background-image url('teal-left.png')
+		width 202px
+		height 100%
+		position absolute
+		left 0
+		top 0
+		z-index -10
 .grid
 	width 100%
 	height 100%
 	position fixed
 	z-index -1
-	background-image url('hex_green.png')
+	// background-image url('hex_green.png')
 	background-size 80px
 	opacity 0.1
 .title
 	font-size 100px
-	color green
+	color white
+	text-shadow white
 	font-family Helvetica
 	position fixed
-	right 0
-	top 0
-	font-weight bold
-	opacity 0.2
-	font-size 114px
-	text-shadow green 0 0 10px
-	top -17px
+	z-index -5
+	right 10px
+	bottom 10px
+	opacity 1
+	font-size 45px
+	font-weight lighter
+	background-image url('the-core-alpha.png')
+	height 65px
+	width 300px
+	padding-top 300px
+	text-align center
+	background-repeat no-repeat
+	background-size 300px
+	.the
+		color #ADADAD
+		text-shadow #ADADAD 0 0 10px
+	.braces
+		color uiColor
+		text-shadow uiGlowColor 0 0 10px
 .container
 	width 920px
 	padding 10px
@@ -1517,7 +2634,7 @@ body
 	height 500px
 	padding 50px
 	padding-top 10px
-	border 4px solid fade(green, 50%)
+	border 4px solid fade(uiColor, 50%)
 	overflow auto
 	position absolute
 	left 50%
@@ -1526,7 +2643,7 @@ body
 	margin-top -350px
 	z-index 500
 	border-radius 25px
-	box-shadow fade(green, 30%) 0 0 10px, inset fade(green, 30%) 0 0 10px
+	box-shadow fade(uiColor, 30%) 0 0 10px, inset fade(uiColor, 30%) 0 0 10px
 	background-color fade(black, 70%)
 	color white
 	text-shadow fade(white, 30%) 0 0 5px
@@ -1539,18 +2656,18 @@ body
 		background-color transparent
 		transition background-color 0.5s
 		&:hover
-			box-shadow fade(green, 50%) 0 0 10px, inset fade(green, 50%) 0 0 10px
+			box-shadow fade(uiColor, 50%) 0 0 10px, inset fade(uiColor, 50%) 0 0 10px
 		&:active,&.selected
-			background fade(green, 30%)
-			box-shadow fade(green, 50%) 0 0 10px, inset fade(green, 50%) 0 0 10px
+			background fade(uiColor, 30%)
+			box-shadow fade(uiColor, 50%) 0 0 10px, inset fade(uiColor, 50%) 0 0 10px
 
 .footer
-	width 90%
+	width 65%
 	margin-top 10px
 	margin 10px
-	background-color fade(green, 15%)
-	border 4px solid fade(green, 30%)
-	box-shadow fade(green, 50%) 0px 0px 10px
+	background-color fade(uiColor, 15%)
+	border 4px solid fade(uiColor, 30%)
+	box-shadow fade(uiColor, 50%) 0px 0px 10px
 	border-radius 10px
 	padding 10px
 	a
@@ -1608,9 +2725,10 @@ body
 				opacity 0
 		.hand
 			opacity 0
+			display none
 
 
-key-color = green
+key-color = uiColor
 key-width = 60px
 key-height = key-width
 key-border-width = 2px
@@ -1697,8 +2815,8 @@ cap-margin = key-width * 0.2
 			background-color fade(white, 50%)
 			box-shadow fade(white, 30%) 0 0 15px, inset fade(white, 30%) 0 0 15px
 		&.white
-			background-color fade(green, 50%)
-			box-shadow fade(green, 50%) 0 0 15px, inset fade(green, 50%) 0 0 15px
+			background-color fade(uiColor, 50%)
+			box-shadow fade(uiColor, 50%) 0 0 15px, inset fade(uiColor, 50%) 0 0 15px
 	&:hover
 		.overlay.white
 			opacity 1
@@ -1753,12 +2871,12 @@ cap-margin = key-width * 0.2
 		&.map-command
 			z-index 1
 			background-color fade(white, 60%)
-			box-shadow green 0 0 15px, inset green 0 0 7px
+			box-shadow uiColor 0 0 15px, inset uiColor 0 0 7px
 			text-shadow black 0 0 1px
 		&.map-global
 			z-index 10
-			background-color fade(green, 30%)
-			box-shadow green 0 0 7px, inset green 0 0 7px
+			background-color fade(uiColor, 30%)
+			box-shadow uiColor 0 0 7px, inset uiColor 0 0 7px
 			color white
 			text-shadow white 0 0 1px
 
@@ -1773,7 +2891,6 @@ cap-margin = key-width * 0.2
 				text-indent -9999px
 				z-index 100
 		#{commandIcons indent: 2}
-		#{commandUnitIcons indent: 2}
 
 
 		&.command-ControlGroupRecall,&.command-ControlGroupAppend,&.command-ControlGroupAssign,&.command-CameraSave,&.command-CameraView
@@ -1783,6 +2900,8 @@ cap-margin = key-width * 0.2
 				font-size 15px
 				display block
 				map()
+			&.unit-icon
+				text-indent 0
 		&.command-ControlGroupRecall,&.command-ControlGroupAppend,&.command-ControlGroupAssign
 			background-color fade(lightgreen, 30%)
 			box-shadow lightgreen 0 0 7px, inset lightgreen 0 0 7px
@@ -1868,11 +2987,11 @@ cap-margin = key-width * 0.2
 
 	unit-class(unit, icon)
 		&.unit-{unit}
-			background-image url('images/' + icon + '.jpg')
+			background-image url('images/' + icon)
 	#{unitStyles indent: 1}
-Zerg-color = violet
-Protoss-color = gold
-Terran-color = crimson
+Zerg-color = #8218c6
+Protoss-color = #e6e240
+Terran-color = #c61818
 
 .races-commands
 	display block
@@ -1962,217 +3081,311 @@ Terran-color = crimson
 		#{eachRace ((race)-> "race-background '#{race}'"), indent: 2}
 
 .messages
-	position fixed
-	top 0
-	right 0
+	position absolute
+	top 20px
+	right 20px
 	text-align right
 	color white
 	text-shadow fade(white,30%) 0 0 10px
 	z-index 400
-	width 100%
-	height 100%
+	width 400px
+	height 400px
 	pointer-events none
 	h3
-		top 50px
-		transition top 3s
+		transition top 3s, height 3s
+		height 40px
+		margin 0
+		padding 0
 		&.hide
-			top -100px
-		position absolute
-		right 20px
+			top -200px
+			height 0px
+
+		position relative
 
 			"""
 
-			stylus styles
+		stylus styles
 
-			script src: 'lib/zepto.min.js'
-			script src: 'lib/zepto.cookie.min.js'
-			script src: 'lib/coffeecup.js'
-			script src: 'hotkeys.js'
-			script '''
-  // Google Analytics
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		script src: 'lib/zepto.min.js'
+		script src: 'lib/zepto.cookie.min.js'
+		script src: 'lib/coffeecup.js'
+		script '''
+// Google AnalyticsX
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-40271514-1', 'github.io');
-  ga('send', 'pageview');
+ga('create', 'UA-40271514-1', 'github.io');
+ga('send', 'pageview');
 '''
 
-		blankRow = (row)-> Object.keys(row).length is 0
 
-		voidKey = (key)-> key and key.match /_\d+/
-		formatKeyCap =(key)->
-			return '&nbsp;' if voidKey key
-			key.split(' ')[0]
+	blankRow = (row)-> Object.keys(row).length is 0
 
-		renderKeyboard = (keyboard)->
-			keyboard or= @keyboard
-			text
-			div '.mouse', ->
-				button =(which, size)->
-					div ".#{which.toLowerCase()}-button.key.key-size-#{sizeClass size}.key-#{which}MouseButton", ->
-							div '.overlay.black', touch
-							div '.overlay.white', ->
-								div '.cap', ->
-							div '.maps', ->
-				button which, size for which, size of {Left:1, Middle:0.5,Right:1,Forward:0.5,Back:0.5}
-			for row in keyboard
-				div ".row.#{'row-0-5' if blankRow row}", ->
-					for key, size of row
-						size = 1 if typeof size is 'string'
-						div ".key.key-#{keyClass key}.key-size-#{sizeClass size}", ->
-							div '.overlay.black', touch
-							div '.overlay.white', ->
-								div '.cap', -> formatKeyCap key
-							div '.maps', ->
-		containerTemplate = ->
-			div '.keyboard', ->
-				div '.hand', ->
-				div '.inner', ->
-				# renderKeyboard keyboards['US QWERTY']
-			div '.settings-bar', ->
-				div '.setting', ->
-					label 'Keyboard Layout:'
-					select '.keyboard-layout', ->
-						first = yes
-						for keyboard of keyboards
-							option value: keyboard, selected: (first and first = no), -> keyboard
-				div '.setting', ->
-					label 'Hotkeys:'
-					select '.hotkey-file', ->
-						first = yes
-						for name of hotkeysFiles
-							option value: name, selected: (first and first = no), -> name
-				div '.setting', ->
-					label 'Display:'
-					select '.display-side', ->
-						first = yes
-						for value, side of {right: 'Right Side', left: 'Left Side', full: 'Full Keyboard'}
-							option value: value, selected: (first and first = no), -> side
+	voidKey = (key)-> key and key.match /_\d+/
+	formatKeyCap =(key)->
+		return '&nbsp;' if voidKey key
+		key.split(' ')[0]
 
-			div '.races-icons', ->
-				for race of raceCommands
-					div ".race-icon.race-#{raceClass race}", -> race
-				h3 'Select a unit or building to see commands'
+	renderKeyboard = (keyboard)->
+		keyboard or= @keyboard
+		text
+		div '.mouse', ->
+			button =(which, size)->
+				div ".#{which.toLowerCase()}-button.key.key-size-#{sizeClass size}.key-#{which}MouseButton", ->
+						div '.overlay.black', touch
+						div '.overlay.white', ->
+							div '.cap', ->
+						div '.maps', ->
+			button which, size for which, size of {Left:1, Middle:0.5,Right:1,Forward:0.5,Back:0.5}
+		for row in keyboard
+			div ".row.#{'row-0-5' if blankRow row}", ->
+				for key, size of row
+					size = 1 if typeof size is 'string'
+					div ".key.key-#{keyClass key}.key-size-#{sizeClass size}", ->
+						div '.overlay.black', touch
+						div '.overlay.white', ->
+							div '.cap', -> formatKeyCap key
+						div '.maps', ->
+	containerTemplate = ->
+		div '.keyboard', ->
+			div '.hand', ->
+			div '.inner', ->
+			# renderKeyboard keyboards['US QWERTY']
+		div '.settings-bar', ->
+			div '.setting', ->
+				label 'Keyboard Layout:'
+				select '.keyboard-layout', ->
+					first = yes
+					for keyboard of keyboards
+						option value: keyboard, selected: (first and first = no), -> keyboard
+			div '.setting', ->
+				label 'Hotkeys:'
+				select '.hotkey-file', ->
+					first = yes
+					for name of hotkeysFiles
+						option value: name, selected: (first and first = no), -> name
+			div '.setting', ->
+				label 'Display:'
+				select '.display-side', ->
+					first = yes
+					for value, side of {right: 'Right Side', left: 'Left Side', full: 'Full Keyboard'}
+						option value: value, selected: (first and first = no), -> side
 
-
-			div '.races-commands', ->
-				for race, kinds of raceCommands
-					div ".race-commands.race-#{raceClass race}", ->
-						for kind, units of kinds
-							div ".unit-commands.kind-#{kind}", ->
-								h3 -> "#{race} #{kind}"
-								for unit, unitCommands of units
-									if typeof unitCommands is 'object'
-										div ".unit-icon.unit-#{unitClass unit}", -> unit
-
-		body ->
-			div '.grid', ->
-			div '.title', -> 'the core'
-			div '.messages', ->
-			div '.container', ->
-			div '.tutorial-overlay', ->
-			div '.tutorial', ->
-				h1 'The Core - Interactive Demo'
-				p -> '''
-					Instead of looking at a list of keys, put your hands on the keyboard and see what does what.
-				'''
-				h3 'The Tilt'
-				img src:'tilt.jpg'
-				p -> 'The Core is designed to be used with your off-hand on the side of your keyboard closest to your mouse, with a tilted keyboard to keep your wrist straight.'
-				img src:'pull-keys.jpg'
-				p -> 'You\'ll need to press Shift, Ctrl and Shift-Ctrl a lot, so you may want to remove the keys between Alt and Ctrl.'
-				a '.select-chameleon', -> "If you're on a laptop or can't tilt your keyboard, try The Chameleon instead."
-				h3 'There are left- and right-handed variants, and a Zerg-optimized version.'
-				p -> 'Are you right- or left-handed?'
-				a '.select-hand.hand-Right', -> 'Right-Handed'
-				a '.select-hand.hand-Left', -> 'Left-Handed'
-
-				p -> 'Do you main Zerg? (Either layout is great for offclassing.)'
-				a '.select-zerg.zerg-no', -> 'Normal Layout'
-				a '.select-zerg.zerg-yes', -> 'Zerg Layout'
-
-				coffeescript ->
-					$ ->
-						hand = zerg = null
-						dismiss =->
-							console.log hand, zerg, "The Core 1.0 Alpha #{hand}-Handed#{if zerg then ' Zerg' else ''}"
-							$('select.hotkey-file').val("The Core 1.0 Alpha #{hand}-Handed#{if zerg then ' Zerg' else ''}").change()
-							$('.tutorial-overlay').click()
-
-						$('.select-chameleon').click ->
-							$('select.hotkey-file').val("The Chameleon 2.0").change()
-							$('.tutorial-overlay').click()
-
-						$('.select-hand').click ->
-							hand = @className.match(/hand-(\w+)/)[1]
-							$('.tutorial .select-hand').removeClass 'selected'
-							$(this).addClass 'selected'
-							if zerg?
-								do dismiss
-						$('.select-zerg').click ->
-							zerg = @className.match(/zerg-yes/)?
-							$('.tutorial .select-zerg').removeClass 'selected'
-							$(this).addClass 'selected'
-							if hand?
-								do dismiss
-			div '.footer', ->
-				a '.show-tutorial', -> 'Show Tutorial'
-				a href:'https://github.com/cushman/thecorevisualizer', target: 'blank', -> 'About'
-				coffeescript ->
-					$('.footer .show-tutorial').on 'click', -> $('.tutorial,.tutorial-overlay').show()
+		div '.races-icons', ->
+			for race of raceCards
+				div ".race-icon.race-#{raceClass race}", -> race
+			h3 'Select a unit or building to see commands'
 
 
+		div '.races-commands', ->
+			for race, kinds of raceCards
+				div ".race-commands.race-#{raceClass race}", ->
+					for kind, units of kinds
+						div ".unit-commands.kind-#{kind}", ->
+							h3 -> "#{race} #{kind}"
+							for unitName, unit of units
+								div ".unit-icon.unit-#{unitName}", -> unit.displayText or unitName
 
-			# script "window.globalHotkeys = #{JSON.stringify(globalHotkeys)};"
-			# script "window.raceCommands = #{JSON.stringify(raceCommands)};"
-			script src: 'hotkeys.js'
-			script "window.containerTemplate = #{containerTemplate.toString()};"
-			script "window.keyboards = #{JSON.stringify(keyboards)};"
-			script "window.keyCodeMaps = #{JSON.stringify(keyCodeMaps)};"
-			script "window.keyboardTemplate = #{renderKeyboard.toString()};"
-			script "window.touch = #{touch.toString()};"
-			script "window.blankRow = #{blankRow.toString()};"
-			script "window.formatKeyCap = #{formatKeyCap.toString()};"
-			script "window.sizeClass = #{sizeClass.toString()};"
-			script "window.raceClass = #{raceClass.toString()};"
-			script "window.unitClass = #{unitClass.toString()};"
-			script "window.keyClassMap = #{JSON.stringify(keyClassMap)};"
-			script "window.voidKey = #{voidKey.toString()};"
-			script "window.keyClass = #{keyClass.toString()};"
-			script "window.commandDisplayMap = #{JSON.stringify(commandDisplayMap)};"
-			script "window.commandDisplayName = #{commandDisplayName.toString()};"
-			script "window.commandClassMap = #{JSON.stringify(commandClassMap)};"
-			script "window.commandClass = #{commandClass.toString()};"
-			script "window.loadHotkeys = #{loadHotkeys.toString()};"
+	body ->
+		div '.grid', ->
+		div '.left-strip', ->
+		div '.title', ->
+			span '.braces', -> '{&nbsp;&nbsp;'
+			span '.the', -> 'The'
+			span '.core', -> 'Core'
+			span '.braces', -> '&nbsp;&nbsp;}'
+		div '.messages', ->
+		div '.container', ->
+		div '.tutorial-overlay', ->
+		div '.tutorial', ->
+			img src: 'logo-strip.png'
+			h1 style: 'text-align:center', -> 'Interactive Demo'
+			p -> '''
+				Instead of looking at a list of keys, put your hands on the keyboard and see what does what.
+			'''
+			h3 'The Tilt'
+			img src:'tilt.jpg'
+			p -> 'The Core is designed to be used with your off-hand on the side of your keyboard closest to your mouse, with a tilted keyboard to keep your wrist straight.'
+			img src:'pull-keys.jpg'
+			p -> 'You\'ll need to press Shift, Ctrl and Shift-Ctrl a lot, so you may want to remove the keys between Alt and Ctrl.'
+			a '.select-chameleon', -> "If you're on a laptop or can't tilt your keyboard, try The Chameleon instead."
+			h3 'There are left- and right-handed variants, and a Zerg-optimized version.'
+			p -> 'Are you right- or left-handed?'
+			a '.select-hand.hand-Right', -> 'Right-Handed'
+			a '.select-hand.hand-Left', -> 'Left-Handed'
+
+			p -> 'Do you main Zerg? (Either layout is great for offclassing.)'
+			a '.select-zerg.zerg-no', -> 'Normal Layout'
+			a '.select-zerg.zerg-yes', -> 'Zerg Layout'
+
 			coffeescript ->
+				$ ->
+					hand = zerg = null
+					dismiss =->
+						$('select.hotkey-file').val("The Core Medium #{hand}-Handed#{if zerg then ' Zerg' else ' Terran'}").change()
+						$('.tutorial-overlay').click()
+
+					$('.select-chameleon').click ->
+						$('select.hotkey-file').val("The Chameleon").change()
+						$('.tutorial-overlay').click()
+
+					$('.select-hand').click ->
+						hand = @className.match(/hand-(\w+)/)[1]
+						$('.tutorial .select-hand').removeClass 'selected'
+						$(this).addClass 'selected'
+						if zerg?
+							do dismiss
+					$('.select-zerg').click ->
+						zerg = @className.match(/zerg-yes/)?
+						$('.tutorial .select-zerg').removeClass 'selected'
+						$(this).addClass 'selected'
+						if hand?
+							do dismiss
+		div '.footer', ->
+			a '.show-tutorial', -> 'Show Tutorial'
+			a href:'https://github.com/cushman/thecorevisualizer', target: 'blank', -> 'About'
+			coffeescript ->
+				$('.footer .show-tutorial').on 'click', -> $('.tutorial,.tutorial-overlay').show()
+
+
+
+		# script "window.globalHotkeys = #{JSON.stringify(globalHotkeys)};"
+		# script "window.raceCommands = #{JSON.stringify(raceCommands)};"
+		script src: 'hotkeys.js'
+		script "window.containerTemplate = #{containerTemplate.toString()};"
+		script "window.keyboards = #{JSON.stringify(keyboards)};"
+		script "window.keyCodeMaps = #{JSON.stringify(keyCodeMaps)};"
+		script "window.keyboardTemplate = #{renderKeyboard.toString()};"
+		script "window.touch = #{touch.toString()};"
+		script "window.blankRow = #{blankRow.toString()};"
+		script "window.formatKeyCap = #{formatKeyCap.toString()};"
+		script "window.sizeClass = #{sizeClass.toString()};"
+		script "window.raceClass = #{raceClass.toString()};"
+		script "window.keyClassMap = #{JSON.stringify(keyClassMap)};"
+		script "window.voidKey = #{voidKey.toString()};"
+		script "window.keyClass = #{keyClass.toString()};"
+		script "window.commandDisplayMap = #{JSON.stringify(commandDisplayMap)};"
+		script "window.commandDisplayName = #{commandDisplayName.toString()};"
+		script "window.commandClassMap = #{JSON.stringify(commandClassMap)};"
+		script "window.commandClass = #{commandClass.toString()};"
+		script "window.loadHotkeys = #{loadHotkeys.toString()};"
+		script "window.raceCards = #{fnJSON(raceCards)};"
+		script "window.commandCards = #{fnJSON(commandCards)};"
+		coffeescript ->
+			things =
+				races: 'Protoss Zerg Terran'.split ' '
+				sides: 'Left Right'.split ' '
+				sizes: 'Large Medium Small'.split ' '
+			for kind, ones of things
+				things[kind] = {}
+				for each in ones
+					things[kind][each[0]] = each
+			[races, sides, sizes] = (v for k,v of things)
+			codes = $.map ("#{race}#{side}#{size}" for race of races for side of sides for size of sizes), (a)-> $.map a, (n)-> n
+			console.log codes
+
+			window.hotkeysFiles = {}
+			n = 0
+			loadHotkeysFile = (name, path)->
+				hotkeysFiles[name] = null
+				n += 1
+				console.log 'downloading hotkey file',name
+				$.get path, (file)->
+					hotkeysFiles[name] = file
+					console.log 'loaded hotkey file',code,n
+					unless n -= 1
+						do renderContainer
+			for code in codes
+				loadHotkeysFile "The Core #{sizes[code[2]]} #{sides[code[1]]}-Handed #{races[code[0]]}", "/hotkeys/TheCore #{code} Beta.SC2Hotkeys"
+			loadHotkeysFile "The Chameleon", '/others/Chameleon 2.0.SC2Hotkeys'
+
+
+		coffeescript -> String.prototype.trim = -> @replace /(^\s+|\s+$)/g, ''
+
+		coffeescript ->
+			window.renderContainer =->
 				loadHotkeys (v for k, v of hotkeysFiles)[0]
 				$('.container').html coffeecup.render(containerTemplate)
 
-			coffeescript -> String.prototype.trim = -> @replace /(^\s+|\s+$)/g, ''
 
-			coffeescript ->
+
 				currentMods = []
 				currentKeyboard = null
 
-				showMapsForUnit =($icon)->
-					race = (($icon.closest '.race-commands')[0].className.match /race-commands race-(\w+)/)[1]
-					kind = (($icon.closest '.unit-commands')[0].className.match /unit-commands kind-(\w+)/)[1]
-					unit = (($icon.closest '.unit-icon')[0].className.match /unit-icon unit-(\w+)/)[1]
+				currentGroup = []
+				currentUnit = null
 
-					commands = raceCommands[race][kind][unit]
-					for command, key of commands
+				currentHotkeys = {}
+
+				globalState =
+					currentUnit: null
+					controlGroup: (null for i in [0..9])
+
+				sendMessage =(text, kind)->
+					if text
+						message = $ "<h3 class='#{kind}'>#{text}</h3>"
+						$('.messages').append message
+						setTimeout (->message.addClass 'hide'), 0
+						setTimeout (->message.remove()), 2000
+
+				class Unit
+					constructor:(@race, @kind, @name)->
+						@icon = $(".unit-icon.unit-#{@name}")
+						@card = raceCards[@race][@kind][@name]
+						@commands = @card.commands
+						if @commands.inherit
+							for path in @commands.inherit
+								path = path.split '.'
+								inherited = commandCards
+								while path.length
+									inherited = inherited[path.shift()]
+								@commands[k] ?= v for k,v of inherited
+
+						for name, command of @commands
+							for key in ['if','on']
+								command[key] = eval("(#{command[key]})") if typeof command[key] is 'string'
+
+					@fromIcon: ($icon)->
+						race = (($icon.closest '.race-commands')[0].className.match /race-commands race-(\w+)/)[1]
+						kind = (($icon.closest '.unit-commands')[0].className.match /unit-commands kind-(\w+)/)[1]
+						unit = (($icon.closest '.unit-icon')[0].className.match /unit-icon unit-(\w+)/)[1]
+
+						console.log 'loading',race,kind,unit
+
+						new Unit race, kind, unit
+
+				showMapsForUnit =(unit)->
+					for name, command of unit.commands
+						if typeof command.if is 'function'
+							if not command.if.call(unit)
+								continue
+						unless key = currentHotkeys[command.hotkeyCode or name]
+							continue
+						[mods..., key] = key.split '+'
+						continue if mods and (no in (mod in mods for mod in currentMods) or no in (mod in currentMods for mod in mods))
 						$maps = $(".keyboard .key.key-#{keyClass key} .maps")
-						$map = $maps.append("<div class='map map-command map-#{command} command-#{commandClass command}'>#{commandDisplayName command}</div>")
+						$map = $maps.append("<div class='map map-command map-#{name} command-#{commandClass name}'>#{command.displayText or name}</div>")
 
 				showGlobalMaps =->
-					for hotkey, key of globalHotkeys
+					for name, command of commandCards.global
+						if command.if
+							command.if = eval("(#{command.if})") if typeof command.if is 'string'
+							if not command.if.call(globalState)
+								continue
+						unless key = currentHotkeys[command.hotkeyCode or name]
+							console.log 'no keymap for', command.hotkeyCode
+							continue
 						[mods..., key] = key.split '+'
-						continue if mods and (false in (mod in mods for mod in currentMods) or false in (mod in currentMods for mod in mods))
-						continue if hotkey.match /^Observe|Leader|Toggle|Replay|Stats/
+						continue if mods and (no in (mod in mods for mod in currentMods) or no in (mod in currentMods for mod in mods))
+						continue if name.match /^Observe|Leader|Toggle|Replay|Stats/
 						$maps = $(".keyboard .key.key-#{keyClass key} .maps")
-						$map = $maps.append("<div class='map map-global map-#{hotkey} command-#{commandClass hotkey}'>#{commandDisplayName hotkey}</div>")
+						if (m = name.match /ControlGroup\w+(\d)/)
+							unit = globalState.controlGroup[m[1]]
+
+						$map = $maps.append("<div class='map map-global map-#{name} command-#{commandClass name} #{"unit-icon unit-#{unit.name}" if unit}'>#{command.keyCap or command.displayText or name}</div>")
+
 				clearMaps =-> $('.keyboard .map').remove()
 				selectedUnit = null
 
@@ -2188,35 +3401,40 @@ Terran-color = crimson
 					$(".race-commands.race-#{race}").removeClass('hide')
 					$('.unit-icon.selected').click()
 
+
+				# $('.races-commands').on 'mouseenter', '.unit-icon', ->
+				# 	do clearMaps
+				# 	do showGlobalMaps
+				# 	showMapsForUnit Unit.fromIcon($(this))
+
+
 				showCurrentUnitMaps = ->
 					do clearMaps
-					if selectedUnit?
-						showMapsForUnit selectedUnit
+					if currentUnit?
+						showMapsForUnit currentUnit
 					do showGlobalMaps
 					if debounceTimer
 						clearTimeout debounceTimer
 						debounceTimer = null
 
-				$('.races-commands').on 'mouseenter', '.unit-icon', ->
-					do clearMaps
-					do showGlobalMaps
-					showMapsForUnit $(this)
-
 				$('.races-commands').on 'click', '.unit-icon', ->
 					$el = $(this)
-					unit = (@className.match /unit-icon unit-(\w+)/)[1]
-					$.fn.cookie('unit-selected', unit, expires: 30)
-					if $el.hasClass 'selected'
-						$el.removeClass 'selected'
-						selectedUnit = null
-					else
-						$('.races-commands .unit-icon.selected').removeClass 'selected'
-						$el.addClass 'selected'
-						selectedUnit = $el
+					globalState.select Unit.fromIcon $el
+					sendMessage "Select #{currentUnit.displayText or currentUnit.name.replace /([a-z])([A-Z])/g, '$1 $2'}"
+
+				globalState.select =(unit)->
+					return unless unit
+					$el = unit.icon
+					$.fn.cookie('unit-selected', unit.name, expires: 30)
+					$('.races-commands .unit-icon.selected').removeClass 'selected'
+					$el.addClass 'selected'
+					@currentUnit = currentUnit = unit
 					do showCurrentUnitMaps
 
-				$('.races-commands').on 'mouseleave', '.unit-icon', ->
-					do showCurrentUnitMaps
+				# $('.races-commands').on 'mouseleave', '.unit-icon', ->
+				# 	do showCurrentUnitMaps
+
+
 				modKeyAttrs = {ctrlKey: 'Control', altKey: 'Alt', shiftKey: 'Shift'}
 				modKeys = (key for attr, key of modKeyAttrs)
 
@@ -2234,16 +3452,19 @@ Terran-color = crimson
 							do showCurrentUnitMaps
 					else
 						$key = $(".keyboard .key-#{key}").addClass('selected')
-						return if key in ['Select', 'Interact']
 						for map in $key.find('.map')
-							message = if m = map.className.match /map-global map-(\w+)/
-								$("<h3 class=global>#{m[1].replace /([a-z])([A-Z])/g, '$1 $2'}</h3>")
+							if m = map.className.match /map-global map-(\w+)/
+								return if m[1] in ['Select', 'Interact']
+								command = commandCards.global[m[1]]
+								if command?.on
+									command.on = eval("(#{command.on})") if typeof command.on is 'string'
+									command.on.call(globalState)
+								sendMessage command.displayText or m[1].replace /([a-z])([A-Z])/g, '$1 $2'
 							else if m = map.className.match /map-command map-(\w+)/
-								$("<h3 class=command>#{m[1].replace /([a-z])([A-Z])/g, '$1 $2'}</h3>")
-							if message
-								$('.messages').append message
-								setTimeout (->message.addClass 'hide'), 0
-								setTimeout (->message.remove()), 3000
+								command = currentUnit?.commands[m[1]]
+								command.on.call currentUnit if command.on
+								sendMessage command.displayText or m[1].replace /([a-z])([A-Z])/g, '$1 $2'
+								do showCurrentUnitMaps
 							break
 
 
@@ -2297,7 +3518,7 @@ Terran-color = crimson
 
 				$('select.hotkey-file').change ->
 					filename = $(this).val()
-					loadHotkeys hotkeysFiles[filename]
+					currentHotkeys = loadHotkeys hotkeysFiles[filename]
 					$.fn.cookie('hotkey-file-val', filename, expires: 30)
 					if filename.match /Left/
 						$('select.display-side').val('left').change()
@@ -2330,26 +3551,44 @@ Terran-color = crimson
 
 				if $.fn.cookie('tutorial-dismiss')
 					$('.tutorial-overlay').click()
-
-
-
-connect = require 'connect'
-coffeecup = require 'coffeecup'
-fs = require 'fs'
-
-app = connect.createServer (do connect.logger),
-  (connect.static __dirname + '/static')
-
-app.use (req, res)->
-  res.write coffeecup.render appTemplate
-  res.end()
-
-port = process.env.PORT or 9001
-app.listen port, ->
-  console.log "Listening on " + port
-
-fs.writeFile 'static/index.html', coffeecup.render(appTemplate), (file)->
-	console.log 'compiled.'
-
-
-
+				t = ''
+				indent = 0
+				unitNames = []
+				for race, kinds of raceCards
+					for k, units of kinds
+						unitNames.push n for n of units
+				for race, kinds of raceCards
+					t += "#{race}:\n"
+					indent = 1
+					for kind, units of kinds
+						t += "\t#{kind}:\n"
+						for name,unit of units
+							t += "\t\t#{name}:\n"
+							for k, v of unit
+								if k is 'commands'
+									t += "\t\t\tcommands:\n"
+									t += "\t\t\t\tinherit: ['unit.movement', 'unit.combat']\n" if kind is 'units'
+									for c, command of unit.commands
+										commandName = c
+										if c in unitNames
+											commandName = "Build#{c}"
+										t += "\t\t\t\t#{commandName}:\n"
+										for k,v of command
+											if k is 'hotkeyCode'
+												unless currentHotkeys[v]
+													nv = currentHotkeys["#{command.hotkeyCode}/#{name}"]
+												if nv
+													t += "\t\t\t\t\t#{k}: '#{command.hotkeyCode}/#{name}'\n"
+												else
+													t += "\t\t\t\t\t#{k}: '#{command.hotkeyCode}'\n"
+											else if k is 'icon' and c in unitNames
+												t += "\t\t\t\t\t#{k}: '#{v.toLowerCase().replace /\.png/, '.jpg'}'\n"
+											else if k is 'displayText' and c in unitNames
+												t += "\t\t\t\t\t#{k}: '#{commandName.replace /([a-z])([A-Z])/g, '$1 $2'}'\n"
+											else
+												t += "\t\t\t\t\t#{k}: '#{v}'\n"
+								else if k is 'icon'
+									t += "\t\t\t#{k}: '#{v.toLowerCase().replace /\.png/, '.jpg'}'\n"
+								else
+									t += "\t\t\t#{k}: '#{v}'\n"
+				console.log t
