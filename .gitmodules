@@ -1,3 +1,6 @@
 [submodule "TheCoreConverter"]
 	path = TheCoreConverter
 	url = git://github.com/jonnyhweiss/TheCoreConverter.git
+[submodule "visualizer/hotkeys"]
+	path = visualizer/hotkeys
+	url = git://github.com/jonnyhweiss/TheCoreConverter.git

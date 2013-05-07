@@ -356,19 +356,24 @@ commandCards =
 				displayText: 'Stop'
 				icon: 'Stop.png'
 				if: -> not (@buildCard or @hallucinateCard or @rooted or @burrowed or @sieged)
+		combat:
+			Attack:
+				displayText: 'Attack'
+				icon: 'Attack.png'
+				if: -> not (@buildCard or @hallucinateCard or @burrowed)
 		cancel:
 			Cancel:
 				displayText: 'Cancel'
 				icon: 'Cancel.png'
 		burrow:
-			BurrowDown:
-				icon: 'BurrowDown.png'
+			Burrow:
+				icon: 'Burrow.gif'
 				hotkeyCode: 'BurrowDown'
 				displayText: 'Burrow'
 				if: -> not @burrowed
 				on: -> @burrowed = yes
-			BurrowUp:
-				icon: 'BurrowUp.png'
+			Unburrow:
+				icon: 'Unburrow.gif'
 				hotkeyCode: 'BurrowUp'
 				displayText: 'Unburrow'
 				if: -> @burrowed
@@ -396,11 +401,6 @@ commandCards =
 				icon: 'Stop.png'
 				if: -> @lifted
 
-		combat:
-			Attack:
-				displayText: 'Attack'
-				icon: 'Attack.png'
-				if: -> not (@buildCard or @hallucinateCard)
 
 for n in [0..9]
 	commandCards.global["ControlGroupRecall#{n}"] =
@@ -1384,8 +1384,9 @@ raceCards =
 						on: -> @upgrade = 'OrbitalCommand'
 					BuildSCV:
 						icon: 'scv.jpg'
-						hotkeyCode: 'SCV/CommandCenter'
+						hotkeyCode: 'SCV'
 						displayText: 'Build SCV'
+						if: -> not @lifted
 
 					UpgradeToPlanetaryFortress:
 						icon: 'planetaryfortress.jpg'
@@ -1905,7 +1906,7 @@ raceCards =
 				icon: 'drone.jpg'
 				displayText: 'Drone'
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
+					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
 					ReturnCargo:
 						icon: 'ReturnCargo.png'
 						hotkeyCode: 'ReturnCargo/Drone'
@@ -1915,13 +1916,13 @@ raceCards =
 						icon: 'Build.png'
 						hotkeyCode: 'ZergBuild/Drone'
 						displayText: 'Build Basic'
-						if: -> not @buildCard
+						if: -> not (@buildCard or @burrowed)
 						on: -> @buildCard = 'basic'
 					BuildAdvanced:
 						icon: 'BuildAdvanced.png'
 						hotkeyCode: 'ZergBuildAdvanced/Drone'
 						displayText: 'Build Advanced'
-						if: -> not @buildCard
+						if: -> not (@buildCard or @burrowed)
 						on: -> @buildCard = 'advanced'
 					BuildEvolutionChamber:
 						icon: 'evolutionchamber.jpg'
@@ -2009,7 +2010,7 @@ raceCards =
 				icon: 'zergling.jpg'
 				displayText: 'Zergling'
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
+					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
 					MorphToBaneling:
 						icon: 'baneling.jpg'
 						hotkeyCode: 'Baneling/Zergling'
@@ -2018,7 +2019,7 @@ raceCards =
 				icon: 'roach.jpg'
 				displayText: 'Roach'
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
+					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
 			Queen:
 				icon: 'queen.jpg'
 				displayText: 'Queen'
@@ -2040,23 +2041,6 @@ raceCards =
 						icon: 'Transfusion.png'
 						hotkeyCode: 'Transfusion/Queen'
 						displayText: 'Transfusion'
-			SpineCrawler:
-				icon: 'spinecrawler.jpg'
-				displayText: 'Spine Crawler Uprooted'
-				commands:
-					inherit: ['unit.movement', 'unit.combat']
-					Root:
-						icon: 'Root.png'
-						hotkeyCode: 'SpineCrawlerRoot/SpineCrawlerUprooted'
-						displayText: 'Root'
-						on: -> @rooted = yes
-						if: -> not @rooted
-					Upoot:
-						icon: 'Uproot.png'
-						hotkeyCode: 'SpineCrawlerUpoot/SpineCrawlerUprooted'
-						displayText: 'Uproot'
-						on: -> @rooted = no
-						if: -> @rooted
 			Baneling:
 				icon: 'baneling.jpg'
 				displayText: 'Baneling'
@@ -2225,20 +2209,37 @@ raceCards =
 						icon: 'overlordspeed.png'
 						hotkeyCode: 'overlordspeed/Hatchery'
 						displayText: 'overlordspeed'
+			SpineCrawler:
+				icon: 'spinecrawler.jpg'
+				displayText: 'Spine Crawler Uprooted'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
+					Root:
+						icon: 'Root.png'
+						hotkeyCode: 'SpineCrawlerRoot/SpineCrawlerUprooted'
+						displayText: 'Root'
+						on: -> @rooted = yes
+						if: -> not @rooted
+					Uproot:
+						icon: 'Uproot.png'
+						hotkeyCode: 'SpineCrawlerUproot/SpineCrawler'
+						displayText: 'Uproot'
+						on: -> @rooted = no
+						if: -> @rooted
 			SporeCrawler:
 				icon: 'sporecrawler.jpg'
 				displayText: 'Spore Crawler'
 				commands:
-					inherit: ['unit.combat']
+					inherit: ['unit.movement','unit.combat']
 					Root:
 						icon: 'Root.png'
 						hotkeyCode: 'SporeCrawlerRoot/SporeCrawlerUprooted'
 						displayText: 'Root'
 						on: -> @rooted = yes
 						if: -> not @rooted
-					Upoot:
+					Uproot:
 						icon: 'Uproot.png'
-						hotkeyCode: 'SporeCrawlerUpoot/SporeCrawlerUprooted'
+						hotkeyCode: 'SporeCrawlerUproot/SporeCrawler'
 						displayText: 'Uproot'
 						on: -> @rooted = no
 						if: -> @rooted
@@ -2500,7 +2501,7 @@ commandIcons = indented ->
 			icons.push "command-icon '#{name}', '#{command.icon or "#{name}.png"}'" if command.icon
 	icons
 
-preloadUrls =-> ((new Array).concat ("url('images/#{command}.png')" for command, icon of commandIconMap), ("url('images/#{command.toLowerCase()}.jpg')" for command, icon of commandUnitIconMap)).join(' ')
+preloadUrls =-> ((new Array).concat ("url('icons/#{command}.png')" for command, icon of commandIconMap), ("url('icons/#{command.toLowerCase()}.jpg')" for command, icon of commandUnitIconMap)).join(' ')
 
 doctype 5
 html ->
@@ -2690,7 +2691,7 @@ body
 		transition left 1s
 	.hand
 		transition opacity 1s, transform 1s, left 1s
-		background-image url("images/hand.png")
+		background-image url("icons/hand.png")
 		position absolute
 		z-index 300
 		background-size 65%
@@ -2882,7 +2883,7 @@ cap-margin = key-width * 0.2
 
 		command-icon(command, icon)
 			&.map-{command}
-				background-image url('images/'+icon)
+				background-image url('icons/'+icon)
 				background-size contain
 				background-repeat no-repeat
 				border-radius key-border-radius
@@ -2987,7 +2988,7 @@ cap-margin = key-width * 0.2
 
 	unit-class(unit, icon)
 		&.unit-{unit}
-			background-image url('images/' + icon)
+			background-image url('icons/' + icon)
 	#{unitStyles indent: 1}
 Zerg-color = #8218c6
 Protoss-color = #e6e240
@@ -3077,7 +3078,7 @@ Terran-color = #c61818
 		background-color transparent
 		race-background(race)
 			&.race-{race}
-				background-image url('images/'+race+'.png')
+				background-image url('icons/'+race+'.png')
 		#{eachRace ((race)-> "race-background '#{race}'"), indent: 2}
 
 .messages
@@ -3298,8 +3299,8 @@ ga('send', 'pageview');
 					unless n -= 1
 						do renderContainer
 			for code in codes
-				loadHotkeysFile "The Core #{sizes[code[2]]} #{sides[code[1]]}-Handed #{races[code[0]]}", "/hotkeys/TheCore #{code} Beta.SC2Hotkeys"
-			loadHotkeysFile "The Chameleon", '/others/Chameleon 2.0.SC2Hotkeys'
+				loadHotkeysFile "The Core #{sizes[code[2]]} #{sides[code[1]]}-Handed #{races[code[0]]}", "hotkeys/TheCore #{code} Beta.SC2Hotkeys"
+			loadHotkeysFile "The Chameleon", 'others/Chameleon 2.0.SC2Hotkeys'
 
 
 		coffeescript -> String.prototype.trim = -> @replace /(^\s+|\s+$)/g, ''
@@ -3551,44 +3552,3 @@ ga('send', 'pageview');
 
 				if $.fn.cookie('tutorial-dismiss')
 					$('.tutorial-overlay').click()
-				t = ''
-				indent = 0
-				unitNames = []
-				for race, kinds of raceCards
-					for k, units of kinds
-						unitNames.push n for n of units
-				for race, kinds of raceCards
-					t += "#{race}:\n"
-					indent = 1
-					for kind, units of kinds
-						t += "\t#{kind}:\n"
-						for name,unit of units
-							t += "\t\t#{name}:\n"
-							for k, v of unit
-								if k is 'commands'
-									t += "\t\t\tcommands:\n"
-									t += "\t\t\t\tinherit: ['unit.movement', 'unit.combat']\n" if kind is 'units'
-									for c, command of unit.commands
-										commandName = c
-										if c in unitNames
-											commandName = "Build#{c}"
-										t += "\t\t\t\t#{commandName}:\n"
-										for k,v of command
-											if k is 'hotkeyCode'
-												unless currentHotkeys[v]
-													nv = currentHotkeys["#{command.hotkeyCode}/#{name}"]
-												if nv
-													t += "\t\t\t\t\t#{k}: '#{command.hotkeyCode}/#{name}'\n"
-												else
-													t += "\t\t\t\t\t#{k}: '#{command.hotkeyCode}'\n"
-											else if k is 'icon' and c in unitNames
-												t += "\t\t\t\t\t#{k}: '#{v.toLowerCase().replace /\.png/, '.jpg'}'\n"
-											else if k is 'displayText' and c in unitNames
-												t += "\t\t\t\t\t#{k}: '#{commandName.replace /([a-z])([A-Z])/g, '$1 $2'}'\n"
-											else
-												t += "\t\t\t\t\t#{k}: '#{v}'\n"
-								else if k is 'icon'
-									t += "\t\t\t#{k}: '#{v.toLowerCase().replace /\.png/, '.jpg'}'\n"
-								else
-									t += "\t\t\t#{k}: '#{v}'\n"
-				console.log t
