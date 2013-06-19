@@ -2,7 +2,6 @@
 
 connect = require 'connect'
 coffeecup = require 'coffeecup'
-appTemplate = (require 'index').appTemplate
 fs = require 'fs'
 
 app = connect.createServer (do connect.logger),
