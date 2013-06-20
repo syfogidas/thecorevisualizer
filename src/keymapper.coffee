@@ -1,12 +1,12 @@
 textarea style: 'width: 100%; height: 100%', ->
 
-script src: 'lib/zepto.min.js'
+script src: '../lib/zepto.min.js'
 coffeescript ->
   keyCodeMap = {}
   currentKeyCodes = []
   $(window).on 'keydown', (e)->
-    return if e.metaKey
-    console.log 'keydown', e.keyCode
+    # return if e.metaKey
+    console.log 'keydown', e.keyCode, e
     if currentKeyCodes.length
       alert 'Please only press one key at a time.'
     else

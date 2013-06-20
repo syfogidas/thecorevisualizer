@@ -2,11 +2,10 @@
 
 connect = require 'connect'
 coffeecup = require 'coffeecup'
-appTemplate = (require 'index').appTemplate
 fs = require 'fs'
 
 app = connect.createServer (do connect.logger),
-  (connect.static __dirname + '/static')
+  (connect.static __dirname)
 
 app.use (req, res)->
   res.setHeader 'Location', '/index.html'
