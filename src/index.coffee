@@ -1,20 +1,5 @@
 require = process.mainModule.require
 
-console.log do ->
-				out = []
-				for i in [0..9]
-					ikey = i + 1
-					ikey = 0 if i is 9
-					out.push "ControlGroupRecall#{i}=#{ikey}"
-					out.push "ControlGroupAssign#{i}=Control+#{ikey}"
-					out.push "ControlGroupAppend#{i}=Shift+#{ikey}"
-					if i < 4
-						out.push "CameraSave#{i}=Control+F#{i+5}"
-						out.push "CameraView#{i}=F#{i+5}"
-
-				out.join '\n'
-
-
 hotkeys = require 'hotkeys.coffee'
 commandCards = hotkeys.commandCards
 raceCards = hotkeys.raceCards
@@ -947,7 +932,10 @@ ga('send', 'pageview');
 					loadHotkeysFile "HotS Standard", 'others/Standard.SC2Hotkeys'
 
 
-			TheCore.currentKeyboard = $.fn.cookie('keyboard-layout-val') or 'USQwerty'
+			TheCore.currentKeyboard = if (val = $.fn.cookie('keyboard-layout-val')) in "USQwerty USDvorak FrenchAzerty German USColemak".split ' '
+				val
+			else
+				'USQwerty'
 			console.log 'Loading keyboard', TheCore.currentKeyboard
 			TheCore.loadTheCoreForKeyboard TheCore.currentKeyboard
 
@@ -979,8 +967,7 @@ ga('send', 'pageview');
 				loadHotkeys (v for k, v of hotkeysFiles)[0]
 				$('.container').html coffeecup.render(containerTemplate)
 
-
-				$('select.keyboard-layout').val($.fn.cookie('keyboard-layout-val') or $('select.keyboard-layout option')[0].value)
+				$('select.keyboard-layout').val(currentKeyboard)
 
 				$('.keyboard .inner').html coffeecup.render(keyboardTemplate, keyboard: keyboards[currentKeyboard], hardcode: {touch, sizeClass, blankRow, formatKeyCap})
 
@@ -1033,7 +1020,6 @@ ga('send', 'pageview');
 								continue
 						unless keys = currentHotkeys[command.hotkeyCode or name]
 							continue
-						console.log name, keys
 						for key in keys
 							[mods..., key] = key.split '+'
 							continue if mods and (no in (mod in mods for mod in currentMods) or no in (mod in currentMods for mod in mods))
@@ -1214,7 +1200,16 @@ ga('send', 'pageview');
 
 
 				$('select.display-side').val($.fn.cookie('display-side-val') or $('select.display-side option')[0].value).change()
-				$('select.hotkey-file').val($.fn.cookie('hotkey-file-val') or $('select.hotkey-file option')[0].value).change()
+
+				hotkeysFile = if (val = $.fn.cookie('hotkey-file-val'))
+					if hotkeysFiles[val]
+						val
+					else
+						$.fn.cookie('tutorial-dismiss', false)
+						$('select.hotkey-file option')[0].value
+				else
+					$('select.hotkey-file option')[0].value
+				$('select.hotkey-file').val(hotkeysFile).change()
 
 				do showCurrentUnitMaps
 
@@ -1225,5 +1220,5 @@ ga('send', 'pageview');
 					$('.tutorial-overlay,.tutorial').hide()
 					$.fn.cookie('tutorial-dismiss', true, expires: 30)
 
-				if $.fn.cookie('tutorial-dismiss')
+				if $.fn.cookie('tutorial-dismiss') and $.fn.cookie('tutorial-dismiss') isnt 'false'
 					$('.tutorial-overlay').click()

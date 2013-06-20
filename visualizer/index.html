@@ -928,6 +928,7 @@ Instead of looking at a list of keys, use this tool to put your hands on the key
         return setTimeout(cb, 0);
       };
     }).call(this);</script><script>var __slice = Array.prototype.slice;var __hasProp = Object.prototype.hasOwnProperty;var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };var __extends = function(child, parent) {  for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }  function ctor() { this.constructor = child; }  ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype;  return child; };var __indexOf = Array.prototype.indexOf || function(item) {  for (var i = 0, l = this.length; i < l; i++) {    if (this[i] === item) return i;  } return -1; };(function () {
+      var val, _ref;
       TheCore.hotkeysForKeyboard = {};
       TheCore.loadTheCoreForKeyboard = function(keyboard, cb) {
         var code, hotkeysFiles, loadHotkeysFile, n, path, prefix, _i, _len, _ref;
@@ -962,7 +963,7 @@ Instead of looking at a list of keys, use this tool to put your hands on the key
           return loadHotkeysFile("HotS Standard", 'others/Standard.SC2Hotkeys');
         }
       };
-      TheCore.currentKeyboard = $.fn.cookie('keyboard-layout-val') || 'USQwerty';
+      TheCore.currentKeyboard = (_ref = (val = $.fn.cookie('keyboard-layout-val')), __indexOf.call("USQwerty USDvorak FrenchAzerty German USColemak".split(' '), _ref) >= 0) ? val : 'USQwerty';
       console.log('Loading keyboard', TheCore.currentKeyboard);
       return TheCore.loadTheCoreForKeyboard(TheCore.currentKeyboard);
     }).call(this);</script><script>var __slice = Array.prototype.slice;var __hasProp = Object.prototype.hasOwnProperty;var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };var __extends = function(child, parent) {  for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }  function ctor() { this.constructor = child; }  ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype;  return child; };var __indexOf = Array.prototype.indexOf || function(item) {  for (var i = 0, l = this.length; i < l; i++) {    if (this[i] === item) return i;  } return -1; };(function () {
@@ -1001,7 +1002,7 @@ Instead of looking at a list of keys, use this tool to put your hands on the key
         return console.log('additions', out);
       };
       return window.renderContainer = function() {
-        var Unit, attr, clearMaps, currentGroup, currentHotkeys, currentKeyboard, currentMods, currentUnit, debounceTimer, globalState, highlightModKeys, hotkeysFiles, i, key, keyPress, keyRelease, modKeyAttrs, modKeys, mouseButtons, selectedUnit, sendMessage, showCurrentUnitMaps, showGlobalMaps, showMapsForUnit, which, windowHandler;
+        var Unit, attr, clearMaps, currentGroup, currentHotkeys, currentKeyboard, currentMods, currentUnit, debounceTimer, globalState, highlightModKeys, hotkeysFile, hotkeysFiles, i, key, keyPress, keyRelease, modKeyAttrs, modKeys, mouseButtons, selectedUnit, sendMessage, showCurrentUnitMaps, showGlobalMaps, showMapsForUnit, val, which, windowHandler;
         currentKeyboard = TheCore.currentKeyboard;
         hotkeysFiles = TheCore.currentHotkeysFiles;
         loadHotkeys(((function() {
@@ -1014,7 +1015,7 @@ Instead of looking at a list of keys, use this tool to put your hands on the key
           return _results;
         })())[0]);
         $('.container').html(coffeecup.render(containerTemplate));
-        $('select.keyboard-layout').val($.fn.cookie('keyboard-layout-val') || $('select.keyboard-layout option')[0].value);
+        $('select.keyboard-layout').val(currentKeyboard);
         $('.keyboard .inner').html(coffeecup.render(keyboardTemplate, {
           keyboard: keyboards[currentKeyboard],
           hardcode: {
@@ -1116,7 +1117,6 @@ Instead of looking at a list of keys, use this tool to put your hands on the key
             if (!(keys = currentHotkeys[command.hotkeyCode || name])) {
               continue;
             }
-            console.log(name, keys);
             _results.push((function() {
               var _i, _j, _len, _ref1, _results1;
               _results1 = [];
@@ -1457,7 +1457,8 @@ Instead of looking at a list of keys, use this tool to put your hands on the key
           return TheCore.loadTheCoreForKeyboard(currentKeyboard);
         });
         $('select.display-side').val($.fn.cookie('display-side-val') || $('select.display-side option')[0].value).change();
-        $('select.hotkey-file').val($.fn.cookie('hotkey-file-val') || $('select.hotkey-file option')[0].value).change();
+        hotkeysFile = (val = $.fn.cookie('hotkey-file-val')) ? hotkeysFiles[val] ? val : ($.fn.cookie('tutorial-dismiss', false), $('select.hotkey-file option')[0].value) : $('select.hotkey-file option')[0].value;
+        $('select.hotkey-file').val(hotkeysFile).change();
         showCurrentUnitMaps();
         $(".race-icon.race-" + ($.fn.cookie('race-selected') || 'Terran')).click();
         $(".unit-icon.unit-" + ($.fn.cookie('unit-selected') || 'SCV')).click();
@@ -1467,7 +1468,7 @@ Instead of looking at a list of keys, use this tool to put your hands on the key
             expires: 30
           });
         });
-        if ($.fn.cookie('tutorial-dismiss')) {
+        if ($.fn.cookie('tutorial-dismiss') && $.fn.cookie('tutorial-dismiss') !== 'false') {
           return $('.tutorial-overlay').click();
         }
       };
