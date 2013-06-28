@@ -1841,55 +1841,66 @@ exports.raceCards = raceCards =
 				icon: 'larva.jpg'
 				displayText: 'Larva'
 				commands:
-					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
 					MorphToCorruptor:
 						icon: 'corruptor.jpg'
 						hotkeyCode: 'Corruptor/Larva'
 						displayText: 'Morph to Corruptor'
+						on: -> @globalState.selectNew 'Zerg', 'units', 'Egg'
 					MorphToDrone:
 						icon: 'drone.jpg'
 						hotkeyCode: 'Drone/Larva'
 						displayText: 'Morph to Drone'
+						on: -> @globalState.selectNew 'Zerg', 'units', 'Egg'
 					MorphToHydralisk:
 						icon: 'hydralisk.jpg'
 						hotkeyCode: 'Hydralisk/Larva'
 						displayText: 'Morph to Hydralisk'
+						on: -> @globalState.selectNew 'Zerg', 'units', 'Egg'
 					MorphToInfestor:
 						icon: 'infestor.jpg'
 						hotkeyCode: 'Infestor/Larva'
 						displayText: 'Morph to Infestor'
+						on: -> @globalState.selectNew 'Zerg', 'units', 'Egg'
 					MorphToMutalisk:
-						icon: 'Mutalisk.png'
+						icon: 'mutalisk.jpg'
 						hotkeyCode: 'Mutalisk/Larva'
-						displayText: 'Mutalisk'
+						displayText: 'Morph to Mutalisk'
+						on: -> @globalState.selectNew 'Zerg', 'units', 'Egg'
 					MorphToOverlord:
 						icon: 'overlord.jpg'
 						hotkeyCode: 'Overlord/Larva'
 						displayText: 'Morph to Overlord'
+						on: -> @globalState.selectNew 'Zerg', 'units', 'Egg'
 					MorphToQueen:
 						icon: 'queen.jpg'
 						hotkeyCode: 'Queen/Larva'
 						displayText: 'Morph to Queen'
+						on: -> @globalState.selectNew 'Zerg', 'units', 'Egg'
 					MorphToRoach:
 						icon: 'roach.jpg'
 						hotkeyCode: 'Roach/Larva'
 						displayText: 'Morph to Roach'
+						on: -> @globalState.selectNew 'Zerg', 'units', 'Egg'
 					MorphToSwarmHost:
 						icon: 'swarmhost.jpg'
 						hotkeyCode: 'SwarmHostMP/Larva'
 						displayText: 'Morph to Swarm Host'
+						on: -> @globalState.selectNew 'Zerg', 'units', 'Egg'
 					MorphToUltralisk:
 						icon: 'ultralisk.jpg'
 						hotkeyCode: 'Ultralisk/Larva'
 						displayText: 'Morph to Ultralisk'
+						on: -> @globalState.selectNew 'Zerg', 'units', 'Egg'
 					MorphToViper:
 						icon: 'viper.jpg'
 						hotkeyCode: 'Viper/Larva'
 						displayText: 'Morph to Viper'
+						on: -> @globalState.selectNew 'Zerg', 'units', 'Egg'
 					MorphToZergling:
 						icon: 'zergling.jpg'
 						hotkeyCode: 'Zergling/Larva'
 						displayText: 'Morph to Zergling'
+						on: -> @globalState.selectNew 'Zerg', 'units', 'Egg'
 			Egg:
 				icon: 'egg.jpg'
 				displayText: 'Egg'
@@ -2179,6 +2190,11 @@ exports.raceCards = raceCards =
 				icon: 'hatchery.jpg'
 				displayText: 'Hatchery'
 				commands:
+					SelectLarva:
+						icon: 'larva.jpg'
+						hotkeyCode: 'Larva'
+						displayText: 'Select Larva'
+						on: -> @globalState.selectNew 'Zerg', 'units', 'Larva'
 					EvolveVentralSacks:
 						icon: 'EvolveVentralSacks.png'
 						hotkeyCode: 'EvolveVentralSacks/Hatchery'

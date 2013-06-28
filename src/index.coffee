@@ -1012,6 +1012,7 @@ ga('send', 'pageview');
 						unit = (($icon.closest '.unit-icon')[0].className.match /unit-icon unit-(\w+)/)[1]
 
 						new Unit race, kind, unit
+					globalState: globalState
 
 				showMapsForUnit =(unit)->
 					for name, command of unit.commands
@@ -1088,6 +1089,8 @@ ga('send', 'pageview');
 					$el.addClass 'selected'
 					@currentUnit = currentUnit = unit
 					do showCurrentUnitMaps
+				globalState.selectNew =(args...)->
+					@select new Unit(args...)
 
 				# $('.races-commands').on 'mouseleave', '.unit-icon', ->
 				# 	do showCurrentUnitMaps
