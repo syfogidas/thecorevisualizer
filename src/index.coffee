@@ -719,6 +719,18 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 ga('create', 'UA-40271514-1', 'github.io');
 ga('send', 'pageview');
 '''
+		script '''(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/QKRO9KGD4RhMORvmaSY1rQ.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()'''
+		script '''UserVoice = window.UserVoice || [];
+UserVoice.push(['showTab', 'classic_widget', {
+  mode: 'feedback',
+  primary_color: '#0f8b99',
+  link_color: '#007dbf',
+  forum_id: 212615,
+  tab_label: 'BETA MODE! Click to Report a Bug',
+  tab_color: '#0e9799',
+  tab_position: 'bottom-right',
+  tab_inverted: false
+}]);'''
 
 
 	blankRow = (row)-> Object.keys(row).length is 0
@@ -1012,6 +1024,7 @@ ga('send', 'pageview');
 						unit = (($icon.closest '.unit-icon')[0].className.match /unit-icon unit-(\w+)/)[1]
 
 						new Unit race, kind, unit
+					globalState: globalState
 
 				showMapsForUnit =(unit)->
 					for name, command of unit.commands
@@ -1088,6 +1101,8 @@ ga('send', 'pageview');
 					$el.addClass 'selected'
 					@currentUnit = currentUnit = unit
 					do showCurrentUnitMaps
+				globalState.selectNew =(args...)->
+					@select new Unit(args...)
 
 				# $('.races-commands').on 'mouseleave', '.unit-icon', ->
 				# 	do showCurrentUnitMaps
