@@ -1,0 +1,743 @@
+{
+  "global": {
+    "PTT": {
+      "hotkeyCode": "PTT",
+      "displayText": "PTT"
+    },
+    "ChatAll": {
+      "hotkeyCode": "ChatAll",
+      "displayText": "Chat All",
+      "if": "function () { return !this.chatting; }",
+      "on": "function () { return this.chatting = true; }"
+    },
+    "ChatAllies": {
+      "hotkeyCode": "ChatAllies",
+      "displayText": "Chat Allies",
+      "if": "function () { return !this.chatting; }",
+      "on": "function () { return this.chatting = true; }"
+    },
+    "ChatCancel": {
+      "hotkeyCode": "ChatCancel",
+      "displayText": "Chat Cancel",
+      "if": "function () { return this.chatting; }",
+      "on": "function () { return this.chatting = false; }"
+    },
+    "ChatDefault": {
+      "hotkeyCode": "ChatDefault",
+      "displayText": "Chat Default",
+      "if": "function () { return !this.chatting; }",
+      "on": "function () { return this.chatting = true; }"
+    },
+    "ChatIndividual": {
+      "hotkeyCode": "ChatIndividual",
+      "displayText": "Chat Individual",
+      "if": "function () { return !this.chatting; }",
+      "on": "function () { return this.chatting = true; }"
+    },
+    "ChatRecipient": {
+      "hotkeyCode": "ChatRecipient",
+      "displayText": "Chat Recipient",
+      "if": "function () { return !this.chatting; }",
+      "on": "function () { return this.chatting = true; }"
+    },
+    "DialogDismiss": {
+      "hotkeyCode": "DialogDismiss",
+      "displayText": "Dialog Dismiss",
+      "if": "function () { return this.dialog; }"
+    },
+    "MenuAchievements": {
+      "hotkeyCode": "MenuAchievements",
+      "displayText": "Menu Achievements"
+    },
+    "MenuGame": {
+      "hotkeyCode": "MenuGame",
+      "displayText": "Menu Game"
+    },
+    "MenuHelp": {
+      "hotkeyCode": "MenuHelp",
+      "displayText": "Menu Help"
+    },
+    "MenuMessages": {
+      "hotkeyCode": "MenuMessages",
+      "displayText": "Menu Messages"
+    },
+    "LeaderNone": {
+      "hotkeyCode": "LeaderNone",
+      "displayText": "Leader None",
+      "if": "function () { return this.observer; }"
+    },
+    "LeaderResources": {
+      "hotkeyCode": "LeaderResources",
+      "displayText": "Leader Resources",
+      "if": "function () { return this.observer; }"
+    },
+    "LeaderIncome": {
+      "hotkeyCode": "LeaderIncome",
+      "displayText": "Leader Income",
+      "if": "function () { return this.observer; }"
+    },
+    "LeaderSpending": {
+      "hotkeyCode": "LeaderSpending",
+      "displayText": "Leader Spending",
+      "if": "function () { return this.observer; }"
+    },
+    "LeaderUnits": {
+      "hotkeyCode": "LeaderUnits",
+      "displayText": "Leader Units",
+      "if": "function () { return this.observer; }"
+    },
+    "LeaderStructures": {
+      "hotkeyCode": "LeaderStructures",
+      "displayText": "Leader Structures",
+      "if": "function () { return this.observer; }"
+    },
+    "LeaderUnitsLost": {
+      "hotkeyCode": "LeaderUnitsLost",
+      "displayText": "Leader Units Lost",
+      "if": "function () { return this.observer; }"
+    },
+    "LeaderProduction": {
+      "hotkeyCode": "LeaderProduction",
+      "displayText": "Leader Production",
+      "if": "function () { return this.observer; }"
+    },
+    "LeaderUpgrades": {
+      "hotkeyCode": "LeaderUpgrades",
+      "displayText": "Leader Upgrades",
+      "if": "function () { return this.observer; }"
+    },
+    "LeaderArmy": {
+      "hotkeyCode": "LeaderArmy",
+      "displayText": "Leader Army",
+      "if": "function () { return this.observer; }"
+    },
+    "LeaderAPM": {
+      "hotkeyCode": "LeaderAPM",
+      "displayText": "Leader APM",
+      "if": "function () { return this.observer; }"
+    },
+    "LeaderCPM": {
+      "hotkeyCode": "LeaderCPM",
+      "displayText": "Leader CPM",
+      "if": "function () { return this.observer; }"
+    },
+    "ObserveAllPlayers": {
+      "hotkeyCode": "ObserveAllPlayers",
+      "displayText": "Observe All Players",
+      "if": "function () { return this.observer; }"
+    },
+    "ObserveAutoCamera": {
+      "hotkeyCode": "ObserveAutoCamera",
+      "displayText": "Observe Auto Camera",
+      "if": "function () { return this.observer; }"
+    },
+    "ObserveClearSelection": {
+      "hotkeyCode": "ObserveClearSelection",
+      "displayText": "Observe Clear Selection",
+      "if": "function () { return this.observer; }"
+    },
+    "ObservePreview": {
+      "hotkeyCode": "ObservePreview",
+      "displayText": "Observe Preview",
+      "if": "function () { return this.observer; }"
+    },
+    "ObserveSelected": {
+      "hotkeyCode": "ObserveSelected",
+      "displayText": "Observe Selected",
+      "if": "function () { return this.observer; }"
+    },
+    "ObserveStatusBars": {
+      "hotkeyCode": "ObserveStatusBars",
+      "displayText": "Observe Status Bars",
+      "if": "function () { return this.observer; }"
+    },
+    "NamePanel": {
+      "hotkeyCode": "NamePanel",
+      "displayText": "Name Panel",
+      "if": "function () { return this.observer; }"
+    },
+    "StatPanelResources": {
+      "hotkeyCode": "StatPanelResources",
+      "displayText": "Stat Panel Resources",
+      "if": "function () { return this.observer; }"
+    },
+    "StatPanelArmySupply": {
+      "hotkeyCode": "StatPanelArmySupply",
+      "displayText": "Stat Panel Army Supply",
+      "if": "function () { return this.observer; }"
+    },
+    "StatPanelUnitsLost": {
+      "hotkeyCode": "StatPanelUnitsLost",
+      "displayText": "Stat Panel Units Lost",
+      "if": "function () { return this.observer; }"
+    },
+    "StatPanelAPM": {
+      "hotkeyCode": "StatPanelAPM",
+      "displayText": "Stat Panel APM",
+      "if": "function () { return this.observer; }"
+    },
+    "StatPanelCPM": {
+      "hotkeyCode": "StatPanelCPM",
+      "displayText": "Stat Panel CPM",
+      "if": "function () { return this.observer; }"
+    },
+    "ToggleVersusModeSides": {
+      "hotkeyCode": "ToggleVersusModeSides",
+      "displayText": "Toggle Versus Mode Sides",
+      "if": "function () { return this.observer; }"
+    },
+    "ToggleWorldPanel": {
+      "hotkeyCode": "ToggleWorldPanel",
+      "displayText": "Toggle World Panel",
+      "if": "function () { return this.observer; }"
+    },
+    "AlertRecall": {
+      "hotkeyCode": "AlertRecall",
+      "displayText": "Alert Recall"
+    },
+    "ArmySelect": {
+      "hotkeyCode": "ArmySelect",
+      "displayText": "Army Select"
+    },
+    "CameraCenter": {
+      "hotkeyCode": "CameraCenter",
+      "displayText": "Camera Center"
+    },
+    "CameraFollow": {
+      "hotkeyCode": "CameraFollow",
+      "displayText": "Camera Follow"
+    },
+    "CameraTurnLeft": {
+      "hotkeyCode": "CameraTurnLeft",
+      "displayText": "Camera Turn Left"
+    },
+    "CameraTurnRight": {
+      "hotkeyCode": "CameraTurnRight",
+      "displayText": "Camera Turn Right"
+    },
+    "GameTooltipsOn": {
+      "hotkeyCode": "GameTooltipsOn",
+      "displayText": "Game Tooltips On"
+    },
+    "IdleWorker": {
+      "hotkeyCode": "IdleWorker",
+      "displayText": "Idle Worker"
+    },
+    "MinimapColors": {
+      "hotkeyCode": "MinimapColors",
+      "displayText": "Minimap Colors"
+    },
+    "MinimapPing": {
+      "hotkeyCode": "MinimapPing",
+      "displayText": "Minimap Ping"
+    },
+    "MinimapTerrain": {
+      "hotkeyCode": "MinimapTerrain",
+      "displayText": "Minimap Terrain"
+    },
+    "PauseGame": {
+      "hotkeyCode": "PauseGame",
+      "displayText": "Pause Game"
+    },
+    "QuickPing": {
+      "hotkeyCode": "QuickPing",
+      "displayText": "Quick Ping"
+    },
+    "QuickSave": {
+      "hotkeyCode": "QuickSave",
+      "displayText": "Quick Save",
+      "if": "function () { return this.campaign; }"
+    },
+    "ReplayPlayPause": {
+      "hotkeyCode": "ReplayPlayPause",
+      "displayText": "Replay Play Pause",
+      "if": "function () { return this.replay; }"
+    },
+    "ReplayRestart": {
+      "hotkeyCode": "ReplayRestart",
+      "displayText": "Replay Restart",
+      "if": "function () { return this.replay; }"
+    },
+    "ReplaySkipBack": {
+      "hotkeyCode": "ReplaySkipBack",
+      "displayText": "Replay Skip Back",
+      "if": "function () { return this.replay; }"
+    },
+    "ReplaySkipNext": {
+      "hotkeyCode": "ReplaySkipNext",
+      "displayText": "Replay Skip Next"
+    },
+    "ReplaySpeedDec": {
+      "hotkeyCode": "ReplaySpeedDec",
+      "displayText": "Replay Speed Dec",
+      "if": "function () { return this.replay; }"
+    },
+    "ReplaySpeedInc": {
+      "hotkeyCode": "ReplaySpeedInc",
+      "displayText": "Replay Speed Inc",
+      "if": "function () { return this.replay; }"
+    },
+    "ReplayStop": {
+      "hotkeyCode": "ReplayStop",
+      "displayText": "Replay Stop",
+      "if": "function () { return this.replay; }"
+    },
+    "ReplayHide": {
+      "hotkeyCode": "ReplayHide",
+      "displayText": "Replay Hide",
+      "if": "function () { return this.replay; }"
+    },
+    "SelectionCancelDrag": {
+      "hotkeyCode": "SelectionCancelDrag",
+      "displayText": "Selection Cancel Drag",
+      "if": "function () { return this.dragging; }"
+    },
+    "StatusAll": {
+      "hotkeyCode": "StatusAll",
+      "displayText": "Status All"
+    },
+    "StatusOwner": {
+      "hotkeyCode": "StatusOwner",
+      "displayText": "Status Owner"
+    },
+    "StatusAlly": {
+      "hotkeyCode": "StatusAlly",
+      "displayText": "Status Ally"
+    },
+    "StatusEnemy": {
+      "hotkeyCode": "StatusEnemy",
+      "displayText": "Status Enemy"
+    },
+    "SubgroupNext": {
+      "hotkeyCode": "SubgroupNext",
+      "displayText": "Subgroup Next"
+    },
+    "SubgroupPrev": {
+      "hotkeyCode": "SubgroupPrev",
+      "displayText": "Subgroup Prev"
+    },
+    "TeamResources": {
+      "hotkeyCode": "TeamResources",
+      "displayText": "Team Resources"
+    },
+    "TownCamera": {
+      "hotkeyCode": "TownCamera",
+      "displayText": "Town Camera"
+    },
+    "Select": {
+      "hotkeyCode": "Select",
+      "displayText": "Select"
+    },
+    "Interact": {
+      "hotkeyCode": "Interact",
+      "displayText": "Interact"
+    },
+    "ControlGroupRecall0": {
+      "hotkeyCode": "ControlGroupRecall0",
+      "keyCap": "0",
+      "displayText": "Select Group 0",
+      "on": "function () { return this.select(this.controlGroup[0]); }"
+    },
+    "ControlGroupRecall1": {
+      "hotkeyCode": "ControlGroupRecall1",
+      "keyCap": "1",
+      "displayText": "Select Group 1",
+      "on": "function () { return this.select(this.controlGroup[1]); }"
+    },
+    "ControlGroupRecall2": {
+      "hotkeyCode": "ControlGroupRecall2",
+      "keyCap": "2",
+      "displayText": "Select Group 2",
+      "on": "function () { return this.select(this.controlGroup[2]); }"
+    },
+    "ControlGroupRecall3": {
+      "hotkeyCode": "ControlGroupRecall3",
+      "keyCap": "3",
+      "displayText": "Select Group 3",
+      "on": "function () { return this.select(this.controlGroup[3]); }"
+    },
+    "ControlGroupRecall4": {
+      "hotkeyCode": "ControlGroupRecall4",
+      "keyCap": "4",
+      "displayText": "Select Group 4",
+      "on": "function () { return this.select(this.controlGroup[4]); }"
+    },
+    "ControlGroupRecall5": {
+      "hotkeyCode": "ControlGroupRecall5",
+      "keyCap": "5",
+      "displayText": "Select Group 5",
+      "on": "function () { return this.select(this.controlGroup[5]); }"
+    },
+    "ControlGroupRecall6": {
+      "hotkeyCode": "ControlGroupRecall6",
+      "keyCap": "6",
+      "displayText": "Select Group 6",
+      "on": "function () { return this.select(this.controlGroup[6]); }"
+    },
+    "ControlGroupRecall7": {
+      "hotkeyCode": "ControlGroupRecall7",
+      "keyCap": "7",
+      "displayText": "Select Group 7",
+      "on": "function () { return this.select(this.controlGroup[7]); }"
+    },
+    "ControlGroupRecall8": {
+      "hotkeyCode": "ControlGroupRecall8",
+      "keyCap": "8",
+      "displayText": "Select Group 8",
+      "on": "function () { return this.select(this.controlGroup[8]); }"
+    },
+    "ControlGroupRecall9": {
+      "hotkeyCode": "ControlGroupRecall9",
+      "keyCap": "9",
+      "displayText": "Select Group 9",
+      "on": "function () { return this.select(this.controlGroup[9]); }"
+    },
+    "ControlGroupAppend0": {
+      "hotkeyCode": "ControlGroupAppend0",
+      "keyCap": "0",
+      "displayText": "Add Selection to Group 0",
+      "on": "function () { return this.controlGroup[0] = this.currentUnit; }"
+    },
+    "ControlGroupAppend1": {
+      "hotkeyCode": "ControlGroupAppend1",
+      "keyCap": "1",
+      "displayText": "Add Selection to Group 1",
+      "on": "function () { return this.controlGroup[1] = this.currentUnit; }"
+    },
+    "ControlGroupAppend2": {
+      "hotkeyCode": "ControlGroupAppend2",
+      "keyCap": "2",
+      "displayText": "Add Selection to Group 2",
+      "on": "function () { return this.controlGroup[2] = this.currentUnit; }"
+    },
+    "ControlGroupAppend3": {
+      "hotkeyCode": "ControlGroupAppend3",
+      "keyCap": "3",
+      "displayText": "Add Selection to Group 3",
+      "on": "function () { return this.controlGroup[3] = this.currentUnit; }"
+    },
+    "ControlGroupAppend4": {
+      "hotkeyCode": "ControlGroupAppend4",
+      "keyCap": "4",
+      "displayText": "Add Selection to Group 4",
+      "on": "function () { return this.controlGroup[4] = this.currentUnit; }"
+    },
+    "ControlGroupAppend5": {
+      "hotkeyCode": "ControlGroupAppend5",
+      "keyCap": "5",
+      "displayText": "Add Selection to Group 5",
+      "on": "function () { return this.controlGroup[5] = this.currentUnit; }"
+    },
+    "ControlGroupAppend6": {
+      "hotkeyCode": "ControlGroupAppend6",
+      "keyCap": "6",
+      "displayText": "Add Selection to Group 6",
+      "on": "function () { return this.controlGroup[6] = this.currentUnit; }"
+    },
+    "ControlGroupAppend7": {
+      "hotkeyCode": "ControlGroupAppend7",
+      "keyCap": "7",
+      "displayText": "Add Selection to Group 7",
+      "on": "function () { return this.controlGroup[7] = this.currentUnit; }"
+    },
+    "ControlGroupAppend8": {
+      "hotkeyCode": "ControlGroupAppend8",
+      "keyCap": "8",
+      "displayText": "Add Selection to Group 8",
+      "on": "function () { return this.controlGroup[8] = this.currentUnit; }"
+    },
+    "ControlGroupAppend9": {
+      "hotkeyCode": "ControlGroupAppend9",
+      "keyCap": "9",
+      "displayText": "Add Selection to Group 9",
+      "on": "function () { return this.controlGroup[9] = this.currentUnit; }"
+    },
+    "ControlGroupAssign0": {
+      "hotkeyCode": "ControlGroupAssign0",
+      "keyCap": "0",
+      "displayText": "Set Group 0 to Selection",
+      "on": "function () { return this.controlGroup[0] = this.currentUnit; }"
+    },
+    "ControlGroupAssign1": {
+      "hotkeyCode": "ControlGroupAssign1",
+      "keyCap": "1",
+      "displayText": "Set Group 1 to Selection",
+      "on": "function () { return this.controlGroup[1] = this.currentUnit; }"
+    },
+    "ControlGroupAssign2": {
+      "hotkeyCode": "ControlGroupAssign2",
+      "keyCap": "2",
+      "displayText": "Set Group 2 to Selection",
+      "on": "function () { return this.controlGroup[2] = this.currentUnit; }"
+    },
+    "ControlGroupAssign3": {
+      "hotkeyCode": "ControlGroupAssign3",
+      "keyCap": "3",
+      "displayText": "Set Group 3 to Selection",
+      "on": "function () { return this.controlGroup[3] = this.currentUnit; }"
+    },
+    "ControlGroupAssign4": {
+      "hotkeyCode": "ControlGroupAssign4",
+      "keyCap": "4",
+      "displayText": "Set Group 4 to Selection",
+      "on": "function () { return this.controlGroup[4] = this.currentUnit; }"
+    },
+    "ControlGroupAssign5": {
+      "hotkeyCode": "ControlGroupAssign5",
+      "keyCap": "5",
+      "displayText": "Set Group 5 to Selection",
+      "on": "function () { return this.controlGroup[5] = this.currentUnit; }"
+    },
+    "ControlGroupAssign6": {
+      "hotkeyCode": "ControlGroupAssign6",
+      "keyCap": "6",
+      "displayText": "Set Group 6 to Selection",
+      "on": "function () { return this.controlGroup[6] = this.currentUnit; }"
+    },
+    "ControlGroupAssign7": {
+      "hotkeyCode": "ControlGroupAssign7",
+      "keyCap": "7",
+      "displayText": "Set Group 7 to Selection",
+      "on": "function () { return this.controlGroup[7] = this.currentUnit; }"
+    },
+    "ControlGroupAssign8": {
+      "hotkeyCode": "ControlGroupAssign8",
+      "keyCap": "8",
+      "displayText": "Set Group 8 to Selection",
+      "on": "function () { return this.controlGroup[8] = this.currentUnit; }"
+    },
+    "ControlGroupAssign9": {
+      "hotkeyCode": "ControlGroupAssign9",
+      "keyCap": "9",
+      "displayText": "Set Group 9 to Selection",
+      "on": "function () { return this.controlGroup[9] = this.currentUnit; }"
+    },
+    "ObservePlayer0": {
+      "hotkeyCode": "ObservePlayer0",
+      "displayText": "Observe Player 0"
+    },
+    "ObservePlayer1": {
+      "hotkeyCode": "ObservePlayer1",
+      "displayText": "Observe Player 1"
+    },
+    "ObservePlayer2": {
+      "hotkeyCode": "ObservePlayer2",
+      "displayText": "Observe Player 2"
+    },
+    "ObservePlayer3": {
+      "hotkeyCode": "ObservePlayer3",
+      "displayText": "Observe Player 3"
+    },
+    "ObservePlayer4": {
+      "hotkeyCode": "ObservePlayer4",
+      "displayText": "Observe Player 4"
+    },
+    "ObservePlayer5": {
+      "hotkeyCode": "ObservePlayer5",
+      "displayText": "Observe Player 5"
+    },
+    "ObservePlayer6": {
+      "hotkeyCode": "ObservePlayer6",
+      "displayText": "Observe Player 6"
+    },
+    "ObservePlayer7": {
+      "hotkeyCode": "ObservePlayer7",
+      "displayText": "Observe Player 7"
+    },
+    "ObservePlayer8": {
+      "hotkeyCode": "ObservePlayer8",
+      "displayText": "Observe Player 8"
+    },
+    "ObservePlayer9": {
+      "hotkeyCode": "ObservePlayer9",
+      "displayText": "Observe Player 9"
+    },
+    "ObservePlayer10": {
+      "hotkeyCode": "ObservePlayer10",
+      "displayText": "Observe Player 10"
+    },
+    "ObservePlayer11": {
+      "hotkeyCode": "ObservePlayer11",
+      "displayText": "Observe Player 11"
+    },
+    "ObservePlayer12": {
+      "hotkeyCode": "ObservePlayer12",
+      "displayText": "Observe Player 12"
+    },
+    "ObservePlayer13": {
+      "hotkeyCode": "ObservePlayer13",
+      "displayText": "Observe Player 13"
+    },
+    "ObservePlayer14": {
+      "hotkeyCode": "ObservePlayer14",
+      "displayText": "Observe Player 14"
+    },
+    "ObservePlayer15": {
+      "hotkeyCode": "ObservePlayer15",
+      "displayText": "Observe Player 15"
+    },
+    "CameraSave0": {
+      "hotkeyCode": "CameraSave0",
+      "keyCap": "0",
+      "displayText": "Save Camera 0"
+    },
+    "CameraSave1": {
+      "hotkeyCode": "CameraSave1",
+      "keyCap": "1",
+      "displayText": "Save Camera 1"
+    },
+    "CameraSave2": {
+      "hotkeyCode": "CameraSave2",
+      "keyCap": "2",
+      "displayText": "Save Camera 2"
+    },
+    "CameraSave3": {
+      "hotkeyCode": "CameraSave3",
+      "keyCap": "3",
+      "displayText": "Save Camera 3"
+    },
+    "CameraSave4": {
+      "hotkeyCode": "CameraSave4",
+      "keyCap": "4",
+      "displayText": "Save Camera 4"
+    },
+    "CameraSave5": {
+      "hotkeyCode": "CameraSave5",
+      "keyCap": "5",
+      "displayText": "Save Camera 5"
+    },
+    "CameraSave6": {
+      "hotkeyCode": "CameraSave6",
+      "keyCap": "6",
+      "displayText": "Save Camera 6"
+    },
+    "CameraSave7": {
+      "hotkeyCode": "CameraSave7",
+      "keyCap": "7",
+      "displayText": "Save Camera 7"
+    },
+    "CameraView0": {
+      "hotkeyCode": "CameraView0",
+      "keyCap": "0",
+      "displayText": "Go to Camera 0"
+    },
+    "CameraView1": {
+      "hotkeyCode": "CameraView1",
+      "keyCap": "1",
+      "displayText": "Go to Camera 1"
+    },
+    "CameraView2": {
+      "hotkeyCode": "CameraView2",
+      "keyCap": "2",
+      "displayText": "Go to Camera 2"
+    },
+    "CameraView3": {
+      "hotkeyCode": "CameraView3",
+      "keyCap": "3",
+      "displayText": "Go to Camera 3"
+    },
+    "CameraView4": {
+      "hotkeyCode": "CameraView4",
+      "keyCap": "4",
+      "displayText": "Go to Camera 4"
+    },
+    "CameraView5": {
+      "hotkeyCode": "CameraView5",
+      "keyCap": "5",
+      "displayText": "Go to Camera 5"
+    },
+    "CameraView6": {
+      "hotkeyCode": "CameraView6",
+      "keyCap": "6",
+      "displayText": "Go to Camera 6"
+    },
+    "CameraView7": {
+      "hotkeyCode": "CameraView7",
+      "keyCap": "7",
+      "displayText": "Go to Camera 7"
+    }
+  },
+  "unit": {
+    "movement": {
+      "Move": {
+        "displayText": "Move",
+        "icon": "Move.png",
+        "if": "function () { return !(this.buildCard || this.hallucinateCard || this.rooted || this.burrowed || this.sieged); }"
+      },
+      "HoldPosition": {
+        "hotkeyCode": "MoveHoldPosition",
+        "displayText": "Hold Position",
+        "icon": "HoldPosition.png",
+        "if": "function () { return !(this.buildCard || this.hallucinateCard || this.rooted || this.burrowed || this.sieged); }"
+      },
+      "Patrol": {
+        "hotkeyCode": "MovePatrol",
+        "displayText": "Patrol",
+        "icon": "Patrol.png",
+        "if": "function () { return !(this.buildCard || this.hallucinateCard || this.rooted || this.burrowed || this.sieged); }"
+      },
+      "Stop": {
+        "displayText": "Stop",
+        "icon": "Stop.png",
+        "if": "function () { return !(this.buildCard || this.hallucinateCard || this.rooted || this.burrowed || this.sieged); }"
+      }
+    },
+    "combat": {
+      "Attack": {
+        "displayText": "Attack",
+        "icon": "Attack.png",
+        "if": "function () { return !(this.buildCard || this.hallucinateCard || this.burrowed); }"
+      }
+    },
+    "cancel": {
+      "Cancel": {
+        "displayText": "Cancel",
+        "icon": "Cancel.png"
+      }
+    },
+    "burrow": {
+      "Burrow": {
+        "icon": "Burrow.gif",
+        "hotkeyCode": "BurrowDown",
+        "displayText": "Burrow",
+        "if": "function () { return !this.burrowed; }",
+        "on": "function () { return this.burrowed = true; }"
+      },
+      "Unburrow": {
+        "icon": "Unburrow.gif",
+        "hotkeyCode": "BurrowUp",
+        "displayText": "Unburrow",
+        "if": "function () { return this.burrowed; }",
+        "on": "function () { return this.burrowed = false; }"
+      }
+    }
+  },
+  "building": {
+    "flying": {
+      "Liftoff": {
+        "icon": "Lift.png",
+        "hotkeyCode": "Lift",
+        "displayText": "Lift Off",
+        "if": "function () { return this.upgrade !== 'PlanetaryFortress' && !this.lifted; }",
+        "on": "function () { return this.lifted = true; }"
+      },
+      "Land": {
+        "icon": "Land.png",
+        "hotkeyCode": "Land",
+        "displayText": "Land Building",
+        "if": "function () { return this.lifted; }",
+        "on": "function () { return this.lifted = false; }"
+      },
+      "Move": {
+        "displayText": "Move",
+        "icon": "Move.png",
+        "if": "function () { return this.lifted; }"
+      },
+      "Stop": {
+        "displayText": "Stop",
+        "icon": "Stop.png",
+        "if": "function () { return this.lifted; }"
+      }
+    }
+  }
+}
