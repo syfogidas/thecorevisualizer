@@ -828,7 +828,7 @@ ga('send', 'pageview');
 			coffeescript ->
 
 				window.TheCore = TheCore =
-					version:
+					version: ''
 					layoutCodeToDisplayName:(code)->
 						"The Core #{code} #{@version} (#{@layoutRaces[code[0]]} #{@layoutSides[code[1]]}-Handed  #{@layoutSizes[code[2]]})"
 					layoutCodeToFileName:(code)->
