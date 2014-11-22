@@ -2038,7 +2038,7 @@ exports.raceCards = raceCards =
 						displayText: 'Build Creep Tumor'
 					InjectLarva:
 						icon: 'larva.jpg'
-						hotkeyCode: 'Larva/Queen'
+						hotkeyCode: 'MorphMorphalisk/Queen'
 						displayText: 'Inject Larva'
 					QueenBurstHeal:
 						icon: 'QueenBurstHeal.png'
