@@ -2153,7 +2153,7 @@ exports.raceCards = raceCards =
 				commands:
 					inherit: ['unit.movement', 'unit.combat']
 					BroodLord:
-						icon: 'BroodLord.png'
+						icon: 'broodlord.png'
 						hotkeyCode: 'BroodLord/Corruptor'
 						displayText: 'Brood Lord'
 					CorruptionAbility:
