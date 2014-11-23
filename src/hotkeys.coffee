@@ -2245,13 +2245,13 @@ exports.raceCards = raceCards =
 				displayText: 'Spawning Pool'
 				commands:
 					zerglingattackspeed:
-						icon: 'zerglingattackspeed.png'
+						icon: 'AdrenalGlands.gif'
 						hotkeyCode: 'zerglingattackspeed/SpawningPool'
-						displayText: 'zerglingattackspeed'
+						displayText: 'Adrenal Glands'
 					zerglingmovementspeed:
-						icon: 'zerglingmovementspeed.png'
+						icon: 'MetabolicBoost.gif'
 						hotkeyCode: 'zerglingmovementspeed/SpawningPool'
-						displayText: 'zerglingmovementspeed'
+						displayText: 'Metabolic Boost'
 			RoachWarren:
 				icon: 'roachwarren.jpg'
 				displayText: 'Roach Warren'
