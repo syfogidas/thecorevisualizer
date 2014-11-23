@@ -2162,7 +2162,7 @@ exports.raceCards = raceCards =
 						hotkeyCode: 'Contaminate/Overseer'
 						displayText: 'Contaminate'
 					SpawnChangeling:
-						icon: 'SpawnChangeling.png'
+						icon: 'SpawnChangeling.gif'
 						hotkeyCode: 'SpawnChangeling/Overseer'
 						displayText: 'Spawn Changeling'
 			Broodlord:
