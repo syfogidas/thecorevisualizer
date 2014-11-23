@@ -2139,26 +2139,14 @@ exports.raceCards = raceCards =
 						icon: 'BlindingCloud.png'
 						hotkeyCode: 'BlindingCloud/Viper'
 						displayText: 'Blinding Cloud'
-					BurrowProtector:
-						icon: 'BurrowProtector.png'
-						hotkeyCode: 'BurrowProtector'
-						displayText: 'Burrow Protector'
-					DisablingCloud:
-						icon: 'DisablingCloud.png'
-						hotkeyCode: 'DisablingCloud/Viper'
-						displayText: 'Disabling Cloud'
 					FaceEmbrace:
-						icon: 'FaceEmbrace.png'
+						icon: 'ViperAbduct.png'
 						hotkeyCode: 'FaceEmbrace/Viper'
-						displayText: 'Face Embrace'
+						displayText: 'Abduct'
 					ViperConsume:
 						icon: 'ViperConsume.png'
 						hotkeyCode: 'ViperConsume/Viper'
 						displayText: 'Viper Consume'
-					ViperConsumption:
-						icon: 'ViperConsumption.png'
-						hotkeyCode: 'ViperConsumption/Viper'
-						displayText: 'Viper Consumption'
 			Corruptor:
 				icon: 'corruptor.jpg'
 				displayText: 'Corruptor'
