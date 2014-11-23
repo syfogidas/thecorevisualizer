@@ -2173,6 +2173,11 @@ exports.raceCards = raceCards =
 						icon: 'SpawnChangeling.png'
 						hotkeyCode: 'SpawnChangeling/Overseer'
 						displayText: 'Spawn Changeling'
+			Broodlord:
+				icon: 'broodlord.jpg'
+				displayText: 'Broodlord'
+				commands:
+					inherit: ['unit.movement', 'unit.combat']
 		buildings:
 			Hatchery:
 				icon: 'hatchery.jpg'
