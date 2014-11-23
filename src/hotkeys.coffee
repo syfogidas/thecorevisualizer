@@ -2105,17 +2105,9 @@ exports.raceCards = raceCards =
 						hotkeyCode: 'FungalGrowth/Infestor'
 						displayText: 'Fungal Growth'
 					InfestedTerrans:
-						icon: 'InfestedTerrans.png'
+						icon: 'InfestedTerrans.gif'
 						hotkeyCode: 'InfestedTerrans/Infestor'
 						displayText: 'Infested Terrans'
-					InfestorConsumption:
-						icon: 'InfestorConsumption.png'
-						hotkeyCode: 'InfestorConsumption/Infestor'
-						displayText: 'Infestor Consumption'
-					NPSwarm:
-						icon: 'NPSwarm.png'
-						hotkeyCode: 'NPSwarm/Infestor'
-						displayText: 'NPSwarm'
 					NeuralParasite:
 						icon: 'NeuralParasite.png'
 						hotkeyCode: 'NeuralParasite/Infestor'
