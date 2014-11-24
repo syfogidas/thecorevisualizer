@@ -337,21 +337,21 @@ exports.commandCards = commandCards =
 			Move:
 				displayText: 'Move'
 				icon: 'Move.png'
-				if: -> not (@buildCard or @hallucinateCard or @burrowed or @sieged or not @unrooted)
+				if: -> not (@buildCard or @hallucinateCard or @burrowed or @sieged or @unrooted is no)
 			HoldPosition:
 				hotkeyCode: 'MoveHoldPosition'
 				displayText: 'Hold Position'
 				icon: 'HoldPosition.png'
-				if: -> not (@buildCard or @hallucinateCard or @burrowed or @sieged or not @unrooted)
+				if: -> not (@buildCard or @hallucinateCard or @burrowed or @sieged or @unrooted is no)
 			Patrol:
 				hotkeyCode: 'MovePatrol'
 				displayText: 'Patrol'
 				icon: 'Patrol.png'
-				if: -> not (@buildCard or @hallucinateCard or @burrowed or @sieged or not @unrooted)
+				if: -> not (@buildCard or @hallucinateCard or @burrowed or @sieged or @unrooted is no)
 			Stop:
 				displayText: 'Stop'
 				icon: 'Stop.png'
-				if: -> not (@buildCard or @hallucinateCard or @burrowed) or @unrooted
+				if: -> not (@buildCard or @hallucinateCard or @burrowed or @unrooted is no)
 		combat:
 			Attack:
 				displayText: 'Attack'
