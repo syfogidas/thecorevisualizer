@@ -1510,7 +1510,7 @@ exports.raceCards = raceCards =
 						displayText: 'Attack'
 					BunkerLoad:
 						icon: 'BunkerLoad.png'
-						hotkeyCode: 'BunkerLoad/Bunker'
+						hotkeyCode: 'BunkerLoad'
 						displayText: 'Bunker Load'
 					BunkerUnloadAll:
 						icon: 'BunkerUnloadAll.png'
@@ -2181,10 +2181,9 @@ exports.raceCards = raceCards =
 						displayText: 'Select Larva'
 						on: -> @globalState.selectNew 'Zerg', 'units', 'Larva'
 					EvolveVentralSacks:
-						icon: 'EvolveVentralSacks.png'
-						hotkeyCode: 'EvolveVentralSacks/Hatchery'
+						icon: 'VentralSacs.gif'
+						hotkeyCode: 'EvolveVentralSacks'
 						displayText: 'Evolve Ventral Sacks'
-						if: -> @upgrade
 					BuildLair:
 						icon: 'lair.jpg'
 						hotkeyCode: 'Lair/Hatchery'
@@ -2198,14 +2197,13 @@ exports.raceCards = raceCards =
 						if: -> @upgrade is 'Lair'
 						on: -> @upgrade = 'Hive'
 					ResearchBurrow:
-						icon: 'ResearchBurrow.png'
-						hotkeyCode: 'ResearchBurrow/Hatchery'
+						icon: 'Burrow.gif'
+						hotkeyCode: 'ResearchBurrow'
 						displayText: 'Research Burrow'
-						if: -> @upgrade
 					overlordspeed:
-						icon: 'overlordspeed.png'
-						hotkeyCode: 'overlordspeed/Hatchery'
-						displayText: 'overlordspeed'
+						icon: 'PneumatizedCarapace.gif'
+						hotkeyCode: 'overlordspeed'
+						displayText: 'Pneumatized Carapace'
 			SpineCrawler:
 				icon: 'spinecrawler.jpg'
 				displayText: 'Spine Crawler Uprooted'
@@ -2257,11 +2255,11 @@ exports.raceCards = raceCards =
 				displayText: 'Roach Warren'
 				commands:
 					EvolveGlialRegeneration:
-						icon: 'EvolveGlialRegeneration.png'
+						icon: 'EvolveGlialRegeneration.gif'
 						hotkeyCode: 'EvolveGlialRegeneration/RoachWarren'
 						displayText: 'Evolve Glial Regeneration'
 					EvolveTunnelingClaws:
-						icon: 'EvolveTunnelingClaws.png'
+						icon: 'EvolveTunnelingClaws.gif'
 						hotkeyCode: 'EvolveTunnelingClaws/RoachWarren'
 						displayText: 'Evolve Tunneling Claws'
 			EvolutionChamber:
@@ -2269,17 +2267,17 @@ exports.raceCards = raceCards =
 				displayText: 'Evolution Chamber'
 				commands:
 					zerggroundarmor1:
-						icon: 'zerggroundarmor1.png'
+						icon: 'ZergGroundCarapace1.gif'
 						hotkeyCode: 'zerggroundarmor1/EvolutionChamber'
-						displayText: 'zerggroundarmor1'
+						displayText: 'Ground Carapace'
 					zergmeleeweapons1:
-						icon: 'zergmeleeweapons1.png'
+						icon: 'ZergMeleeAttacks1.gif'
 						hotkeyCode: 'zergmeleeweapons1/EvolutionChamber'
-						displayText: 'zergmeleeweapons1'
+						displayText: 'Melee Weapons'
 					zergmissileweapons1:
-						icon: 'zergmissileweapons1.png'
+						icon: 'ZergMissileAttacks1.gif'
 						hotkeyCode: 'zergmissileweapons1/EvolutionChamber'
-						displayText: 'zergmissileweapons1'
+						displayText: 'Missle Weapons'
 			HydraliskDen:
 				icon: 'hydraliskden.jpg'
 				displayText: 'Hydralisk Den'
@@ -2287,37 +2285,33 @@ exports.raceCards = raceCards =
 					MuscularAugments:
 						icon: 'MuscularAugments.png'
 						hotkeyCode: 'MuscularAugments/HydraliskDen'
-						displayText: 'Muscular Augments'
+						displayText: 'Muscular Augments (Range)'
 					hydraliskspeed:
-						icon: 'hydraliskspeed.png'
+						icon: 'GroovedSpines.gif'
 						hotkeyCode: 'hydraliskspeed/HydraliskDen'
-						displayText: 'hydraliskspeed'
+						displayText: 'Grooved Spines (Speed)'
 			InfestationPit:
 				icon: 'infestationpit.jpg'
 				displayText: 'Infestation Pit'
 				commands:
 					EvolveInfestorEnergyUpgrade:
-						icon: 'EvolveInfestorEnergyUpgrade.png'
+						icon: 'PathogenGlands.gif'
 						hotkeyCode: 'EvolveInfestorEnergyUpgrade/InfestationPit'
-						displayText: 'Evolve Infestor Energy Upgrade'
+						displayText: 'Pathogen Glands'
 					ResearchLocustLifetimeIncrease:
-						icon: 'ResearchLocustLifetimeIncrease.png'
+						icon: 'IncreasedLocustLifetime.gif'
 						hotkeyCode: 'ResearchLocustLifetimeIncrease/InfestationPit'
-						displayText: 'Research Locust Lifetime Increase'
+						displayText: 'Enduring Locusts'
 					ResearchNeuralParasite:
-						icon: 'ResearchNeuralParasite.png'
+						icon: 'NeuralParasite.png'
 						hotkeyCode: 'ResearchNeuralParasite/InfestationPit'
 						displayText: 'Research Neural Parasite'
 			UltraliskCavern:
 				icon: 'ultraliskcavern.jpg'
 				displayText: 'Ultralisk Cavern'
 				commands:
-					EvolveBurrowCharge:
-						icon: 'EvolveBurrowCharge.png'
-						hotkeyCode: 'EvolveBurrowCharge'
-						displayText: 'Evolve Burrow Charge'
 					EvolveChitinousPlating:
-						icon: 'EvolveChitinousPlating.png'
+						icon: 'ChitinousPlating.gif'
 						hotkeyCode: 'EvolveChitinousPlating/UltraliskCavern'
 						displayText: 'Evolve Chitinous Plating'
 			BanelingNest:
@@ -2325,9 +2319,9 @@ exports.raceCards = raceCards =
 				displayText: 'Baneling Nest'
 				commands:
 					EvolveCentrificalHooks:
-						icon: 'EvolveCentrificalHooks.png'
+						icon: 'CentrifugalHooks.gif'
 						hotkeyCode: 'EvolveCentrificalHooks/BanelingNest'
-						displayText: 'Evolve Centrifical Hooks'
+						displayText: 'Centrifugal Hooks'
 			Spire:
 				icon: 'spire.jpg'
 				displayText: 'Spire'
@@ -2341,38 +2335,50 @@ exports.raceCards = raceCards =
 						hotkeyCode: 'GreaterSpireBroodlord/Spire'
 						displayText: 'Greater Spire Broodlord'
 					zergflyerarmor1:
-						icon: 'zergflyerarmor1.png'
-						hotkeyCode: 'zergflyerarmor1/Spire'
-						displayText: 'zergflyerarmor1'
+						icon: 'FlyerCarapace1.gif'
+						hotkeyCode: 'zergflyerarmor1'
+						displayText: 'Flyer Carapace'
 					zergflyerattack1:
-						icon: 'zergflyerattack1.png'
-						hotkeyCode: 'zergflyerattack1/Spire'
-						displayText: 'zergflyerattack1'
+						icon: 'FlyerAttack1.gif'
+						hotkeyCode: 'zergflyerattack1'
+						displayText: 'Flyer Attacks'
 			GreaterSpire:
 				icon: 'greaterspire.jpg'
 				displayText: 'Greater Spire'
 				commands:
 					zergflyerarmor1:
-						icon: 'zergflyerarmor1.png'
-						hotkeyCode: 'zergflyerarmor1/GreaterSpire'
-						displayText: 'zergflyerarmor1'
+						icon: 'FlyerCarapace1.gif'
+						hotkeyCode: 'zergflyerarmor1'
+						displayText: 'Flyer Carapace'
 					zergflyerattack1:
-						icon: 'zergflyerattack1.png'
-						hotkeyCode: 'zergflyerattack1/GreaterSpire'
-						displayText: 'zergflyerattack1'
+						icon: 'FlyerAttack1.gif'
+						hotkeyCode: 'zergflyerattack1'
+						displayText: 'Flyer Attacks'
 			NydusNetwork:
 				icon: 'nydusnetwork.jpg'
 				displayText: 'Nydus Network'
 				commands:
 					SummonNydusWorm:
-						icon: 'SummonNydusWorm.png'
+						icon: 'NydusWorm.jpeg'
 						hotkeyCode: 'SummonNydusWorm/NydusNetwork'
 						displayText: 'Summon Nydus Worm'
+					Stop:
+						icon: 'Stop.png'
+						hotkeyCode: 'Stop'
+						displayText: 'Stop'
+					Load:
+						icon: 'Load.png'
+						hotkeyCode: 'BunkerLoad'
+						displayText: 'Load'
+					BunkerUnloadAll:
+						icon: 'BunkerUnloadAll.png'
+						hotkeyCode: 'BunkerUnloadAll'
+						displayText: 'Unload All'
 			CreepTumor:
 				icon: 'creeptumor.jpg'
 				displayText: 'Creep Tumor'
 				commands:
 					BuildCreepTumorPropagate:
-						icon: 'BuildCreepTumorPropagate.png'
-						hotkeyCode: 'BuildCreepTumorPropagate'
+						icon: 'SpawnCreepTumor.gif'
+						hotkeyCode: 'BuildCreepTumorPropagate/CreepTumorBurrowed'
 						displayText: 'Build Creep Tumor Propagate'
