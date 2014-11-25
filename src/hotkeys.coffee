@@ -1565,37 +1565,43 @@ exports.raceCards = raceCards =
 						icon: 'hellion.jpg'
 						hotkeyCode: 'Hellion/Factory'
 						displayText: 'Build Hellion'
+						if: -> not @lifted
 					HellionTank:
 						icon: 'hellbat.jpg'
 						hotkeyCode: 'HellionTank/Factory'
 						displayText: 'Build HellBat'
+						if: -> not @lifted
 					BuildSiegeTank:
 						icon: 'siegetank.jpg'
 						hotkeyCode: 'SiegeTank/Factory'
 						displayText: 'Build Siege Tank'
+						if: -> not @lifted
 					BuildTechLab:
 						icon: 'TechLab.png'
 						hotkeyCode: 'TechLabFactory/Factory'
 						displayText: 'Build Tech Lab'
+						if: -> not @lifted
 					BuildThor:
 						icon: 'thor.jpg'
 						hotkeyCode: 'Thor/Factory'
 						displayText: 'Build Thor'
+						if: -> not @lifted
 					BuildWidowMine:
 						icon: 'widowmine.jpg'
 						hotkeyCode: 'WidowMine/Factory'
 						displayText: 'Build Widow Mine'
+						if: -> not @lifted
 					BuildReactor:
 						icon: 'reactor.jpg'
 						hotkeyCode: 'Reactor/Factory'
 						displayText: 'Build Reactor'
-						if: -> not @upgrade
+						if: -> not (@upgrade or @lifted)
 						on: -> @upgrade = 'Reactor'
 					BuildTechLab:
 						icon: 'techlab.jpg'
 						hotkeyCode: 'TechLabFactory/Factory'
 						displayText: 'Build Tech Lab'
-						if: -> not @upgrade
+						if: -> not (@upgrade or @lifted)
 						on: -> @upgrade = 'TechLab'
 			FactoryTechLab:
 				icon: 'factorytechlab.jpg'
@@ -1614,43 +1620,49 @@ exports.raceCards = raceCards =
 				icon: 'starport.jpg'
 				displayText: 'Starport'
 				commands:
-					inherit: ['unit.cancel']
+					inherit: ['unit.flying', 'unit.cancel']
 					Banshee:
 						icon: 'banshee.jpg'
 						hotkeyCode: 'Banshee/Starport'
 						displayText: 'Banshee'
+						if: -> not @lifted
 					BuildBattlecruiser:
 						icon: 'battlecruiser.jpg'
 						hotkeyCode: 'Battlecruiser/Starport'
 						displayText: 'Build Battlecruiser'
+						if: -> not @lifted
 					BuildTechLabStarport:
 						icon: 'BuildTechLabStarport.png'
 						hotkeyCode: 'BuildTechLabStarport'
 						displayText: 'Build Tech Lab Starport'
+						if: -> not @lifted
 					BuildMedivac:
 						icon: 'medivac.jpg'
 						hotkeyCode: 'Medivac/Starport'
 						displayText: 'Build Medivac'
+						if: -> not @lifted
 					BuildRaven:
 						icon: 'raven.jpg'
 						hotkeyCode: 'Raven/Starport'
 						displayText: 'Build Raven'
+						if: -> not @lifted
 					BuildReactor:
 						icon: 'reactor.jpg'
 						hotkeyCode: 'Reactor/Starport'
 						displayText: 'Build Reactor'
-						if: -> not @upgrade
+						if: -> not (@upgrade or @lifted)
 						on: -> @upgrade = 'Reactor'
 					BuildTechLab:
 						icon: 'techlab.jpg'
 						hotkeyCode: 'TechLabStarport/Starport'
 						displayText: 'Build Tech Lab'
-						if: -> not @upgrade
+						if: -> not (@upgrade or @lifted)
 						on: -> @upgrade = 'TechLab'
 					VikingFighter:
 						icon: 'viking.jpg'
 						hotkeyCode: 'VikingFighter/Starport'
 						displayText: 'Viking Fighter'
+						if: -> not @lifted
 			StarportTechLab:
 				icon: 'starporttechlab.jpg'
 				displayText: 'Starport Tech Lab'
@@ -1885,6 +1897,8 @@ exports.raceCards = raceCards =
 						icon: 'GenerateCreep.png'
 						hotkeyCode: 'GenerateCreep/Overlord'
 						displayText: 'Generate Creep'
+						if: -> not @gencreep
+						on: -> @gencreep = yes
 					MorphToOverseer:
 						icon: 'MorphToOverseer.png'
 						hotkeyCode: 'MorphToOverseer/Overlord'
@@ -1893,6 +1907,8 @@ exports.raceCards = raceCards =
 						icon: 'StopGenerateCreep.png'
 						hotkeyCode: 'StopGenerateCreep/Overlord'
 						displayText: 'Stop Generate Creep'
+						if: -> @gencreep
+						on: -> @gencreep = no
 			Zergling:
 				icon: 'zergling.jpg'
 				displayText: 'Zergling'
@@ -1902,6 +1918,7 @@ exports.raceCards = raceCards =
 						icon: 'baneling.jpg'
 						hotkeyCode: 'Baneling/Zergling'
 						displayText: 'Morph to Baneling'
+						if: -> not @burrowed
 			Roach:
 				icon: 'roach.jpg'
 				displayText: 'Roach'
@@ -1916,43 +1933,38 @@ exports.raceCards = raceCards =
 						icon: 'BuildCreepTumor.png'
 						hotkeyCode: 'BuildCreepTumor/Queen'
 						displayText: 'Build Creep Tumor'
+						if: -> not @burrowed
 					InjectLarva:
 						icon: 'larva.jpg'
 						hotkeyCode: 'MorphMorphalisk/Queen'
 						displayText: 'Inject Larva'
-					QueenBurstHeal:
-						icon: 'QueenBurstHeal.png'
-						hotkeyCode: 'QueenBurstHeal/Queen'
-						displayText: 'Queen Burst Heal'
+						if: -> not @burrowed
 					Transfusion:
 						icon: 'Transfusion.png'
 						hotkeyCode: 'Transfusion/Queen'
 						displayText: 'Transfusion'
+						if: -> not @burrowed
 			Baneling:
 				icon: 'baneling.jpg'
 				displayText: 'Baneling'
 				commands:
 					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
 					DisableBuildingAttack:
-						icon: 'DisableBuildingAttack.png'
+						icon: 'Explode.png'
 						hotkeyCode: 'DisableBuildingAttack/Baneling'
 						displayText: 'Disable Building Attack'
-						if: -> @buildingAttack
+						if: -> @buildingAttack and not @burrowed
 						on: -> @buildingAttack = no
 					EnableBuildingAttack:
 						icon: 'EnableBuildingAttack.png'
 						hotkeyCode: 'EnableBuildingAttack/Baneling'
 						displayText: 'Enable Building Attack'
-						if: -> not @buildingAttack
+						if: -> not @buildingAttack and not @burrowed
 						on: -> @buildingAttack = yes
 					Explode:
 						icon: 'Explode.png'
 						hotkeyCode: 'Explode/Baneling'
 						displayText: 'Explode'
-					SapStructure:
-						icon: 'SapStructure.png'
-						hotkeyCode: 'SapStructure/Baneling'
-						displayText: 'Sap Structure'
 			Ultralisk:
 				icon: 'ultralisk.jpg'
 				displayText: 'Ultralisk'
@@ -1963,18 +1975,6 @@ exports.raceCards = raceCards =
 				displayText: 'Hydralisk'
 				commands:
 					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
-					BurrowDown:
-						icon: 'BurrowDown.png'
-						hotkeyCode: 'BurrowDown/Hydralisk'
-						displayText: 'Burrow'
-						if: -> not @burrowed
-						on: -> @burrowed = yes
-					BurrowUp:
-						icon: 'BurrowUp.png'
-						hotkeyCode: 'BurrowUp/Hydralisk'
-						displayText: 'Unburrow'
-						if: -> @burrowed
-						on: -> @burrowed = no
 			Infestor:
 				icon: 'infestor.jpg'
 				displayText: 'Infestor'
@@ -1984,6 +1984,7 @@ exports.raceCards = raceCards =
 						icon: 'FungalGrowth.png'
 						hotkeyCode: 'FungalGrowth/Infestor'
 						displayText: 'Fungal Growth'
+						if: -> not @burrowed
 					InfestedTerrans:
 						icon: 'InfestedTerrans.gif'
 						hotkeyCode: 'InfestedTerrans/Infestor'
@@ -1992,6 +1993,7 @@ exports.raceCards = raceCards =
 						icon: 'NeuralParasite.png'
 						hotkeyCode: 'NeuralParasite/Infestor'
 						displayText: 'Neural Parasite'
+						if: -> not @burrowed
 			SwarmHost:
 				icon: 'swarmhost.jpg'
 				displayText: 'Swarm Host'
