@@ -1069,10 +1069,10 @@ Instead of looking at a list of keys, use this tool to put your hands on the key
             $('.messages').append(message);
             setTimeout((function() {
               return message.addClass('hide');
-            }), 0);
+            }), 1000);
             return setTimeout((function() {
               return message.remove();
-            }), 2000);
+            }), 5000);
           }
         };
         Unit = (function() {

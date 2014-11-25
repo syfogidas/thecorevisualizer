@@ -986,8 +986,8 @@ ga('send', 'pageview');
 					if text
 						message = $ "<h3 class='#{kind}'>#{text}</h3>"
 						$('.messages').append message
-						setTimeout (->message.addClass 'hide'), 0
-						setTimeout (->message.remove()), 2000
+						setTimeout (->message.addClass 'hide'), 1000
+						setTimeout (->message.remove()), 5000
 
 				class Unit
 					constructor:(@race, @kind, @name)->
