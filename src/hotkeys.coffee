@@ -384,13 +384,18 @@ exports.commandCards = commandCards =
 				hotkeyCode: 'BunkerLoad'
 				displayText: 'Load'
 			BunkerUnloadAll:
+				icon: 'UnloadAll.jpg'
 				hotkeyCode: 'BunkerUnloadAll'
 				displayText: 'Unload All'
-		halt:
+		underconstruction:
 			Halt:
 				icon: 'Stop.png'
 				hotkeyCode: 'Halt'
 				displayText: 'Halt construction'
+			SelectBuilder:
+				icon: 'Selectbuilder.png'
+				hotkeyCode: 'SelectBuilder'
+				displayText: 'Select Builder'
 		flying:
 			Liftoff:
 				icon: 'Lift.png'
@@ -399,6 +404,7 @@ exports.commandCards = commandCards =
 				if: -> @upgrade isnt 'PlanetaryFortress' and not @lifted
 				on: -> @lifted = yes
 			Land:
+				icon: 'Land.jpg'
 				hotkeyCode: 'Land'
 				displayText: 'Land'
 				if: -> @lifted
@@ -431,6 +437,7 @@ exports.commandCards = commandCards =
 				if: -> not @buildCard
 		rally:
 			Rally:
+				icon: 'Rally.jpg'
 				hotkeyCode: 'Rally'
 				displayText: 'Rally'
 				if: -> not @buildCard
@@ -650,13 +657,18 @@ exports.raceCards = raceCards =
 						displayText: "Revelation"
 
 					OracleWeaponOff:
+						icon: "PulsarBeamOff.jpg"
 						hotkeyCode: "OracleWeaponOff/Oracle"
 						displayText: "Deactivate Pulsar Beam"
+						on: -> @weapon = no
+						if: -> @weapon
 
 					OracleWeaponOn:
 						icon: "PulsarBeam.png"
 						hotkeyCode: "OracleWeaponOn/Oracle"
 						displayText: "Activate Pulsar Beam"
+						on: -> @weapon = yes
+						if: -> not @weapon
 
 			MothershipCore:
 				icon: "mothershipcore.jpg"
@@ -1190,6 +1202,7 @@ exports.raceCards = raceCards =
 				commands:
 					inherit: ['unit.movement', 'unit.combat', 'unit.cancel']
 					CloakOff:
+						icon: 'Decloack.jpg'
 						hotkeyCode: 'CloakOff'
 						displayText: 'Cloak Off'
 						if: -> @cloaked
@@ -1232,7 +1245,7 @@ exports.raceCards = raceCards =
 						if: -> not @burrowed
 						on: -> @burrowed = yes
 					WidowMineUnburrow:
-						icon: 'WidowMineUnburrow.png'
+						icon: 'WidowMineUnburrow.jpg'
 						hotkeyCode: 'WidowMineUnburrow/WidowMine'
 						displayText: 'Widow Mine Unburrow'
 						if: -> @burrowed
@@ -1336,6 +1349,7 @@ exports.raceCards = raceCards =
 				commands:
 					inherit: ['unit.movement', 'unit.combat']
 					CloakOff:
+						icon: 'Decloack.jpg'
 						hotkeyCode: 'CloakOff'
 						displayText: 'Cloak Off'
 						if: -> @cloaked
@@ -1380,7 +1394,7 @@ exports.raceCards = raceCards =
 						displayText: 'Command Center Load'
 						if: -> @upgrade isnt 'OrbitalCommand'
 					CommandCenterUnloadAll:
-						icon: 'CommandCenterUnloadAll.png'
+						icon: 'UnloadAll.jpg'
 						hotkeyCode: 'CommandCenterUnloadAll/CommandCenter'
 						displayText: 'Command Center Unload All'
 						if: -> @upgrade isnt 'OrbitalCommand'
@@ -1431,7 +1445,7 @@ exports.raceCards = raceCards =
 				icon: 'supplydepot.jpg'
 				displayText: 'Supply Depot'
 				commands:
-					inherit: ['unit.cancel', 'unit.halt']
+					inherit: ['unit.cancel', 'unit.underconstruction']
 					Lower:
 						icon: 'Lower.gif'
 						hotkeyCode: 'Lower/SupplyDepot'
@@ -1508,6 +1522,7 @@ exports.raceCards = raceCards =
 						hotkeyCode: 'Salvage/Bunker'
 						displayText: 'Salvage'
 					Rally:
+						icon: 'Rally.jpg'
 						hotkeyCode: 'SetBunkerRallyPoint/Bunker'
 						displayText: 'Rally'
 			MissileTurret:
@@ -1769,7 +1784,7 @@ exports.raceCards = raceCards =
 				displayText: 'Egg'
 				commands:
 					Rally:
-						icon: 'RallyEgg.png'
+						icon: 'Rally.jpg'
 						hotkeyCode: 'RallyEgg'
 						displayText: 'Rally'
 			Drone:
