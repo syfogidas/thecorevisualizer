@@ -418,6 +418,27 @@ exports.commandCards = commandCards =
 				hotkeyCode: 'Stop'
 				displayText: 'Stop'
 				if: -> @lifted
+		worker:
+			ReturnCargo:
+				icon: 'ReturnCargo.png'
+				hotkeyCode: 'ReturnCargo'
+				displayText: 'Return Cargo'
+				if: -> not @buildCard
+			Gather:
+				icon: "Gather.png"
+				hotkeyCode: "GatherProt"
+				displayText: "Gather"
+				if: -> not @buildCard
+		rally:
+			Rally:
+				hotkeyCode: 'Rally'
+				displayText: 'Rally'
+				if: -> not @buildCard
+		archonWarp:
+			AWrp:
+				icon: "AWrp.png"
+				hotkeyCode: "AWrp"
+				displayText: "Archon Warp"
 
 
 for n in [0..9]
@@ -465,17 +486,12 @@ exports.raceCards = raceCards =
 				icon: "probe.jpg"
 				displayText: "Probe"
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
+					inherit: ['unit.movement', 'unit.combat', 'unit.worker']
 					Cancel:
 						displayText: 'Cancel'
 						icon: 'Cancel.png'
 						on: -> @buildCard = null
 						if: -> @buildCard
-					Gather:
-						icon: "Gather.png"
-						hotkeyCode: "GatherProt"
-						displayText: "Gather"
-						if: -> not @buildCard
 
 					BuildBasic:
 						displayText: 'Build Basic'
@@ -546,47 +562,41 @@ exports.raceCards = raceCards =
 						if: -> @buildCard is 'advanced'
 
 					BuildRoboticsBay:
-						icon: "RoboticsBay.jpg"
+						icon: "roboticsbay.jpg"
 						hotkeyCode: "RoboticsBay/Probe"
 						displayText: "Build Robotics Bay"
 						if: -> @buildCard is 'advanced'
 
 					BuildRoboticsFacility:
-						icon: "RoboticsFacility.jpg"
+						icon: "roboticsfacility.jpg"
 						hotkeyCode: "RoboticsFacility/Probe"
 						displayText: "Build Robotics Facility"
 						if: -> @buildCard is 'advanced'
 
 					BuildStargate:
-						icon: "Stargate.jpg"
+						icon: "stargate.jpg"
 						hotkeyCode: "Stargate/Probe"
 						displayText: "Build Stargate"
 						if: -> @buildCard is 'advanced'
 
 					BuildTwilightCouncil:
-						icon: "TwilightCouncil.jpg"
+						icon: "twilightcouncil.jpg"
 						hotkeyCode: "TwilightCouncil/Probe"
 						displayText: "Build Twilight Council"
 						if: -> @buildCard is 'advanced'
 
 					BuildTemplarArchive:
-						icon: "TemplarArchive.jpg"
+						icon: "templararchive.jpg"
 						hotkeyCode: "TemplarArchive/Probe"
 						displayText: "Build Templar Archive"
 						if: -> @buildCard is 'advanced'
-
-					ReturnCargo:
-						icon: "ReturnCargo.png"
-						hotkeyCode: "ReturnCargo"
-						displayText: "Return Cargo"
-						if: -> not @buildCard
 
 
 			Zealot:
 				icon: "zealot.jpg"
 				displayText: "Zealot"
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
+					inherit: ['unit.movement', 'unit.combat', 'unit.rally']
 					Charge:
 						icon: "Charge.png"
 						hotkeyCode: "Charge/Zealot"
@@ -597,7 +607,7 @@ exports.raceCards = raceCards =
 				icon: "stalker.jpg"
 				displayText: "Stalker"
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
+					inherit: ['unit.movement', 'unit.combat', 'unit.rally']
 					Blink:
 						icon: "Blink.png"
 						hotkeyCode: "Blink/Stalker"
@@ -607,12 +617,7 @@ exports.raceCards = raceCards =
 				icon: "hightemplar.jpg"
 				displayText: "High Templar"
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
-					AWrp:
-						icon: "AWrp.png"
-						hotkeyCode: "AWrp"
-						displayText: "Archon Warp"
-
+					inherit: ['unit.movement', 'unit.combat', 'unit.rally', 'unit.archonWarp']
 					Feedback:
 						icon: "Feedback.png"
 						hotkeyCode: "Feedback/HighTemplar"
@@ -627,68 +632,62 @@ exports.raceCards = raceCards =
 				icon: "darktemplar.jpg"
 				displayText: "Dark Templar"
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
+					inherit: ['unit.movement', 'unit.combat', 'unit.rally', 'unit.archonWarp']
 
 			Oracle:
 				icon: "oracle.jpg"
 				displayText: "Oracle"
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
+					inherit: ['unit.movement', 'unit.combat', 'unit.cancel']
 					LightofAiur:
 						icon: "Envision.png"
 						hotkeyCode: "LightofAiur/Oracle"
-						displayText: "Lightof Aiur"
+						displayText: "Envision"
 
 					OracleRevelation:
 						icon: "OracleRevelation.png"
 						hotkeyCode: "OracleRevelation/Oracle"
-						displayText: "Oracle Revelation"
+						displayText: "Revelation"
 
 					OracleWeaponOff:
-						icon: "OracleWeaponOff.png"
 						hotkeyCode: "OracleWeaponOff/Oracle"
-						displayText: "Oracle Weapon Off"
+						displayText: "Deactivate Pulsar Beam"
 
 					OracleWeaponOn:
-						icon: "OracleWeaponOn.png"
+						icon: "PulsarBeam.png"
 						hotkeyCode: "OracleWeaponOn/Oracle"
-						displayText: "Oracle Weapon On"
+						displayText: "Activate Pulsar Beam"
 
 			MothershipCore:
 				icon: "mothershipcore.jpg"
 				displayText: "Mothership Core"
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
-					MassRecall:
-						icon: "MassRecall.png"
-						hotkeyCode: "MassRecall/MothershipCore"
-						displayText: "Mass Recall"
-
+					inherit: ['unit.movement', 'unit.combat', 'unit.cancel']
 					MorphToMothership:
 						icon: "MorphToMothership.png"
 						hotkeyCode: "MorphToMothership/MothershipCore"
 						displayText: "Morph To Mothership"
 
 					MothershipCoreMassRecall:
-						icon: "MothershipCoreMassRecall.png"
+						icon: "MassRecall.png"
 						hotkeyCode: "MothershipCoreMassRecall/MothershipCore"
-						displayText: "Mothership Core Mass Recall"
+						displayText: "Mass Recall"
 
 					MothershipCoreWeapon:
 						icon: "MothershipCoreWeapon.png"
 						hotkeyCode: "MothershipCoreWeapon/MothershipCore"
-						displayText: "Mothership Core Weapon"
+						displayText: "Photon Overcharge"
 
 					TemporalField:
 						icon: "TemporalField.png"
 						hotkeyCode: "TemporalField/MothershipCore"
-						displayText: "Temporal Field"
+						displayText: "Time Warp"
 
 			Phoenix:
 				icon: "phoenix.jpg"
 				displayText: "Phoenix"
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
+					inherit: ['unit.movement', 'unit.combat', 'unit.cancel']
 					GravitonBeam:
 						icon: "GravitonBeam.png"
 						hotkeyCode: "GravitonBeam/Phoenix"
@@ -698,7 +697,7 @@ exports.raceCards = raceCards =
 				icon: "warpprism.jpg"
 				displayText: "Warp Prism"
 				commands:
-					inherit: ['unit.movement']
+					inherit: ['unit.movement', 'unit.load']
 					PhasingMode:
 						icon: "PhasingMode.png"
 						hotkeyCode: "PhasingMode/WarpPrism"
@@ -713,7 +712,7 @@ exports.raceCards = raceCards =
 				icon: "sentry.jpg"
 				displayText: "Sentry"
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
+					inherit: ['unit.movement', 'unit.combat', 'unit.rally']
 					Cancel:
 						icon: "Cancel.png"
 						hotkeyCode: "Cancel"
@@ -721,13 +720,13 @@ exports.raceCards = raceCards =
 						if: -> @hallucinateCard
 						on: -> @hallucinateCard = no
 					ArchonHallucination:
-						icon: "ArchonHallucination.png"
+						icon: "archon.jpg"
 						hotkeyCode: "ArchonHallucination/Sentry"
 						displayText: "Archon Hallucination"
 						if: -> @hallucinateCard
 
 					ColossusHallucination:
-						icon: "ColossusHallucination.png"
+						icon: "colossus.jpg"
 						hotkeyCode: "ColossusHallucination/Sentry"
 						displayText: "Colossus Hallucination"
 						if: -> @hallucinateCard
@@ -739,7 +738,7 @@ exports.raceCards = raceCards =
 						if: -> not @hallucinateCard
 
 					GuardianShield:
-						icon: "GuardianShield.png"
+						icon: "GuardianShield.gif"
 						hotkeyCode: "GuardianShield/Sentry"
 						displayText: "Guardian Shield"
 						if: -> not @hallucinateCard
@@ -819,9 +818,9 @@ exports.raceCards = raceCards =
 				icon: "carrier.jpg"
 				displayText: "Carrier"
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
+					inherit: ['unit.movement', 'unit.combat', 'unit.cancel']
 					Interceptor:
-						icon: "Interceptor.png"
+						icon: "TrainInterceptors.gif"
 						hotkeyCode: "Interceptor/Carrier"
 						displayText: "Interceptor"
 
@@ -829,7 +828,7 @@ exports.raceCards = raceCards =
 				icon: "mothership.jpg"
 				displayText: "Mothership"
 				commands:
-					inherit: ['unit.movement']
+					inherit: ['unit.movement', 'unit.cancel']
 					MassRecall:
 						icon: "MassRecall.png"
 						hotkeyCode: "MassRecall/Mothership"
@@ -838,23 +837,14 @@ exports.raceCards = raceCards =
 					TemporalField:
 						icon: "TemporalField.png"
 						hotkeyCode: "TemporalField/Mothership"
-						displayText: "Temporal Field"
-
-					Vortex:
-						icon: "Vortex.png"
-						hotkeyCode: "Vortex/Mothership"
-						displayText: "Vortex"
-
-					VortexKO:
-						icon: "VortexKO.png"
-						hotkeyCode: "VortexKO/Mothership"
-						displayText: "Vortex KO"
+						displayText: "Time Warp"
 
 		buildings:
 			Nexus:
 				icon: "nexus.jpg"
 				displayText: "Nexus"
 				commands:
+					inherit: ['unit.cancel', 'unit.combat', 'unit.rally']
 					MothershipCore:
 						icon: "mothershipcore.jpg"
 						hotkeyCode: "MothershipCore/Nexus"
@@ -874,6 +864,7 @@ exports.raceCards = raceCards =
 				icon: "gateway.jpg"
 				displayText: "Gateway"
 				commands:
+					inherit: ['unit.cancel', 'unit.rally']
 					DarkTemplar:
 						icon: "darktemplar.jpg"
 						hotkeyCode: "DarkTemplar"
@@ -903,11 +894,16 @@ exports.raceCards = raceCards =
 						icon: "zealot.jpg"
 						hotkeyCode: "Zealot"
 						displayText: "Zealot"
+					Sentry:
+						icon: "sentry.jpg"
+						hotkeyCode: "Sentry"
+						displayText: "Sentry"
 
 			Forge:
 				icon: "forge.jpg"
 				displayText: "Forge"
 				commands:
+					inherit: ['unit.cancel']
 					ProtossGroundArmorLevel1:
 						icon: "ProtossGroundArmorLevel1.gif"
 						hotkeyCode: "ProtossGroundArmorLevel1/Forge"
@@ -927,12 +923,13 @@ exports.raceCards = raceCards =
 				icon: "photoncannon.jpg"
 				displayText: "Photon Cannon"
 				commands:
-					inherit: ['unit.combat']
+					inherit: ['unit.combat', 'unit.cancel']
 
 			CyberneticsCore:
 				icon: "cyberneticscore.jpg"
 				displayText: "Cybernetics Core"
 				commands:
+					inherit: ['unit.cancel']
 					ProtossAirArmorLevel1:
 						icon: "ProtossAirArmorLevel1.gif"
 						hotkeyCode: "ProtossAirArmorLevel1/CyberneticsCore"
@@ -952,6 +949,7 @@ exports.raceCards = raceCards =
 				icon: "roboticsfacility.jpg"
 				displayText: "Robotics Facility"
 				commands:
+					inherit: ['unit.cancel', 'unit.rally']
 					Colossus:
 						icon: "colossus.jpg"
 						hotkeyCode: "Colossus/RoboticsFacility"
@@ -976,6 +974,7 @@ exports.raceCards = raceCards =
 				icon: "roboticsbay.jpg"
 				displayText: "Robotics Bay"
 				commands:
+					inherit: ['unit.cancel']
 					ResearchExtendedThermalLance:
 						icon: "ColossusRange.gif"
 						hotkeyCode: "ResearchExtendedThermalLance/RoboticsBay"
@@ -995,6 +994,7 @@ exports.raceCards = raceCards =
 				icon: "stargate.jpg"
 				displayText: "Stargate"
 				commands:
+					inherit: ['unit.cancel', 'unit.rally']
 					Carrier:
 						icon: "carrier.jpg"
 						hotkeyCode: "Carrier/Stargate"
@@ -1029,37 +1029,40 @@ exports.raceCards = raceCards =
 				icon: "twilightcouncil.jpg"
 				displayText: "Twilight Council"
 				commands:
+					inherit: ['unit.cancel']
 					ResearchCharge:
 						icon: "Charge.png"
-						hotkeyCode: "ResearchCharge"
+						hotkeyCode: "ResearchCharge/TwilightCouncil"
 						displayText: "Research Charge"
 
 					ResearchStalkerTeleport:
 						icon: "Blink.png"
-						hotkeyCode: "ResearchStalkerTeleport"
+						hotkeyCode: "ResearchStalkerTeleport/TwilightCouncil"
 						displayText: "Research Blink"
 
 			TemplarArchive:
 				icon: "templararchive.jpg"
 				displayText: "Templar Archive"
 				commands:
+					inherit: ['unit.cancel']
 					ResearchPsiStorm:
 						icon: "PsiStorm.png"
-						hotkeyCode: "ResearchPsiStorm"
+						hotkeyCode: "ResearchPsiStorm/TemplarArchive"
 						displayText: "Research Psi Storm"
 
 			FleetBeacon:
 				icon: "fleetbeacon.jpg"
 				displayText: "Fleet Beacon"
 				commands:
+					inherit: ['unit.cancel']
 					AnionPulseCrystals:
 						icon: "AnionPulseCrystals.png"
-						hotkeyCode: "AnionPulseCrystals"
+						hotkeyCode: "AnionPulseCrystals/FleetBeacon"
 						displayText: "Phoenix Range"
 
 					ResearchInterceptorLaunchSpeedUpgrade:
-						icon: "ResearchInterceptorLaunchSpeedUpgrade.png"
-						hotkeyCode: "ResearchInterceptorLaunchSpeedUpgrade"
+						icon: "GravitonCatapult.gif"
+						hotkeyCode: "ResearchInterceptorLaunchSpeedUpgrade/FleetBeacon"
 						displayText: "Interceptor Launch Speed"
 
 	Terran:
@@ -1068,16 +1071,11 @@ exports.raceCards = raceCards =
 				icon: 'scv.jpg'
 				displayText: 'SCV'
 				commands:
-					inherit: ['unit.movement', 'unit.combat']
+					inherit: ['unit.movement', 'unit.combat', 'unit.worker']
 					Repair:
 						icon: 'Repair.png'
 						hotkeyCode: 'Repair'
 						displayText: 'Repair'
-						if: -> not @buildCard
-					ReturnCargo:
-						icon: 'ReturnCargo.png'
-						hotkeyCode: 'ReturnCargo/SCV'
-						displayText: 'Return Cargo'
 						if: -> not @buildCard
 					Build:
 						icon: 'Build.png'
@@ -1772,18 +1770,13 @@ exports.raceCards = raceCards =
 				commands:
 					Rally:
 						icon: 'RallyEgg.png'
-						hotkeyCode: 'RallyEgg/Egg'
+						hotkeyCode: 'RallyEgg'
 						displayText: 'Rally'
 			Drone:
 				icon: 'drone.jpg'
 				displayText: 'Drone'
 				commands:
-					inherit: ['unit.movement', 'unit.combat', 'unit.burrow']
-					ReturnCargo:
-						icon: 'ReturnCargo.png'
-						hotkeyCode: 'ReturnCargo/Drone'
-						displayText: 'Return Cargo'
-						if: -> not @buildCard
+					inherit: ['unit.movement', 'unit.combat', 'unit.burrow', 'unit.worker']
 					BuildBasic:
 						icon: 'Build.png'
 						hotkeyCode: 'ZergBuild/Drone'
