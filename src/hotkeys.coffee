@@ -370,7 +370,7 @@ exports.commandCards = commandCards =
 				icon: 'Burrow.gif'
 				hotkeyCode: 'BurrowDown'
 				displayText: 'Burrow'
-				if: -> not @burrowed
+				if: -> not (@buildCard or @burrowed)
 				on: -> @burrowed = yes
 			Unburrow:
 				icon: 'Unburrow.gif'
@@ -1124,7 +1124,7 @@ exports.raceCards = raceCards =
 						displayText: 'Build Missile Turret'
 						if: -> @buildCard is 'basic'
 					Refinery:
-						icon: 'refinery.png'
+						icon: 'Refinary.png'
 						hotkeyCode: 'Refinery/SCV'
 						displayText: 'Refinery'
 						if: -> @buildCard is 'basic'
@@ -1157,7 +1157,7 @@ exports.raceCards = raceCards =
 						icon: 'sensortower.jpg'
 						hotkeyCode: 'SensorTower/SCV'
 						displayText: 'Build Sensor Tower'
-						if: -> @buildCard is 'advanced'
+						if: -> @buildCard is 'basic'
 					BuildStarport:
 						icon: 'starport.jpg'
 						hotkeyCode: 'Starport/SCV'
@@ -1796,6 +1796,12 @@ exports.raceCards = raceCards =
 						displayText: 'Build Advanced'
 						if: -> not (@buildCard or @burrowed)
 						on: -> @buildCard = 'advanced'
+					Cancel:
+						icon: 'Cancel.png'
+						hotkeyCode: 'Cancel'
+						displayText: 'Cancel'
+						if: -> @buildCard
+						on: -> @buildCard = null
 					BuildEvolutionChamber:
 						icon: 'evolutionchamber.jpg'
 						hotkeyCode: 'EvolutionChamber/Drone'
@@ -1803,62 +1809,62 @@ exports.raceCards = raceCards =
 						if: -> @buildCard is 'basic'
 					BuildExtractor:
 						icon: 'Extractor.png'
-						hotkeyCode: 'Extractor'
+						hotkeyCode: 'Extractor/Drone'
 						displayText: 'Extractor'
 						if: -> @buildCard is 'basic'
 					BuildHatchery:
 						icon: 'hatchery.jpg'
-						hotkeyCode: 'Hatchery'
+						hotkeyCode: 'Hatchery/Drone'
 						displayText: 'Build Hatchery'
 						if: -> @buildCard is 'basic'
 					BuildRoachWarren:
 						icon: 'roachwarren.jpg'
-						hotkeyCode: 'RoachWarren'
+						hotkeyCode: 'RoachWarren/Drone'
 						displayText: 'Build Roach Warren'
 						if: -> @buildCard is 'basic'
 					BuildSpawningPool:
 						icon: 'spawningpool.jpg'
-						hotkeyCode: 'SpawningPool'
+						hotkeyCode: 'SpawningPool/Drone'
 						displayText: 'Build Spawning Pool'
 						if: -> @buildCard is 'basic'
 					BuildSpineCrawler:
 						icon: 'spinecrawler.jpg'
-						hotkeyCode: 'SpineCrawler'
+						hotkeyCode: 'SpineCrawler/Drone'
 						displayText: 'Build Spine Crawler'
 						if: -> @buildCard is 'basic'
 					BuildSporeCrawler:
 						icon: 'sporecrawler.jpg'
-						hotkeyCode: 'SporeCrawler'
+						hotkeyCode: 'SporeCrawler/Drone'
 						displayText: 'Build Spore Crawler'
 						if: -> @buildCard is 'basic'
 					BuildBanelingNest:
 						icon: 'banelingnest.jpg'
-						hotkeyCode: 'BanelingNest'
+						hotkeyCode: 'BanelingNest/Drone'
 						displayText: 'Build Baneling Nest'
-						if: -> @buildCard is 'advanced'
+						if: -> @buildCard is 'basic'
 					BuildHydraliskDen:
 						icon: 'hydraliskden.jpg'
-						hotkeyCode: 'HydraliskDen'
+						hotkeyCode: 'HydraliskDen/Drone'
 						displayText: 'Build Hydralisk Den'
 						if: -> @buildCard is 'advanced'
 					BuildInfestationPit:
 						icon: 'infestationpit.jpg'
-						hotkeyCode: 'InfestationPit'
+						hotkeyCode: 'InfestationPit/Drone'
 						displayText: 'Build Infestation Pit'
 						if: -> @buildCard is 'advanced'
 					BuildNydusNetwork:
 						icon: 'nydusnetwork.jpg'
-						hotkeyCode: 'NydusNetwork'
+						hotkeyCode: 'NydusNetwork/Drone'
 						displayText: 'Build Nydus Network'
 						if: -> @buildCard is 'advanced'
 					BuildSpire:
 						icon: 'spire.jpg'
-						hotkeyCode: 'Spire'
+						hotkeyCode: 'Spire/Drone'
 						displayText: 'Build Spire'
 						if: -> @buildCard is 'advanced'
 					BuildUltraliskCavern:
 						icon: 'ultraliskcavern.jpg'
-						hotkeyCode: 'UltraliskCavern'
+						hotkeyCode: 'UltraliskCavern/Drone'
 						displayText: 'Build Ultralisk Cavern'
 						if: -> @buildCard is 'advanced'
 			Overlord:
