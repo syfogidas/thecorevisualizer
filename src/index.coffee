@@ -716,7 +716,7 @@ Terran-color = #c61818
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-40271514-1', 'github.io');
+ga('create', 'UA-57073194-1', 'github.io');
 ga('send', 'pageview');
 '''
 
