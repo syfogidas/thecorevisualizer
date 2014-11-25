@@ -365,6 +365,7 @@ exports.commandCards = commandCards =
 			Cancel:
 				displayText: 'Cancel'
 				icon: 'Cancel.png'
+				if: -> not @lifted
 		burrow:
 			Burrow:
 				icon: 'Burrow.gif'
@@ -1389,13 +1390,13 @@ exports.raceCards = raceCards =
 				commands:
 					inherit: ['unit.flying', 'unit.cancel']
 					CommandCenterLoad:
-						icon: 'CommandCenterLoad.png'
-						hotkeyCode: 'CommandCenterLoad/CommandCenter'
+						icon: 'Load.gif'
+						hotkeyCode: 'CommandCenterLoad'
 						displayText: 'Command Center Load'
 						if: -> @upgrade isnt 'OrbitalCommand'
 					CommandCenterUnloadAll:
 						icon: 'UnloadAll.jpg'
-						hotkeyCode: 'CommandCenterUnloadAll/CommandCenter'
+						hotkeyCode: 'CommandCenterUnloadAll'
 						displayText: 'Command Center Unload All'
 						if: -> @upgrade isnt 'OrbitalCommand'
 					BuildOrbitalCommand:
