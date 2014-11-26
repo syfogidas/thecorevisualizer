@@ -873,7 +873,7 @@ ga('send', 'pageview');
 							do dismiss
 		div '.footer', ->
 			a '.show-tutorial', -> 'Show Tutorial'
-			a href:'https://github.com/cushman/thecorevisualizer', target: 'blank', -> 'About'
+			a href:'https://github.com/IvanVolosyuk/thecorevisualizer', target: 'blank', -> 'About'
 			coffeescript ->
 				$('.footer .show-tutorial').on 'click', -> $('.tutorial,.tutorial-overlay').show()
 
