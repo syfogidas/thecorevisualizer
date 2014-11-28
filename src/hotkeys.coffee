@@ -2068,6 +2068,10 @@ exports.raceCards = raceCards =
 						hotkeyCode: 'Larva'
 						displayText: 'Select Larva'
 						on: -> @globalState.selectNew 'Zerg', 'units', 'Larva'
+					Queen:
+						icon: 'queen.jpg'
+						hotkeyCode: 'Queen'
+						displayText: 'Spawn Queen'
 					EvolveVentralSacks:
 						icon: 'VentralSacs.gif'
 						hotkeyCode: 'EvolveVentralSacks'
