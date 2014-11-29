@@ -61,16 +61,19 @@ classKeyMap =
 	Backslash: '\\'
 	Tab: 'TAB'
 	Escape: 'ESC'
+
+germanClassKeyMap =
 	Grave: 'ö'
 	Apostrophe: 'ä'
-	Semicolon: 'ü'
+	SemiColon: 'ü'
 	BracketOpen: 'ß'
-	BracketClose: 'ger_´'
-	Equals: 'ger_+'
+	BracketClose: '´'
+	Equals: '+'
 	
 
 keyClassMap = {}
 keyClassMap[v] = k for k, v of classKeyMap
+keyClassMap[v] = k for k, v of germanClassKeyMap
 keyClass = (key)-> if voidKey key then 'void' else keyClassMap[(key or '').split(' ')[0]] or (key or '').trim()
 
 
