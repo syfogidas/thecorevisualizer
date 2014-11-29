@@ -61,6 +61,13 @@ classKeyMap =
 	Backslash: '\\'
 	Tab: 'TAB'
 	Escape: 'ESC'
+	Grave: 'ö'
+	Apostrophe: 'ä'
+	Semicolon: 'ü'
+	BracketOpen: 'ß'
+	BracketClose: 'ger_´'
+	Equals: 'ger_+'
+	
 
 keyClassMap = {}
 keyClassMap[v] = k for k, v of classKeyMap
