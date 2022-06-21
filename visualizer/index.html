@@ -619,7 +619,8 @@ ga('send', 'pageview');</script></head><body>
      var reader = new FileReader();
 
         reader.onload = function() {
-            TheCore.hotkeysForKeyboard[file] = reader.result;
+            console.log(file.name)
+            TheCore.currentHotkeysFiles[file.name] = reader.result;
             renderContainer();
         };
 
