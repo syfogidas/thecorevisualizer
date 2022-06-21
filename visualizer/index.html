@@ -619,8 +619,12 @@ ga('send', 'pageview');</script></head><body>
      var reader = new FileReader();
 
         reader.onload = function() {
-            console.log(file.name)
-            TheCore.currentHotkeysFiles[file.name] = reader.result;
+          console.log(file.name)
+          TheCore.currentHotkeysFiles[file.name] = reader.result;
+          let newOption = document.createElement('option');
+          newOption.value = file.name;
+          newOption.innerHTML = file.name;
+          $(".hotkey-file")[0].appendChild(newOption);
         };
 
         reader.readAsText(file);  
