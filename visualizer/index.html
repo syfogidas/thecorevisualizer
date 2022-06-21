@@ -611,9 +611,13 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 ga('create', 'UA-57073194-1', 'github.io');
 ga('send', 'pageview');</script></head><body>
 
-<input type="file" id="file-selector">
 <script>
-  const fileSelector = document.getElementById('file-selector');
+  <input type="file" id="file-selector">
+  let fileSelector = document.createElement('input');
+  fileSelector["type"] = "file";
+  fileSelector["id"] = "file-selector";
+  $(".hotkey-file")[0].parentElement.appendChild(fileSelector);
+  //const fileSelector = document.getElementById('file-selector');
   fileSelector.addEventListener('change', (event) => {
     const file = event.target.files[0];
      var reader = new FileReader();
